@@ -24,5 +24,11 @@ namespace OSCADSharp.Solids
         /// </summary>
         public bool Center { get; set; } = false;
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("cube(size = [{0}, {1}, {2}], center = {3});", 
+                this.Size.X.ToString(), this.Size.Y.ToString(), this.Size.Z.ToString(), this.Center.ToString().ToLower()); ;
+        }
     }
 }

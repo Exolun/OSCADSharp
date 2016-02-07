@@ -95,6 +95,11 @@ namespace OSCADSharp.Solids
         public int Resolution { get; set; } = 0;
         #endregion
 
-
+        public override string ToString()
+        {
+            return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6});", 
+                Resolution.ToString(), MinimumAngle.ToString(),  MinimumCircumferentialLength.ToString(),
+                Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower());
+        }
     }
 }

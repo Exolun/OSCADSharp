@@ -20,7 +20,10 @@ namespace OSCADSharp.Solids
         /// <summary>
         /// This is the diameter of the sphere
         /// </summary>
-        public double Diameter { get; set; }
+        public double Diameter {
+            get { return this.Radius * 2; }
+            set { this.Radius = value / 2; }
+        }
         
         /// <summary>
         /// Minimum angle (in degrees) of each cylinder fragment.
@@ -29,10 +32,10 @@ namespace OSCADSharp.Solids
         public int MinimumAngle { get; set; } = 12;
 
         /// <summary>
-        /// Minimum circumferential length of each fragment.
+        /// Fragment size in mm
         /// ($fs in OpenSCAD)
         /// </summary>
-        public int MinimumCircumferentialLength { get; set; } = 2;
+        public int MinimumFragmentSize { get; set; } = 2;
 
         /// <summary>
         /// Number of fragments in 360 degrees. Values of 3 or more override MinimumAngle and MinimumCircumferentialLength
@@ -40,5 +43,12 @@ namespace OSCADSharp.Solids
         /// </summary>
         public int Resolution { get; set; } = 0;
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});", 
+                this.Resolution.ToString(), this.MinimumAngle.ToString(), 
+                this.MinimumFragmentSize.ToString(), this.Radius.ToString());
+        }
     }
 }
