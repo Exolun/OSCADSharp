@@ -19,7 +19,7 @@ namespace OSCADSharp
         public OSCADObject Color(string colorName, double opacity = 1.0)
         {
             return new ColoredObject(this, colorName, opacity);
-        }
+        }        
 
         /// <summary>
         /// Mirrors the object about a plane, as specified by the normal
@@ -33,6 +33,19 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// Mirrors the object about a plane, as specified by the normal
+        /// described by the x/y/z components provided
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(double x, double y, double z)
+        {
+            return this.Mirror(new Vector3(x, y, z));
+        }
+
+        /// <summary>
         /// Resizes to a specified set of X/Y/Z dimensions
         /// </summary>
         /// <param name="newsize">The X/Y/Z dimensions</param>
@@ -40,6 +53,18 @@ namespace OSCADSharp
         public OSCADObject Resize(Vector3 newsize)
         {
             return new ResizedObject(this, newsize);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(double x, double y, double z)
+        {
+            return this.Resize(new Vector3(x, y, z));
         }
 
         /// <summary>
@@ -53,6 +78,18 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// Rotates about a specified X/Y/Z euler angle
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(double x, double y, double z)
+        {
+            return this.Rotate(new Vector3(x, y, z));
+        }
+
+        /// <summary>
         /// Rescales an object by an X/Y/Z scale factor
         /// </summary>
         /// <param name="scale">The scale to apply. For example 1, 2, 1 would yield 2x scale on the Y axis</param>
@@ -63,6 +100,18 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// Rescales an object by an X/Y/Z scale factor
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(double x, double y, double z)
+        {
+            return this.Scale(new Vector3(x, y, z));
+        }
+
+        /// <summary>
         /// Translates an object by the specified amount
         /// </summary>
         /// <param name="translation">The vector upon which to translate (move object(s))</param>
@@ -70,6 +119,18 @@ namespace OSCADSharp
         public OSCADObject Translate(Vector3 translation)
         {
             return new TranslatedObject(this, translation);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(double x, double y, double z)
+        {
+            return this.Translate(new Vector3(x, y, z));
         }
         #endregion
     }

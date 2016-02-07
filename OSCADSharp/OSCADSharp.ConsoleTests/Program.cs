@@ -19,11 +19,11 @@ namespace OSCADSharp.ConsoleTests
             };
 
             cube = cube.Color("Red")
-                .Mirror(new Vector3(1, 0, 0))
-                .Resize(new Vector3(10, 20, 10))
-                .Rotate(new Vector3(90, 90, 0))
-                .Scale(new Vector3(1, 1, 2))
-                .Translate(new Vector3(10, 5, 2));
+                .Mirror(1, 0, 0)
+                .Resize(10, 20, 10)
+                .Rotate(90, 90, 0)
+                .Scale(1, 1, 2)
+                .Translate(10, 5, 2);
 
             Console.WriteLine(cube.ToString());
             Console.ReadKey();
