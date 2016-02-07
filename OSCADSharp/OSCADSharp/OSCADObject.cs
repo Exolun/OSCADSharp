@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSCADSharp
 {
-    public class OSCADObject
+    public abstract class OSCADObject
     {
     }
 }
