@@ -9,12 +9,12 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been rescaled
     /// </summary>
-    public class ScaledObject
+    internal class ScaledObject : OSCADObject
     {
         /// <summary>
         /// The scale factor to be applied
         /// </summary>
-        public Vector3 Scale { get; set; } = new Vector3(1, 1, 1);
+        internal Vector3 ScaleFactor { get; set; } = new Vector3(1, 1, 1);
         private OSCADObject obj;
 
         /// <summary>
@@ -22,16 +22,16 @@ namespace OSCADSharp.Transforms
         /// </summary>
         /// <param name="obj">Object(s) to be scaled</param>
         /// <param name="scale">Scale factor in x/y/z components</param>
-        public ScaledObject(OSCADObject obj, Vector3 scale)
+        internal ScaledObject(OSCADObject obj, Vector3 scale)
         {
             this.obj = obj;
-            this.Scale = scale;
+            this.ScaleFactor = scale;
         }
 
         public override string ToString()
         {
             string scaleCommand = String.Format("scale(v = [{0}, {1}, {2}])",
-                this.Scale.X.ToString(), this.Scale.Y.ToString(), this.Scale.Z.ToString());
+                this.ScaleFactor.X.ToString(), this.ScaleFactor.Y.ToString(), this.ScaleFactor.Z.ToString());
             var formatter = new BlockFormatter(scaleCommand, this.obj.ToString());
             return formatter.ToString();
         }

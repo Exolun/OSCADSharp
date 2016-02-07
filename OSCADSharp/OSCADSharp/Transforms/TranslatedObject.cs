@@ -9,9 +9,9 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object or objects that have been moved along the specified vector
     /// </summary>
-    public class TranslatedObject
+    internal class TranslatedObject : OSCADObject
     {
-        public Vector3 Vector { get; set; }
+        internal Vector3 Vector { get; set; }
         private OSCADObject obj;
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace OSCADSharp.Transforms
         /// </summary>
         /// <param name="obj">Object(s) to translate</param>
         /// <param name="vector">Amount to translate by</param>
-        public TranslatedObject(OSCADObject obj, Vector3 vector)
+        internal TranslatedObject(OSCADObject obj, Vector3 vector)
         {
             this.obj = obj;
             this.Vector = vector;
