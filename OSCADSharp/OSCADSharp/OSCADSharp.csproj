@@ -45,11 +45,15 @@
     <Compile Include="Solids\Cube.cs" />
     <Compile Include="Solids\Cylinder.cs" />
     <Compile Include="Solids\Sphere.cs" />
+    <Compile Include="Transforms\ColoredObject.cs" />
+    <Compile Include="Transforms\MirroredObject.cs" />
+    <Compile Include="Transforms\ResizedObject.cs" />
+    <Compile Include="Transforms\RotatedObject.cs" />
+    <Compile Include="Transforms\ScaledObject.cs" />
+    <Compile Include="Transforms\TranslatedObject.cs" />
     <Compile Include="Vector3.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Transforms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
