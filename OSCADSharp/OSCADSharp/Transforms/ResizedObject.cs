@@ -11,12 +11,29 @@ namespace OSCADSharp.Transforms
     /// </summary>
     public class ResizedObject
     {
+        /// <summary>
+        /// Size of the object in terms of X/Y/Z
+        /// </summary>
         public Vector3 Size { get; set; }
+        private OSCADObject obj;
+
+        /// <summary>
+        /// Creates a resized object
+        /// </summary>
+        /// <param name="obj">The object(s) to be resized</param>
+        /// <param name="size">The size to resize to, in terms of x/y/z dimensions</param>
+        public ResizedObject(OSCADObject obj, Vector3 size)
+        {
+            this.obj = obj;
+            this.Size = size;
+        }
 
         public override string ToString()
         {
-            return String.Format("resize([{0}, {1}, {2}])", this.Size.X.ToString(), 
+            string resizeCommand = String.Format("resize([{0}, {1}, {2}])", this.Size.X.ToString(),
                 this.Size.Y.ToString(), this.Size.Z.ToString());
+            var formatter = new BlockFormatter(resizeCommand, this.obj.ToString());
+            return formatter.ToString();
         }
     }
 }

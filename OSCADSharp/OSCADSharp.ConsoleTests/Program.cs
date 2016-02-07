@@ -18,9 +18,9 @@ namespace OSCADSharp.ConsoleTests
             };
 
             ColoredObject co = new ColoredObject(cube, "Red");
-            var evenMoreColors = new ColoredObject(co, "Blue", .5);
+            var mirror = new RotatedObject(co, new Vector3(0, 90, 0));
 
-            Console.WriteLine(evenMoreColors.ToString());
+            Console.WriteLine(mirror.ToString());
             Console.ReadKey();
         }
     }

@@ -11,12 +11,24 @@ namespace OSCADSharp.Transforms
     /// </summary>
     public class RotatedObject
     {
+        /// <summary>
+        /// The angle to rotate, in terms of X/Y/Z euler angles
+        /// </summary>
         public Vector3 Angle { get; set; } = new Vector3();
+        private OSCADObject obj;
+
+        public RotatedObject(OSCADObject obj, Vector3 angle)
+        {
+            this.obj = obj;
+            this.Angle = angle;
+        }
 
         public override string ToString()
         {
-            return String.Format("rotate([{0}, {1}, {2}])", 
+            string rotateCommand = String.Format("rotate([{0}, {1}, {2}])",
                 this.Angle.X.ToString(), this.Angle.Y.ToString(), this.Angle.Z.ToString());
+            var formatter = new BlockFormatter(rotateCommand, this.obj.ToString());
+            return formatter.ToString();
         }
     }
 }
