@@ -9,7 +9,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Sphere geometry
     /// </summary>
-    public class Sphere
+    public class Sphere : OSCADObject
     {
         #region Attributes
         /// <summary>

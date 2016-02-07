@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSCADSharp", "OSCADSharp\OSCADSharp.csproj", "{E420CE17-2F13-4ABC-87D7-C9744DF39D3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSCADSharp.ConsoleTests", "OSCADSharp.ConsoleTests\OSCADSharp.ConsoleTests.csproj", "{E1010464-A816-4F86-AE22-8465C27723C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E420CE17-2F13-4ABC-87D7-C9744DF39D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E420CE17-2F13-4ABC-87D7-C9744DF39D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E420CE17-2F13-4ABC-87D7-C9744DF39D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1010464-A816-4F86-AE22-8465C27723C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1010464-A816-4F86-AE22-8465C27723C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1010464-A816-4F86-AE22-8465C27723C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1010464-A816-4F86-AE22-8465C27723C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

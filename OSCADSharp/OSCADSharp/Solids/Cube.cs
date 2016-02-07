@@ -9,7 +9,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Cube geometry
     /// </summary>
-    public class Cube
+    public class Cube : OSCADObject
     {
         #region Attributes
         /// <summary>

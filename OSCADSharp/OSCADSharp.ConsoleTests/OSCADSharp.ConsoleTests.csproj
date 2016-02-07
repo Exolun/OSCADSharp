@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E420CE17-2F13-4ABC-87D7-C9744DF39D3D}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{E1010464-A816-4F86-AE22-8465C27723C4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OSCADSharp</RootNamespace>
-    <AssemblyName>OSCADSharp</AssemblyName>
+    <RootNamespace>OSCADSharp.ConsoleTests</RootNamespace>
+    <AssemblyName>OSCADSharp.ConsoleTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,21 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockFormatter.cs" />
-    <Compile Include="OSCADObject.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solids\Cube.cs" />
-    <Compile Include="Solids\Cylinder.cs" />
-    <Compile Include="Solids\Sphere.cs" />
-    <Compile Include="Transforms\ColoredObject.cs" />
-    <Compile Include="Transforms\MirroredObject.cs" />
-    <Compile Include="Transforms\ResizedObject.cs" />
-    <Compile Include="Transforms\RotatedObject.cs" />
-    <Compile Include="Transforms\ScaledObject.cs" />
-    <Compile Include="Transforms\TranslatedObject.cs" />
-    <Compile Include="Vector3.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OSCADSharp\OSCADSharp.csproj">
+      <Project>{e420ce17-2f13-4abc-87d7-c9744df39d3d}</Project>
+      <Name>OSCADSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

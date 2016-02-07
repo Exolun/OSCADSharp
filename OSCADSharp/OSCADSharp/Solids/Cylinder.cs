@@ -9,7 +9,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Cylinder geometry
     /// </summary>
-    public class Cylinder
+    public class Cylinder : OSCADObject
     {
         #region Attributes
         /// <summary>
