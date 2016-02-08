@@ -27,11 +27,22 @@ namespace OSCADSharp.Scripting
             StringBuilder sb = new StringBuilder();
             foreach (var child in this.children)
             {
-                sb.AppendLine(child.ToString());
+                sb.Append(child.ToString());
             }
 
             var formatter = new BlockFormatter(this.outerStatement, sb.ToString());
             return formatter.ToString();
+        }
+
+        public override OSCADObject Clone()
+        {
+            List<OSCADObject> childClones = new List<OSCADObject>();
+            foreach (var child in this.children)
+            {
+                childClones.Add(child.Clone());
+            }
+
+            return new BlockStatementObject(this.outerStatement, childClones);
         }
     }
 }

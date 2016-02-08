@@ -33,5 +33,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(translateCommmand, this.obj.ToString());
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new TranslatedObject(this.obj, this.Vector);
+        }
     }
 }

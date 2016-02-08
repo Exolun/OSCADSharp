@@ -101,5 +101,19 @@ namespace OSCADSharp.Solids
                 Resolution.ToString(), MinimumAngle.ToString(),  MinimumCircumferentialLength.ToString(),
                 Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower());
         }
+
+        public override OSCADObject Clone()
+        {
+            return new Cylinder()
+            {
+                Height = this.Height,
+                Radius1 = this.Radius1,
+                Radius2 = this.Radius2,
+                Resolution = this.Resolution,
+                MinimumAngle = this.MinimumAngle,
+                MinimumCircumferentialLength = this.MinimumCircumferentialLength,
+                Center = this.Center
+            };
+        }
     }
 }

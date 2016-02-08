@@ -36,5 +36,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(resizeCommand, this.obj.ToString());
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new ResizedObject(this.obj, this.Size);
+        }
     }
 }

@@ -182,5 +182,14 @@ namespace OSCADSharp
             return factory(children);
         }
         #endregion
+
+        /// <summary>
+        /// Creates a copy of this object and all of its children
+        /// 
+        /// This is not a deep copy in the sense that all OSCADObjects will be new instances,
+        /// but any complex objects used as parameters (Such as Vector3s) will be referenced by the copies
+        /// </summary>
+        /// <returns>Clone of this object</returns>
+        public abstract OSCADObject Clone();        
     }
 }

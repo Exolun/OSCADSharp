@@ -37,5 +37,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(mirrorCommand, this.obj.ToString());
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new MirroredObject(this.obj, this.Normal);
+        }
     }
 }

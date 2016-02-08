@@ -38,5 +38,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(colorCommand, this.obj.ToString());            
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new ColoredObject(this.obj, this.ColorName, this.Opacity);
+        }
     }
 }

@@ -18,6 +18,6 @@ namespace OSCADSharp.Booleans
         /// <param name="children"></param>
         public Difference(IEnumerable<OSCADObject> children) : base("difference()", children)
         {
-        }
+        }        
     }
 }

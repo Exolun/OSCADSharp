@@ -36,5 +36,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(rotateCommand, this.obj.ToString());
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new RotatedObject(this.obj, this.Angle);
+        }
     }
 }

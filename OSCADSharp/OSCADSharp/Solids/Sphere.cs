@@ -50,5 +50,16 @@ namespace OSCADSharp.Solids
                 this.Resolution.ToString(), this.MinimumAngle.ToString(), 
                 this.MinimumFragmentSize.ToString(), this.Radius.ToString());
         }
+
+        public override OSCADObject Clone()
+        {
+            return new Sphere()
+            {
+                Resolution = this.Resolution,
+                MinimumAngle = this.MinimumAngle,
+                MinimumFragmentSize = this.MinimumFragmentSize,
+                Radius = this.Radius
+            };
+        }
     }
 }

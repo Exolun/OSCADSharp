@@ -36,5 +36,10 @@ namespace OSCADSharp.Transforms
             var formatter = new BlockFormatter(scaleCommand, this.obj.ToString());
             return formatter.ToString();
         }
+
+        public override OSCADObject Clone()
+        {
+            return new ScaledObject(this.obj, this.ScaleFactor);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using OSCADSharp.Transforms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace OSCADSharp.ConsoleTests
         {
             OSCADObject cube = new Cube()
             {
-                Size = new Vector3(5, 5, 5),
+                Size = new Vector3(15, 15, 15),
                 Center = false
             };
 
@@ -27,13 +28,17 @@ namespace OSCADSharp.ConsoleTests
 
             OSCADObject cylinder = new Cylinder()
             {
-                Diameter = 25.4,
+                Diameter = 35.4,
                 Height = 50.8
             }.Translate(10, 5, 2);
 
-            var combined = cube.Intersection(cylinder);
+            var combined = cube.Intersection(cylinder).Color("Blue");
+            combined = cube.Clone().Mirror(0, 0, 1).Union(combined);
 
-            Console.WriteLine(combined.ToString());
+            string script = combined.ToString();
+            File.WriteAllLines("test.scad", new string[] { script });
+
+            Console.WriteLine(script);
             Console.ReadKey();
         }
     }
