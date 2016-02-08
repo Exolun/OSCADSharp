@@ -147,11 +147,29 @@ namespace OSCADSharp
             return doBoolean("Union", objects, (children) => { return new Union(children); });
         }
 
+        /// <summary>
+        /// Subtracts the 2nd (and all further) child nodes from the first one (logical and not).
+        /// May be used with either 2D or 3D objects, but don't mix them.
+        /// </summary>
+        /// <param name="objects">child nodes</param>
+        /// <returns></returns>
         public OSCADObject Difference(params OSCADObject[] objects)
         {
             return doBoolean("Difference", objects, (children) => { return new Difference(children); });
         }
-        
+
+        /// <summary>
+        /// Creates the intersection of all child nodes. This keeps the overlapping portion (logical and).
+        /// Only the area which is common or shared by all children is retained.
+        /// May be used with either 2D or 3D objects, but don't mix them.
+        /// </summary>
+        /// <param name="objects">child nodes</param>
+        /// <returns></returns>
+        public OSCADObject Intersection(params OSCADObject[] objects)
+        {
+            return doBoolean("Intersection", objects, (children) => { return new Intersection(children); });
+        }
+
         private OSCADObject doBoolean(string name, OSCADObject[] objects, Func<IEnumerable<OSCADObject>, OSCADObject> factory)
         {
             if (objects == null || objects.Length < 1)

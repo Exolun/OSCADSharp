@@ -43,6 +43,7 @@
     <Compile Include="BlockFormatter.cs" />
     <Compile Include="BlockStatementObject.cs" />
     <Compile Include="Booleans\Difference.cs" />
+    <Compile Include="Booleans\Intersection.cs" />
     <Compile Include="Booleans\Union.cs" />
     <Compile Include="OSCADObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
