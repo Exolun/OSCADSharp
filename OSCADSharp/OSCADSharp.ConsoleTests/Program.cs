@@ -25,7 +25,15 @@ namespace OSCADSharp.ConsoleTests
                 .Scale(1, 1, 2)
                 .Translate(10, 5, 2);
 
-            Console.WriteLine(cube.ToString());
+            OSCADObject cylinder = new Cylinder()
+            {
+                Diameter = 25.4,
+                Height = 50.8
+            }.Translate(10, 5, 2);
+
+            var combined = cube.Union(cylinder);
+
+            Console.WriteLine(combined.ToString());
             Console.ReadKey();
         }
     }

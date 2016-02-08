@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Transforms;
+﻿using OSCADSharp.Booleans;
+using OSCADSharp.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,6 +132,20 @@ namespace OSCADSharp
         public OSCADObject Translate(double x, double y, double z)
         {
             return this.Translate(new Vector3(x, y, z));
+        }
+        #endregion
+
+        #region Boolean Operations
+        public OSCADObject Union(params OSCADObject[] objects)
+        {
+            if (objects == null || objects.Length < 1)
+            {
+                throw new ArgumentException("Union requires at least one non-null entities");
+            }
+
+            IEnumerable<OSCADObject> children = new List<OSCADObject>() { this };
+            children = children.Concat(objects);
+            return new Union(children);
         }
         #endregion
     }
