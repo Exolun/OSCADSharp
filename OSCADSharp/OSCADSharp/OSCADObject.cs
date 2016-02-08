@@ -136,16 +136,32 @@ namespace OSCADSharp
         #endregion
 
         #region Boolean Operations
+        /// <summary>
+        /// Creates a union of all its child nodes. This is the sum of all children (logical or).
+        /// May be used with either 2D or 3D objects, but don't mix them.
+        /// </summary>
+        /// <param name="objects">child nodes</param>
+        /// <returns></returns>
         public OSCADObject Union(params OSCADObject[] objects)
+        {
+            return doBoolean("Union", objects, (children) => { return new Union(children); });
+        }
+
+        public OSCADObject Difference(params OSCADObject[] objects)
+        {
+            return doBoolean("Difference", objects, (children) => { return new Difference(children); });
+        }
+        
+        private OSCADObject doBoolean(string name, OSCADObject[] objects, Func<IEnumerable<OSCADObject>, OSCADObject> factory)
         {
             if (objects == null || objects.Length < 1)
             {
-                throw new ArgumentException("Union requires at least one non-null entities");
+                throw new ArgumentException(name + " requires at least one non-null entities");
             }
 
             IEnumerable<OSCADObject> children = new List<OSCADObject>() { this };
             children = children.Concat(objects);
-            return new Union(children);
+            return factory(children);
         }
         #endregion
     }

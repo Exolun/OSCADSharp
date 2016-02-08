@@ -31,7 +31,7 @@ namespace OSCADSharp.ConsoleTests
                 Height = 50.8
             }.Translate(10, 5, 2);
 
-            var combined = cube.Union(cylinder);
+            var combined = cube.Difference(cylinder);
 
             Console.WriteLine(combined.ToString());
             Console.ReadKey();
