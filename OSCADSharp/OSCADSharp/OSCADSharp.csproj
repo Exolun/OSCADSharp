@@ -50,6 +50,7 @@
     <Compile Include="Solids\Cube.cs" />
     <Compile Include="Solids\Cylinder.cs" />
     <Compile Include="Solids\Sphere.cs" />
+    <Compile Include="Text3D.cs" />
     <Compile Include="Transforms\ColoredObject.cs" />
     <Compile Include="Transforms\MirroredObject.cs" />
     <Compile Include="Transforms\ResizedObject.cs" />
