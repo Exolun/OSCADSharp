@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Transforms\LinearExtrudedObject.cs" />
     <Compile Include="Scripting\BlockFormatter.cs" />
     <Compile Include="Scripting\BlockStatementObject.cs" />
     <Compile Include="Booleans\Difference.cs" />
