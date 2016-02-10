@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSCADSharp.Scripting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,8 +109,9 @@ namespace OSCADSharp
             appendIfValueNotNullOrEmpty("language", this.Language?.ToString(), sb);            
 
             sb.Append(");");
-
-            return sb.ToString();
+            
+            var formatter = new BlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
+            return formatter.ToString();
         }
     }
 }

@@ -35,8 +35,16 @@ namespace OSCADSharp.ConsoleTests
             var combined = cube.Intersection(cylinder).Color("Blue");
             combined = cube.Clone().Mirror(0, 0, 1).Union(combined);
 
+            var text = new Text3D()
+            {
+                Text = "Hello!"
+            }.Translate(-30, 0, 0);
+
+            combined = text.Union(combined);
+
             string script = combined.ToString();
-            File.WriteAllLines("test.scad", new string[] { script });
+
+            File.WriteAllLines("test.scad", new string[] { script.ToString() });
 
             Console.WriteLine(script);
             Console.ReadKey();
