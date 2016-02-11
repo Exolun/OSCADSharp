@@ -33,7 +33,13 @@ namespace OSCADSharp.ConsoleTests
 
             string script = text.ToString();
 
-            File.WriteAllLines("test.scad", new string[] { script.ToString() });            
+            File.WriteAllLines("test.scad", new string[] { script.ToString() });
+
+            var vec1 = new Vector3(5, 5, 5);
+            var vec2 = new Vector3(10, 10, 10);
+            Console.WriteLine(vec1 - vec2);
+
+            Console.ReadKey();
         }
     }
 }
