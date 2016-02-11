@@ -12,6 +12,7 @@ namespace OSCADSharp
     /// </summary>
     public class Text3D : OSCADObject
     {
+        #region Attributes
         /// <summary>
         /// Text to display
         /// </summary>
@@ -56,20 +57,31 @@ namespace OSCADSharp
         /// The language of the text. Default is "en".
         /// </summary>
         public string Language { get; set; }
-        
+
+        #endregion
+        #region Constructors
         /// <summary>
-        /// Used for subdividing the curved path segments provided by freetype
-        /// ($fn in OpenSCAD)
+        /// Creates 3d text with the default parameters
+        /// if the text is not specified, text will say "Text"
         /// </summary>
-        /// TODO: Implement Resolution
-        // public int? Resolution { get; set; } = 0;
+        public Text3D()
+        {
+            this.Text = "Text";
+        }
 
         /// <summary>
-        /// The script of the text. Default is "latin".
-        /// </summary>
-        /// TODO: Implement Script
-        // public string Script { get; set; }
+        /// Creates 3d text with the specified text to create
+        /// </summary>        
+        /// <param name="text">Text to display</param>
+        /// <param name="size">Font size for the text</param>
+        public Text3D(string text, uint? size = null)
+        {
+            this.Text = text;
+            this.Size = size;
+        }        
+        #endregion
 
+        #region Overrides
         public override OSCADObject Clone()
         {
             return new Text3D()
@@ -113,5 +125,6 @@ namespace OSCADSharp
             var formatter = new BlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
             return formatter.ToString();
         }
+        #endregion
     }
 }

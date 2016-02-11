@@ -44,6 +44,25 @@ namespace OSCADSharp.Solids
         public int Resolution { get; set; } = 0;
         #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Creates a sphere with the default initialization values
+        /// </summary>
+        public Sphere()
+        {
+        }
+
+        /// <summary>
+        /// Creates a sphere of the specified diameter
+        /// </summary>
+        /// <param name="diameter">Diameter of the sphere</param>
+        public Sphere(double diameter)
+        {
+            this.Diameter = diameter;
+        }
+        #endregion
+
+        #region Overrides
         public override string ToString()
         {
             return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});", 
@@ -61,5 +80,6 @@ namespace OSCADSharp.Solids
                 Radius = this.Radius
             };
         }
+        #endregion
     }
 }

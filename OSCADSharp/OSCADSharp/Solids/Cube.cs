@@ -25,6 +25,27 @@ namespace OSCADSharp.Solids
         public bool Center { get; set; } = false;
         #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Creates a new cube object with the default initialization values
+        /// </summary>
+        public Cube()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new Cube object
+        /// </summary>
+        /// <param name="size">The Size of the cube in terms of X/Y/Z dimensions</param>
+        /// <param name="center">Indicates whether the cube should be centered on the origin</param>
+        public Cube(Vector3 size = null, bool center = false)
+        {
+            this.Size = size ?? new Vector3(1, 1, 1);
+            this.Center = center;
+        }
+        #endregion
+
+        #region Overrides
         public override string ToString()
         {
             return String.Format("cube(size = [{0}, {1}, {2}], center = {3});", 
@@ -39,5 +60,6 @@ namespace OSCADSharp.Solids
                 Center = this.Center
             };
         }
+        #endregion
     }
 }

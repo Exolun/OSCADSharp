@@ -13,11 +13,7 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            OSCADObject cube = new Cube()
-            {
-                Size = new Vector3(15, 15, 15),
-                Center = false
-            };
+            OSCADObject cube = new Cube(new Vector3(15, 15, 15));
 
             cube = cube.Color("Red")
                 .Mirror(1, 0, 0)
@@ -26,28 +22,18 @@ namespace OSCADSharp.ConsoleTests
                 .Scale(1, 1, 2)
                 .Translate(10, 5, 2);
 
-            OSCADObject cylinder = new Cylinder()
-            {
-                Diameter = 35.4,
-                Height = 50.8
-            }.Translate(10, 5, 2);
+            OSCADObject cylinder = new Cylinder(35.4, 50.8).Translate(10, 5, 2);
 
             var combined = cube.Intersection(cylinder).Color("Blue");
             combined = cube.Clone().Mirror(0, 0, 1).Union(combined);
 
-            var text = new Text3D()
-            {
-                Text = "Hello!"
-            }.Translate(-30, 0, 0);
+            var text = new Text3D("Hello").Translate(-30, 0, 0);
 
             combined = text.Union(combined);
 
-            string script = combined.ToString();
+            string script = text.ToString();
 
-            File.WriteAllLines("test.scad", new string[] { script.ToString() });
-
-            Console.WriteLine(script);
-            Console.ReadKey();
+            File.WriteAllLines("test.scad", new string[] { script.ToString() });            
         }
     }
 }

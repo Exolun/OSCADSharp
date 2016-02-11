@@ -95,6 +95,27 @@ namespace OSCADSharp.Solids
         public int Resolution { get; set; } = 0;
         #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Creates a cylinder with the default initialization values
+        /// </summary>
+        public Cylinder()
+        {
+        }
+
+        /// <summary>
+        /// Creates a cylinder with the specified diameter and centering
+        /// </summary>
+        /// <param name="diameter">Diameter of the cylinder</param>
+        /// <param name="center">Determines whether the cylinder should be centered on the z-axis, if false the base will start on the Z axis</param>
+        public Cylinder(double diameter = 2, double height = 1, bool center = false)
+        {
+            this.Diameter = diameter;
+            this.Center = center;
+        }
+        #endregion
+
+        #region Overrides
         public override string ToString()
         {
             return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6});", 
@@ -115,5 +136,6 @@ namespace OSCADSharp.Solids
                 Center = this.Center
             };
         }
+        #endregion
     }
 }
