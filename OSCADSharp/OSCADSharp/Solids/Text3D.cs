@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.Solids
 {
     /// <summary>
     /// Create text using fonts installed on the local system or provided as separate font file.
