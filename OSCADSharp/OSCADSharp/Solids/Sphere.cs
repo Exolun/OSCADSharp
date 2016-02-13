@@ -80,6 +80,23 @@ namespace OSCADSharp.Solids
                 Radius = this.Radius
             };
         }
+
+        public override bool Equals(object other)
+        {
+            if(other.GetType() == typeof(Sphere))
+            {
+                Sphere otherSphere = other as Sphere;
+                return this.Diameter == otherSphere.Diameter &&
+                    this.Radius == otherSphere.Radius &&
+                    this.MinimumAngle == otherSphere.MinimumAngle &&
+                    this.MinimumFragmentSize == otherSphere.MinimumFragmentSize &&
+                    this.Resolution == otherSphere.Resolution;
+            }
+            else
+            {
+                return base.Equals(other);
+            }            
+        }
         #endregion
     }
 }

@@ -53,5 +53,21 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.StartsWith("sphere("));
             Assert.IsTrue(script.EndsWith(");"));
         }
+
+        [TestMethod]
+        public void Sphere_CloneCoversEveryAttribute_copyWithAllAttributes()
+        {
+            var sphere = new Sphere()
+            {
+                Diameter = 10,
+                MinimumAngle = 5,
+                MinimumFragmentSize = 5,
+                Resolution = 30
+            };
+
+            var clone = sphere.Clone();
+
+            Assert.IsTrue(sphere.Equals(clone));
+        }
     }
 }
