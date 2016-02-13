@@ -80,28 +80,6 @@ namespace OSCADSharp.Solids
                 Radius = this.Radius
             };
         }
-
-        public override bool Equals(object other)
-        {
-            // This logic is because we want to prevent the weird scenario
-            // where perhaps this sphere is being compared to a string that's an
-            // exact match to this sphere's string output.  Since the hashcode is 
-            // borrowed from the string output
-            if(other.GetType() == typeof(Sphere))
-            {
-                Sphere otherSphere = other as Sphere;
-                return this.GetHashCode() == other.GetHashCode();
-            }
-            else
-            {
-                return false;
-            }            
-        }
-
-        public override int GetHashCode()
-        {
-            return this.ToString().GetHashCode();
-        }
         #endregion
     }
 }

@@ -191,5 +191,17 @@ namespace OSCADSharp
         /// </summary>
         /// <returns>Clone of this object</returns>
         public abstract OSCADObject Clone();        
+
+        /// <summary>
+        /// Indicates whether this OSCADObject is the same as another OSCADObject.
+        /// This processes the scripts for both objects and is computationally expensive.  
+        /// DO NOT use on deeply nested structures.
+        /// </summary>
+        /// <param name="other">OSCADObject to compare to</param>
+        /// <returns>True if scripts are exactly the same, false otherwise</returns>
+        public bool IsSameAs(OSCADObject other)
+        {
+            return this.ToString() == other.ToString();
+        }
     }
 }

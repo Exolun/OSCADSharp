@@ -23,9 +23,12 @@ namespace OSCADSharp.Scripting
             this.innerCode = innerCode;
         }
 
-        //TODO: Assess perf and find a better performing way to apply indentation
-        // this approach will likely be a big performance drain with deeply nested structures.
-        // -MLS 2/12/2016
+        // Assessed performance on this method by using Translate 1,000 times
+        // on a Cube and converting it to a string. It completed in about 12.5 seconds.
+        // This method was the bottleneck by far at 60% of the CPU time spent.
+        // Although this is probably okay for generating scripts (that is a huge script), we should
+        // refrain from using the stringified version of deeply nested objects for equivalence checks        
+        // -MLS 2/13/2016        
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

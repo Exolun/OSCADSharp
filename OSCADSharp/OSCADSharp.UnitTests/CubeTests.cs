@@ -34,13 +34,13 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Cube_CloneYieldsEqualObject()
+        public void Cube_CloneYieldsSameScript()
         {
             var cube = new Cube(new Vector3(1.5, 5.5, 8.7));
 
             var clone = cube.Clone();
 
-            Assert.IsTrue(clone.Equals(cube));
+            Assert.IsTrue(clone.IsSameAs(cube));
         }
 
         [TestMethod]

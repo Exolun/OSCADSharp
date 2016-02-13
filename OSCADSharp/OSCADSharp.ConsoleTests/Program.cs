@@ -15,30 +15,14 @@ namespace OSCADSharp.ConsoleTests
         {
             OSCADObject cube = new Cube(new Vector3(15, 15, 15));
 
-            cube = cube.Color("Red")
-                .Mirror(1, 0, 0)
-                .Resize(10, 20, 10)
-                .Rotate(90, 90, 0)
-                .Scale(1, 1, 2)
-                .Translate(10, 5, 2);
+            for (int i = 0; i < 1000; i++)
+            {
+                cube = cube.Translate(1, 0, 0);
+            }
 
-            OSCADObject cylinder = new Cylinder(35.4, 50.8).Translate(10, 5, 2);
+            string script = cube.ToString();
 
-            var combined = cube.Intersection(cylinder).Color("Blue");
-            combined = cube.Clone().Mirror(0, 0, 1).Union(combined);
-
-            var text = new Text3D("Hello").Translate(-30, 0, 0);
-
-            combined = text.Union(combined);
-
-            string script = text.ToString();
-
-            File.WriteAllLines("test.scad", new string[] { script.ToString() });
-
-            var vec1 = new Vector3(5, 5, 5);
-            var vec2 = new Vector3(10, 10, 10);
-            Console.WriteLine(vec1 - vec2);
-
+            //File.WriteAllLines("test.scad", new string[] { script.ToString() });
             Console.ReadKey();
         }
     }

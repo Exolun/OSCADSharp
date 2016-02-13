@@ -55,7 +55,7 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Sphere_CloneYieldsEqualObject()
+        public void Sphere_CloneYieldsSameScript()
         {
             var sphere = new Sphere()
             {
@@ -67,7 +67,7 @@ namespace OSCADSharp.UnitTests
 
             var clone = sphere.Clone();
 
-            Assert.IsTrue(sphere.Equals(clone));
+            Assert.IsTrue(sphere.IsSameAs(clone));
         }
     }
 }

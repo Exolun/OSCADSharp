@@ -76,24 +76,6 @@ namespace OSCADSharp.Solids
                 Center = this.Center
             };
         }
-
-        public override bool Equals(object other)
-        {
-            if (other.GetType() == typeof(Cube))
-            {
-                Cube otherSphere = other as Cube;
-                return this.GetHashCode() == other.GetHashCode();
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            return this.ToString().GetHashCode();
-        }
         #endregion
     }
 }
