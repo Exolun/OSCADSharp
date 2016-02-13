@@ -22,7 +22,7 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Sphere_ResolutionAffectsFNvalue_scriptWithFNof30RR()
+        public void Sphere_ResolutionAffectsFNvalue()
         {
             this.sphere.Resolution = 30;
 
@@ -32,7 +32,7 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Sphere_FAandFSAreAffectedByAngleANdFragmentSize_scriptWithMatchingAngleAndFragmentSize()
+        public void Sphere_FAandFSAreAffectedByAngleANdFragmentSize()
         {
             this.sphere.MinimumAngle = 2;
             this.sphere.MinimumFragmentSize = 4;
@@ -44,7 +44,7 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Sphere_ParameterlessSphereHasMethodCallAndEndsWithSemicolon_scriptWithSphereMethodCall()
+        public void Sphere_ParameterlessSphereHasMethodCallAndEndsWithSemicolon()
         {
             var basicSphere = new Sphere();
 
@@ -55,7 +55,7 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Sphere_CloneCoversEveryAttribute_copyWithAllAttributes()
+        public void Sphere_CloneYieldsEqualObject()
         {
             var sphere = new Sphere()
             {

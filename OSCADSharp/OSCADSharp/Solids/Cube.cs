@@ -43,6 +43,22 @@ namespace OSCADSharp.Solids
             this.Size = size ?? new Vector3(1, 1, 1);
             this.Center = center;
         }
+
+        /// <summary>
+        /// Creates a new Cube object with Length/Width/Height
+        /// </summary>
+        /// <param name="length">Size on the X axis</param>
+        /// <param name="width">Size on the Y axis</param>
+        /// <param name="height">Size on the Z axis</param>
+        /// <param name="center">Indicates whether the cube should be centered on the origin</param>
+        public Cube(double length, double width, double height, bool center = false)
+        {
+            this.Size.X = length;
+            this.Size.Y = width;
+            this.Size.Z = height;
+
+            this.Center = center;
+        }
         #endregion
 
         #region Overrides
@@ -59,6 +75,24 @@ namespace OSCADSharp.Solids
                 Size = this.Size,
                 Center = this.Center
             };
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other.GetType() == typeof(Cube))
+            {
+                Cube otherSphere = other as Cube;
+                return this.GetHashCode() == other.GetHashCode();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
         }
         #endregion
     }

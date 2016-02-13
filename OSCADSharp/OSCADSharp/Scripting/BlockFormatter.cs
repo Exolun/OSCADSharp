@@ -23,6 +23,9 @@ namespace OSCADSharp.Scripting
             this.innerCode = innerCode;
         }
 
+        //TODO: Assess perf and find a better performing way to apply indentation
+        // this approach will likely be a big performance drain with deeply nested structures.
+        // -MLS 2/12/2016
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
