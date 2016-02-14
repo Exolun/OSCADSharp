@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that has color and/or opacity applied to it
     /// </summary>
-    internal class ColoredObject : OSCADObject
+    internal class ColoredObject : OSCADObject, IMimicer
     {
         #region Attributes
         internal string ColorName { get; set; } = "Yellow";
@@ -44,6 +44,11 @@ namespace OSCADSharp.Transforms
         public override OSCADObject Clone()
         {
             return new ColoredObject(this.obj.Clone(), this.ColorName, this.Opacity);
+        }
+
+        public OSCADObject MimicObject(OSCADObject obj)
+        {
+            return new ColoredObject(obj, this.ColorName, this.Opacity);
         }
     }
 }

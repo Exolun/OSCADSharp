@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been rescaled
     /// </summary>
-    internal class ScaledObject : OSCADObject
+    internal class ScaledObject : OSCADObject, IMimicer
     {
         /// <summary>
         /// The scale factor to be applied
@@ -42,6 +42,11 @@ namespace OSCADSharp.Transforms
         public override OSCADObject Clone()
         {
             return new ScaledObject(this.obj.Clone(), this.ScaleFactor);
+        }
+
+        public OSCADObject MimicObject(OSCADObject obj)
+        {
+            return new ScaledObject(obj, this.ScaleFactor);
         }
     }
 }

@@ -229,6 +229,39 @@ namespace OSCADSharp
 
             return allChildren;
         }
-        
+
+        /// <summary>
+        /// Copies the transforms that have been applied to another OSCADObject, and applies
+        /// the same transforms to this object. (Only transforms)
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public OSCADObject Mimic(OSCADObject other)
+        {
+            IEnumerable<OSCADObject> children = other.Children();
+            Stack<OSCADObject> stack = new Stack<OSCADObject>();
+            OSCADObject finalObject = this;
+            stack.Push(other);
+
+            foreach (var child in children)
+            {
+                stack.Push(child);
+            }
+
+            while(stack.Count > 0)
+            {
+                var current = stack.Pop();
+                if(!(current is IMimicer))
+                {
+                    continue;
+                }
+                else
+                {
+                    finalObject = ((IMimicer)current).MimicObject(finalObject);
+                }
+            }
+
+            return finalObject;
+        }
     }
 }

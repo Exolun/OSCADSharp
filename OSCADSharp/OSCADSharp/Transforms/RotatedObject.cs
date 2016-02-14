@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object with rotation applied
     /// </summary>
-    internal class RotatedObject : OSCADObject
+    internal class RotatedObject : OSCADObject, IMimicer
     {
         /// <summary>
         /// The angle to rotate, in terms of X/Y/Z euler angles
@@ -42,6 +42,11 @@ namespace OSCADSharp.Transforms
         public override OSCADObject Clone()
         {
             return new RotatedObject(this.obj.Clone(), this.Angle);
+        }
+
+        public OSCADObject MimicObject(OSCADObject obj)
+        {
+            return new RotatedObject(obj, this.Angle);
         }
     }
 }

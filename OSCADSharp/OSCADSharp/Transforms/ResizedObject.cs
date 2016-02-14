@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been resized to a specified set of X/Y/Z dimensions
     /// </summary>
-    internal class ResizedObject : OSCADObject
+    internal class ResizedObject : OSCADObject, IMimicer
     {
         /// <summary>
         /// Size of the object in terms of X/Y/Z
@@ -42,6 +42,11 @@ namespace OSCADSharp.Transforms
         public override OSCADObject Clone()
         {
             return new ResizedObject(this.obj.Clone(), this.Size);
+        }
+
+        public OSCADObject MimicObject(OSCADObject obj)
+        {
+            return new ResizedObject(obj, this.Size);
         }
     }
 }

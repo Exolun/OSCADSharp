@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object or objects that have been moved along the specified vector
     /// </summary>
-    internal class TranslatedObject : OSCADObject
+    internal class TranslatedObject : OSCADObject, IMimicer
     {
         internal Vector3 Vector { get; set; }
         private OSCADObject obj;
@@ -39,6 +39,11 @@ namespace OSCADSharp.Transforms
         public override OSCADObject Clone()
         {
             return new TranslatedObject(this.obj.Clone(), this.Vector);
+        }
+
+        public OSCADObject MimicObject(OSCADObject obj)
+        {
+            return new TranslatedObject(obj, this.Vector);
         }
     }
 }

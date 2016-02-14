@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sizes.cs" />
+    <Compile Include="Transforms\IMimicer.cs" />
     <Compile Include="Transforms\LinearExtrudedObject.cs" />
     <Compile Include="Scripting\BlockFormatter.cs" />
     <Compile Include="Scripting\BlockStatementObject.cs" />

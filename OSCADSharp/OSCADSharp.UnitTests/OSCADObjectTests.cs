@@ -42,5 +42,16 @@ namespace OSCADSharp.UnitTests
             //But the child should be a different instance
             Assert.IsFalse(clone.Children().FirstOrDefault() == text.Children().FirstOrDefault());
         }
+
+        [TestMethod]
+        public void OSCADObject_MimickedObjectHasSameTransform()
+        {
+            var cube = new Cube(null, true).Translate(10, 0, 5);
+            var sphere = new Sphere().Mimic(cube);
+
+            Assert.IsTrue(sphere.GetType() == cube.GetType());
+            Assert.IsTrue(cube.ToString().StartsWith("translate("));
+            Assert.IsTrue(sphere.ToString().StartsWith("translate("));
+        }
     }
 }
