@@ -14,12 +14,11 @@ namespace OSCADSharp.Scripting
     internal class BlockStatementObject : OSCADObject
     {
         private string outerStatement;
-        private IEnumerable<OSCADObject> children;
 
         internal BlockStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
         {
             this.outerStatement = outerStatement;
-            this.children = children;
+            this.children = children.ToList();
         }
 
         public override string ToString()

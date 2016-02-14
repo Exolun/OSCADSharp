@@ -27,6 +27,8 @@ namespace OSCADSharp.Transforms
         {
             this.obj = obj;
             this.ScaleFactor = scale;
+
+            this.children.Add(obj);
         }
 
         public override string ToString()
@@ -39,7 +41,7 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new ScaledObject(this.obj, this.ScaleFactor);
+            return new ScaledObject(this.obj.Clone(), this.ScaleFactor);
         }
     }
 }

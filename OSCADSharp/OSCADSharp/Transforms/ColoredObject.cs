@@ -30,6 +30,8 @@ namespace OSCADSharp.Transforms
             this.obj = obj;
             this.ColorName = color;
             this.Opacity = opacity;
+
+            this.children.Add(obj);
         }
 
         public override string ToString()
@@ -41,7 +43,7 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new ColoredObject(this.obj, this.ColorName, this.Opacity);
+            return new ColoredObject(this.obj.Clone(), this.ColorName, this.Opacity);
         }
     }
 }

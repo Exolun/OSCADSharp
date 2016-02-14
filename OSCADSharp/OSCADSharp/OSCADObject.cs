@@ -203,5 +203,32 @@ namespace OSCADSharp
         {
             return this.ToString() == other.ToString();
         }
+
+
+        protected List<OSCADObject> children = new List<OSCADObject>();
+        /// <summary>
+        /// Returns all children of this OSCADObject
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<OSCADObject> Children()
+        {
+            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.children);
+            List<OSCADObject> allChildren = new List<OSCADObject>();
+            OSCADObject child = null;
+
+            while(toTraverse.Count > 0)
+            {
+                child = toTraverse.Pop();
+                allChildren.Add(child);
+
+                foreach (var subChild in child.Children())
+                {
+                    toTraverse.Push(subChild);
+                }
+            }
+
+            return allChildren;
+        }
+        
     }
 }

@@ -29,6 +29,8 @@ namespace OSCADSharp.Transforms
         {
             this.obj = obj;
             this.Normal = normal;
+
+            this.children.Add(obj);
         }
         
         public override string ToString()
@@ -40,7 +42,7 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new MirroredObject(this.obj, this.Normal);
+            return new MirroredObject(this.obj.Clone(), this.Normal);
         }
     }
 }

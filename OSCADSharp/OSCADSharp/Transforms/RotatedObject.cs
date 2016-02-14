@@ -27,6 +27,8 @@ namespace OSCADSharp.Transforms
         {
             this.obj = obj;
             this.Angle = angle;
+
+            this.children.Add(obj);
         }
 
         public override string ToString()
@@ -39,7 +41,7 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new RotatedObject(this.obj, this.Angle);
+            return new RotatedObject(this.obj.Clone(), this.Angle);
         }
     }
 }
