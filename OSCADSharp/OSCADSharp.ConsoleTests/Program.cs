@@ -15,7 +15,7 @@ namespace OSCADSharp.ConsoleTests
         {
             var cube = new Cube(null, true).Translate(10, 0, 5).Scale(1, 1, 5);
             var sphere = new Sphere().Mimic(cube).Translate(0, 0, 10);
-            string script = cube.Minkowski(sphere, new Cylinder()).ToString();
+            string script = cube.Hull(sphere, new Cylinder()).ToString();
 
             File.WriteAllLines("test.scad", new string[] { script.ToString() });
             Console.ReadKey();

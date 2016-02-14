@@ -143,6 +143,16 @@ namespace OSCADSharp
         {
             return new MinkowskiedObject(nodes);
         }
+
+        /// <summary>
+        /// Creates a conved hull from child nodes (including this object)
+        /// </summary>
+        /// <param name="nodes">Nodes to hull</param>
+        /// <returns>Hull of nodes</returns>
+        public OSCADObject Hull(params OSCADObject[] nodes)
+        {
+            return new HulledObject(nodes);
+        }
         #endregion
 
         #region Boolean Operations
