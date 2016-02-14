@@ -37,7 +37,7 @@ namespace OSCADSharp.Transforms
         public override string ToString()
         {
             string colorCommand = String.Format("color(\"{0}\", {1})", this.ColorName, this.Opacity);
-            var formatter = new BlockFormatter(colorCommand, this.obj.ToString());            
+            var formatter = new SingleBlockFormatter(colorCommand, this.obj.ToString());            
             return formatter.ToString();
         }
 

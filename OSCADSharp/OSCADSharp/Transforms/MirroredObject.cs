@@ -36,7 +36,7 @@ namespace OSCADSharp.Transforms
         public override string ToString()
         {
             string mirrorCommand = String.Format("mirror([{0}, {1}, {2}])", this.Normal.X, this.Normal.Y, this.Normal.Z);
-            var formatter = new BlockFormatter(mirrorCommand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(mirrorCommand, this.obj.ToString());
             return formatter.ToString();
         }
 

@@ -35,7 +35,7 @@ namespace OSCADSharp.Transforms
         {
             string scaleCommand = String.Format("scale(v = [{0}, {1}, {2}])",
                 this.ScaleFactor.X.ToString(), this.ScaleFactor.Y.ToString(), this.ScaleFactor.Z.ToString());
-            var formatter = new BlockFormatter(scaleCommand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(scaleCommand, this.obj.ToString());
             return formatter.ToString();
         }
 

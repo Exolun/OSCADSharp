@@ -35,7 +35,7 @@ namespace OSCADSharp.Transforms
         {
             string rotateCommand = String.Format("rotate([{0}, {1}, {2}])",
                 this.Angle.X.ToString(), this.Angle.Y.ToString(), this.Angle.Z.ToString());
-            var formatter = new BlockFormatter(rotateCommand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(rotateCommand, this.obj.ToString());
             return formatter.ToString();
         }
 

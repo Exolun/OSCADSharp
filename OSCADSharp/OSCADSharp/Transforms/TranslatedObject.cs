@@ -32,7 +32,7 @@ namespace OSCADSharp.Transforms
         {
             string translateCommmand = String.Format("translate(v = [{0}, {1}, {2}])",
                 this.Vector.X.ToString(), this.Vector.Y.ToString(), this.Vector.Z.ToString());
-            var formatter = new BlockFormatter(translateCommmand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(translateCommmand, this.obj.ToString());
             return formatter.ToString();
         }
 

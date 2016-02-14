@@ -45,7 +45,7 @@ namespace OSCADSharp.Transforms
         public override string ToString()
         {
             string extrudeCommand = String.Format("linear_extrude(height = {0})", this.Height.ToString());
-            var formatter = new BlockFormatter(extrudeCommand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(extrudeCommand, this.obj.ToString());
             return formatter.ToString();
         }
     }

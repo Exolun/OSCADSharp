@@ -43,8 +43,8 @@
     <Compile Include="Sizes.cs" />
     <Compile Include="Transforms\IMimicer.cs" />
     <Compile Include="Transforms\LinearExtrudedObject.cs" />
-    <Compile Include="Scripting\BlockFormatter.cs" />
-    <Compile Include="Scripting\BlockStatementObject.cs" />
+    <Compile Include="Scripting\SingleBlockFormatter.cs" />
+    <Compile Include="Scripting\MultiBlockStatementObject.cs" />
     <Compile Include="Booleans\Difference.cs" />
     <Compile Include="Booleans\Intersection.cs" />
     <Compile Include="Booleans\Union.cs" />

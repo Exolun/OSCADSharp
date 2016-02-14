@@ -10,7 +10,7 @@ namespace OSCADSharp.Booleans
     /// <summary>
     /// Subtracts the 2nd (and all further) child nodes from the first one (logical and not).    
     /// </summary>
-    internal class Difference : BlockStatementObject
+    internal class Difference : MultiBlockStatementObject
     {
         /// <summary>
         /// Creates a subtraction of child nodes

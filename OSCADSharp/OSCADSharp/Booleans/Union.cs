@@ -10,7 +10,7 @@ namespace OSCADSharp.Booleans
     /// <summary>
     /// A union of child nodes. This is the sum of all children (logical or).    
     /// </summary>
-    internal class Union : BlockStatementObject
+    internal class Union : MultiBlockStatementObject
     {
         /// <summary>
         /// Create a union that is the combination of all children

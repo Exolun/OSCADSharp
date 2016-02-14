@@ -122,7 +122,7 @@ namespace OSCADSharp.Solids
 
             sb.Append(");");
             
-            var formatter = new BlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
+            var formatter = new SingleBlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
             return formatter.ToString();
         }
         #endregion

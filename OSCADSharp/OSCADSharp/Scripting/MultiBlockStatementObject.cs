@@ -11,11 +11,11 @@ namespace OSCADSharp.Scripting
     /// A statement that has multiple child nodes, whose ToString output
     /// is more or less just an aggregate of the children
     /// </summary>
-    internal class BlockStatementObject : OSCADObject
+    internal class MultiBlockStatementObject : OSCADObject
     {
         private string outerStatement;
 
-        internal BlockStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
+        internal MultiBlockStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
         {
             this.outerStatement = outerStatement;
             this.children = children.ToList();
@@ -29,7 +29,7 @@ namespace OSCADSharp.Scripting
                 sb.Append(child.ToString());
             }
 
-            var formatter = new BlockFormatter(this.outerStatement, sb.ToString());
+            var formatter = new SingleBlockFormatter(this.outerStatement, sb.ToString());
             return formatter.ToString();
         }
 
@@ -41,7 +41,7 @@ namespace OSCADSharp.Scripting
                 childClones.Add(child.Clone());
             }
 
-            return new BlockStatementObject(this.outerStatement, childClones);
+            return new MultiBlockStatementObject(this.outerStatement, childClones);
         }
     }
 }

@@ -11,13 +11,13 @@ namespace OSCADSharp.Scripting
     /// A class that creates blocks of curly-braced script with the
     /// specified level of indentation
     /// </summary>
-    internal class BlockFormatter
+    internal class SingleBlockFormatter
     {
         private string outerCode;
         private string innerCode;
         private string indentationAmount = "    ";
 
-        internal BlockFormatter(string outerCode, string innerCode)
+        internal SingleBlockFormatter(string outerCode, string innerCode)
         {
             this.outerCode = outerCode;
             this.innerCode = innerCode;

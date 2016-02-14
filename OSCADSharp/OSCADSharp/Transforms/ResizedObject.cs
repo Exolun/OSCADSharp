@@ -35,7 +35,7 @@ namespace OSCADSharp.Transforms
         {
             string resizeCommand = String.Format("resize([{0}, {1}, {2}])", this.Size.X.ToString(),
                 this.Size.Y.ToString(), this.Size.Z.ToString());
-            var formatter = new BlockFormatter(resizeCommand, this.obj.ToString());
+            var formatter = new SingleBlockFormatter(resizeCommand, this.obj.ToString());
             return formatter.ToString();
         }
 
