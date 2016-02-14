@@ -55,6 +55,7 @@
     <Compile Include="Solids\Sphere.cs" />
     <Compile Include="Solids\Text3D.cs" />
     <Compile Include="Transforms\ColoredObject.cs" />
+    <Compile Include="Transforms\MinkowskiedObject.cs" />
     <Compile Include="Transforms\MirroredObject.cs" />
     <Compile Include="Transforms\ResizedObject.cs" />
     <Compile Include="Transforms\RotatedObject.cs" />

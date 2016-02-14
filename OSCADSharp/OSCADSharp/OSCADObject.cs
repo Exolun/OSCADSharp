@@ -133,6 +133,16 @@ namespace OSCADSharp
         {
             return this.Translate(new Vector3(x, y, z));
         }
+
+        /// <summary>
+        /// Creates a minkowski sum of child nodes (including this object)
+        /// </summary>
+        /// <param name="nodes">Nodes to sum with</param>
+        /// <returns>A minkowski sum</returns>
+        public OSCADObject Minkowski(params OSCADObject[] nodes)
+        {
+            return new MinkowskiedObject(nodes);
+        }
         #endregion
 
         #region Boolean Operations
@@ -183,6 +193,7 @@ namespace OSCADSharp
         }
         #endregion
 
+        #region Utility Methods
         /// <summary>
         /// Creates a copy of this object and all of its children
         /// 
@@ -232,7 +243,7 @@ namespace OSCADSharp
 
         /// <summary>
         /// Copies the transforms that have been applied to another OSCADObject, and applies
-        /// the same transforms to this object. (Only transforms)
+        /// the same transforms to this object. (Only pure transforms, like Translate, Rotate, Scale, Color)
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
@@ -255,5 +266,6 @@ namespace OSCADSharp
 
             return finalObject;
         }
+        #endregion
     }
 }
