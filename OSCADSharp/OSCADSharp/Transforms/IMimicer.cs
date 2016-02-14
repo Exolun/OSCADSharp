@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OSCADSharp.Transforms
 {
-    internal interface IMimicer
+    internal interface IMimic
     {
         OSCADObject MimicObject(OSCADObject obj);
     }

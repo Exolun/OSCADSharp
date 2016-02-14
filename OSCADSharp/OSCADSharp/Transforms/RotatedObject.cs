@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object with rotation applied
     /// </summary>
-    internal class RotatedObject : OSCADObject, IMimicer
+    internal class RotatedObject : OSCADObject, IMimic
     {
         /// <summary>
         /// The angle to rotate, in terms of X/Y/Z euler angles

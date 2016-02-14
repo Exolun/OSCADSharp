@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that has color and/or opacity applied to it
     /// </summary>
-    internal class ColoredObject : OSCADObject, IMimicer
+    internal class ColoredObject : OSCADObject, IMimic
     {
         #region Attributes
         internal string ColorName { get; set; } = "Yellow";

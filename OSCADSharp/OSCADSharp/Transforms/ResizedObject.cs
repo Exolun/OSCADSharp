@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been resized to a specified set of X/Y/Z dimensions
     /// </summary>
-    internal class ResizedObject : OSCADObject, IMimicer
+    internal class ResizedObject : OSCADObject, IMimic
     {
         /// <summary>
         /// Size of the object in terms of X/Y/Z

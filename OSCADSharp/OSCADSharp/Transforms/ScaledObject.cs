@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been rescaled
     /// </summary>
-    internal class ScaledObject : OSCADObject, IMimicer
+    internal class ScaledObject : OSCADObject, IMimic
     {
         /// <summary>
         /// The scale factor to be applied

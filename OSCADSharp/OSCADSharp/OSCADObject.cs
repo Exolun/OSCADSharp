@@ -251,13 +251,13 @@ namespace OSCADSharp
             while(stack.Count > 0)
             {
                 var current = stack.Pop();
-                if(!(current is IMimicer))
+                if(!(current is IMimic))
                 {
                     continue;
                 }
                 else
                 {
-                    finalObject = ((IMimicer)current).MimicObject(finalObject);
+                    finalObject = ((IMimic)current).MimicObject(finalObject);
                 }
             }
 

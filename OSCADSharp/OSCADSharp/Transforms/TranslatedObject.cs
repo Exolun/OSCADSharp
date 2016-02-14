@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object or objects that have been moved along the specified vector
     /// </summary>
-    internal class TranslatedObject : OSCADObject, IMimicer
+    internal class TranslatedObject : OSCADObject, IMimic
     {
         internal Vector3 Vector { get; set; }
         private OSCADObject obj;
