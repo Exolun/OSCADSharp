@@ -238,26 +238,18 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Mimic(OSCADObject other)
         {
-            IEnumerable<OSCADObject> children = other.Children();
-            Stack<OSCADObject> stack = new Stack<OSCADObject>();
             OSCADObject finalObject = this;
-            stack.Push(other);
 
-            foreach (var child in children)
-            {
-                stack.Push(child);
-            }
+            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>();
+            toTraverse.Push(other);
+            other.Children().ToList().ForEach(child => toTraverse.Push(child));            
 
-            while(stack.Count > 0)
+            while(toTraverse.Count > 0)
             {
-                var current = stack.Pop();
-                if(!(current is IMimic))
+                var current = toTraverse.Pop() as IMimic;     
+                if(current != null)
                 {
-                    continue;
-                }
-                else
-                {
-                    finalObject = ((IMimic)current).MimicObject(finalObject);
+                    finalObject = current.MimicObject(finalObject);                
                 }
             }
 
