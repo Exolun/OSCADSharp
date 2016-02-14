@@ -233,7 +233,9 @@ namespace OSCADSharp
         /// <returns></returns>
         public IEnumerable<OSCADObject> Children()
         {
-            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.children);
+            // Initial children are reversed here because for objects with multiple children (such as boolean operations)
+            // the natural collection order would yield opposite the expected order in a stack (first child would be the last popped)
+            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.children.Reverse<OSCADObject>());
             List<OSCADObject> allChildren = new List<OSCADObject>();
             OSCADObject child = null;
 
