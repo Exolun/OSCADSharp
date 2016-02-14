@@ -221,7 +221,7 @@ namespace OSCADSharp
                 child = toTraverse.Pop();
                 allChildren.Add(child);
 
-                foreach (var subChild in child.Children())
+                foreach (var subChild in child.children)
                 {
                     toTraverse.Push(subChild);
                 }
