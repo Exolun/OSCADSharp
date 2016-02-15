@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSCADSharp.Spatial;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,12 @@ namespace OSCADSharp
             return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
         #endregion
+
+        internal Matrix ToMatrix()
+        {
+            double[] coords = { this.X, this.Y, this.Z, 0 };
+            return new Matrix(coords, 4, 1);
+        }
 
         public override string ToString()
         {
