@@ -46,7 +46,31 @@ namespace OSCADSharp
             return new Vector3(this.X, this.Y, this.Z);
         }
 
-        #region Operators
+        #region Operators/Overrides
+        public override bool Equals(object obj)
+        {
+            return this.GetHashCode() == obj.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public static bool operator ==(Vector3 left, Vector3 right)
+        {
+            return left.X == right.X &&
+                left.Y == right.Y &&
+                left.Z == right.Z;
+        }
+
+        public static bool operator !=(Vector3 left, Vector3 right)
+        {
+            return !(left.X == right.X &&
+                left.Y == right.Y &&
+                left.Z == right.Z);
+        }
+
         public static Vector3 operator +(Vector3 left, Vector3 right)
         {
             return new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);

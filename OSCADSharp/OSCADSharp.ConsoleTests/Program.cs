@@ -13,11 +13,15 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var cube = new Cube();
-            var sphere = new Sphere().Translate(0, 0, 2);
-            var hull = cube.Hull(sphere);
+            var cube = new Cube(50, 50, 50).Translate(10, 10, 0);
 
-            string script = hull.ToString();
+            var pos = cube.Position();
+            var cyl1 = new Cylinder(1, 100, true).Translate(pos);
+            var cyl2 = new Cylinder(1, 100, true).Rotate(0, 90, 0).Translate(pos);
+            var cyl3 = new Cylinder(1, 100, true).Rotate(90, 0, 0).Translate(pos);
+            var axisHelper = cyl1.Union(cyl2, cyl3).Color("Red");
+
+            string script = cube.Union(axisHelper).ToString();
 
             File.WriteAllLines("test.scad", new string[] { script.ToString() });
             //Console.ReadKey();

@@ -204,7 +204,6 @@ namespace OSCADSharp
         #endregion
 
         #region Utility Methods
-        protected Vector3 position;
         /// <summary>
         /// Returns the computed position of this object.
         /// 
