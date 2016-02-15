@@ -48,5 +48,10 @@ namespace OSCADSharp.Transforms
         {
             return new RotatedObject(obj, this.Angle);
         }
+
+        public override Vector3 Position()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

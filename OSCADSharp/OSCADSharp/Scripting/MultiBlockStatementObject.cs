@@ -43,5 +43,10 @@ namespace OSCADSharp.Scripting
 
             return new MultiBlockStatementObject(this.outerStatement, childClones);
         }
+
+        public override Vector3 Position()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

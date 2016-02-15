@@ -49,5 +49,10 @@ namespace OSCADSharp.Transforms
         {
             return new MirroredObject(obj, this.Normal);
         }
+
+        public override Vector3 Position()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

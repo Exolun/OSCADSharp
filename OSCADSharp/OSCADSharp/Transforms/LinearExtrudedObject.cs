@@ -36,7 +36,6 @@ namespace OSCADSharp.Transforms
             this.children.Add(obj);
         }
 
-
         public override OSCADObject Clone()
         {
             return new LinearExtrudedObject(this.obj.Clone(), this.Height);
@@ -47,6 +46,11 @@ namespace OSCADSharp.Transforms
             string extrudeCommand = String.Format("linear_extrude(height = {0})", this.Height.ToString());
             var formatter = new SingleBlockFormatter(extrudeCommand, this.obj.ToString());
             return formatter.ToString();
+        }
+
+        public override Vector3 Position()
+        {
+            throw new NotImplementedException();
         }
     }
 }

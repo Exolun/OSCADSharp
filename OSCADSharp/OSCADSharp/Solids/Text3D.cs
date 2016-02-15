@@ -59,6 +59,7 @@ namespace OSCADSharp.Solids
         public string Language { get; set; }
 
         #endregion
+       
         #region Constructors
         /// <summary>
         /// Creates 3d text with the default parameters
@@ -124,6 +125,11 @@ namespace OSCADSharp.Solids
             
             var formatter = new SingleBlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
             return formatter.ToString();
+        }
+
+        public override Vector3 Position()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
