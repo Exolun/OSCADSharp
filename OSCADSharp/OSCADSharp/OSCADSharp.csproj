@@ -63,7 +63,7 @@
     <Compile Include="Transforms\RotatedObject.cs" />
     <Compile Include="Transforms\ScaledObject.cs" />
     <Compile Include="Transforms\TranslatedObject.cs" />
-    <Compile Include="Vector3.cs" />
+    <Compile Include="Spatial\Vector3.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
