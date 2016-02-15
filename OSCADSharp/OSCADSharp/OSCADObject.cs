@@ -139,9 +139,9 @@ namespace OSCADSharp
         /// </summary>
         /// <param name="nodes">Nodes to sum with</param>
         /// <returns>A minkowski sum</returns>
-        public OSCADObject Minkowski(params OSCADObject[] nodes)
+        public OSCADObject Minkowski(params OSCADObject[] objects)
         {
-            return new MinkowskiedObject(nodes);
+            return doBlockStatement("Minkowski", objects, (children) => { return new MinkowskiedObject(children); });            
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace OSCADSharp
         /// </summary>
         /// <param name="nodes">Nodes to hull</param>
         /// <returns>Hull of nodes</returns>
-        public OSCADObject Hull(params OSCADObject[] nodes)
+        public OSCADObject Hull(params OSCADObject[] objects)
         {
-            return new HulledObject(nodes);
+            return doBlockStatement("Hull", objects, (children) => { return new HulledObject(children); });            
         }
         #endregion
 
@@ -164,7 +164,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Union(params OSCADObject[] objects)
         {
-            return doBoolean("Union", objects, (children) => { return new Union(children); });
+            return doBlockStatement("Union", objects, (children) => { return new Union(children); });
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Difference(params OSCADObject[] objects)
         {
-            return doBoolean("Difference", objects, (children) => { return new Difference(children); });
+            return doBlockStatement("Difference", objects, (children) => { return new Difference(children); });
         }
 
         /// <summary>
@@ -187,10 +187,10 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Intersection(params OSCADObject[] objects)
         {
-            return doBoolean("Intersection", objects, (children) => { return new Intersection(children); });
+            return doBlockStatement("Intersection", objects, (children) => { return new Intersection(children); });
         }
 
-        private OSCADObject doBoolean(string name, OSCADObject[] objects, Func<IEnumerable<OSCADObject>, OSCADObject> factory)
+        private OSCADObject doBlockStatement(string name, OSCADObject[] objects, Func<IEnumerable<OSCADObject>, OSCADObject> factory)
         {
             if (objects == null || objects.Length < 1)
             {

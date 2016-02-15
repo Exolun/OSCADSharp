@@ -13,12 +13,14 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var cube = new Cube(null, true).Translate(10, 0, 5).Scale(1, 1, 5);
-            var sphere = new Sphere().Mimic(cube).Translate(0, 0, 10);
-            string script = cube.Hull(sphere, new Cylinder()).ToString();
+            var cube = new Cube();
+            var sphere = new Sphere().Translate(0, 0, 2);
+            var hull = cube.Hull(sphere);
+
+            string script = hull.ToString();
 
             File.WriteAllLines("test.scad", new string[] { script.ToString() });
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
