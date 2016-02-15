@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Scripting;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace OSCADSharp.Transforms
 
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            return Matrix.GetRotatedPoint(this.obj.Position(), this.Angle.X, this.Angle.Y, this.Angle.Z);
         }
     }
 }

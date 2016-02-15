@@ -57,6 +57,7 @@ namespace OSCADSharp.Spatial
                     // and add it to the result in the corresponding row/column
                     for (int leftMatrixColumn = 0; leftMatrixColumn < this.ColumnCount; leftMatrixColumn++)
                     {
+                        result.Add(0);
                         result[currentRowInResult * other.ColumnCount + column] +=
                             this.values[row * this.ColumnCount + leftMatrixColumn] *
                             otherValues[leftMatrixColumn * other.ColumnCount + column];
@@ -93,6 +94,9 @@ namespace OSCADSharp.Spatial
         /// <returns>Transformation matrix to perform the rotation</returns>
         internal static Matrix XRotation(double angle)
         {
+            if (angle == 0)
+                return Identity;
+
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {
                 1 , 0, 0, 0,
@@ -112,6 +116,9 @@ namespace OSCADSharp.Spatial
         /// <returns>Transformation matrix to perform the rotation</returns>
         internal static Matrix YRotation(double angle)
         {
+            if (angle == 0)
+                return Identity;
+
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {
                 Math.Cos(radAngle), 0, -Math.Sin(radAngle), 0,
@@ -131,6 +138,9 @@ namespace OSCADSharp.Spatial
         /// <returns>Transformation matrix to perform the rotation</returns>
         internal static Matrix ZRotation(double angle)
         {
+            if (angle == 0)
+                return Identity;
+
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {
                 Math.Cos(radAngle), Math.Sin(radAngle), 0, 0,
@@ -152,12 +162,10 @@ namespace OSCADSharp.Spatial
         /// <returns>Point after rotation</returns>
         internal static Vector3 GetRotatedPoint(Vector3 point, double xAngle, double yAngle, double zAngle)
         {
-            Matrix transformation = XRotation(xAngle)
-                .Multiply(YRotation(yAngle))
-                .Multiply(ZRotation(zAngle));
-
-            double[] result = transformation.Multiply(point.ToMatrix()).GetValues();
-            return new Vector3(result[0], result[1], result[2]);
+            var x = XRotation(-xAngle).Multiply(point.ToMatrix());
+            var y = YRotation(-yAngle).Multiply(x);
+            var z = ZRotation(-zAngle).Multiply(y).GetValues();
+            return new Vector3(z[0], z[1], z[2]);
         }
         #endregion
     }
