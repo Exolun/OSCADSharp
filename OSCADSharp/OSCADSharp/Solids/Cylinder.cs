@@ -111,6 +111,7 @@ namespace OSCADSharp.Solids
         public Cylinder(double diameter = 2, double height = 1, bool center = false)
         {
             this.Diameter = diameter;
+            this.Height = height;
             this.Center = center;
         }
         #endregion
