@@ -46,6 +46,32 @@ namespace OSCADSharp
             return new Vector3(this.X, this.Y, this.Z);
         }
 
+        /// <summary>
+        /// Returns the average position of the provided positions
+        /// </summary>
+        /// <param name="positions"></param>
+        /// <returns></returns>
+        public static Vector3 Average(params Vector3[] positions)
+        {
+            if(positions == null || positions.Length == 0)
+            {
+                return null;
+            }
+            else if (positions.Length == 1)
+            {
+                return positions[0];
+            }
+
+            var sum = new Vector3();
+
+            foreach (var pos in positions)
+            {
+                sum += pos;
+            }
+
+            return new Vector3(sum.X / positions.Length, sum.Y / positions.Length, sum.Z / positions.Length);
+        }
+
         #region Operators/Overrides
         public override bool Equals(object obj)
         {
@@ -81,7 +107,7 @@ namespace OSCADSharp
             return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
         #endregion
-
+        
         internal Matrix ToMatrix()
         {
             double[] coords = { this.X, this.Y, this.Z, 0 };

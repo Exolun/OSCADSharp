@@ -46,7 +46,8 @@ namespace OSCADSharp.Scripting
 
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            var positions = this.children.Select(child => child.Position());
+            return Vector3.Average(positions.ToArray());
         }
     }
 }

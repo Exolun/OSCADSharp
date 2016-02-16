@@ -50,7 +50,7 @@ namespace OSCADSharp.Transforms
 
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }
