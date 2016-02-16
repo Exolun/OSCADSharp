@@ -13,15 +13,15 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var cube = new Cube(13, 13, 13).Rotate(90, 37.5, -180);
+            var obj = new Text3D("Hello, it's Meeeee.");
 
-            var pos = cube.Position();
+            var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
             var cyl2 = new Cylinder(1, 100, true).Rotate(0, 90, 0).Translate(pos);
             var cyl3 = new Cylinder(1, 100, true).Rotate(90, 0, 0).Translate(pos);
             var axisHelper = cyl1.Union(cyl2, cyl3).Color("Red");
 
-            string script = cube.Union(axisHelper).ToString();
+            string script = obj.Union(axisHelper).ToString();
 
             File.WriteAllLines("test.scad", new string[] { script.ToString() });
             //Console.ReadKey();

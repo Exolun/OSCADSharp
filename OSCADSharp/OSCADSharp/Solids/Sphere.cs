@@ -83,7 +83,7 @@ namespace OSCADSharp.Solids
 
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            return new Vector3();
         }
         #endregion
     }

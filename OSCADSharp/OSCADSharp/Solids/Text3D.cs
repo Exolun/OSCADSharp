@@ -116,6 +116,11 @@ namespace OSCADSharp.Solids
             sb.Append("\"");
 
             appendIfValueNotNullOrEmpty("size", this.Size?.ToString(), sb);
+            // Text is always centered in OSCADSharp to ensure correctness of
+            // position interpolation
+            appendIfValueNotNullOrEmpty("halign", "\"center\"", sb);
+            appendIfValueNotNullOrEmpty("valign", "\"center\"", sb);
+
             appendIfValueNotNullOrEmpty("font", this.Font, sb);
             appendIfValueNotNullOrEmpty("spacing", this.Spacing?.ToString(), sb);
             appendIfValueNotNullOrEmpty("direction", this.TextDirection?.ToString(), sb);
@@ -127,9 +132,16 @@ namespace OSCADSharp.Solids
             return formatter.ToString();
         }
 
+        /// <summary>
+        /// In reaction to the need for this value to be correct, halign and valign will always
+        /// be "center" by default, since non-centered text would vary dramatically in position based upon
+        /// the font of the text
+        /// - MLS 2/15/2016
+        /// </summary>
+        /// <returns></returns>
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            return new Vector3();
         }
         #endregion
     }

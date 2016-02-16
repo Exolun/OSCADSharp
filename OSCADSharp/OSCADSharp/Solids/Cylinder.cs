@@ -140,7 +140,17 @@ namespace OSCADSharp.Solids
 
         public override Vector3 Position()
         {
-            throw new NotImplementedException();
+            Vector3 position;
+            if (this.Center == false)
+            {
+                position = new Vector3(0, 0, this.Height / 2);
+            }
+            else
+            {
+                position = new Vector3();
+            }
+
+            return position;
         }
         #endregion
     }
