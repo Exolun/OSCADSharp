@@ -13,7 +13,7 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var cube = new Cube(50, 50, 50, true).Translate(30, 30, 30).Rotate(25, 45, -90);
+            var cube = new Cube(13, 13, 13).Rotate(90, 37.5, -180);
 
             var pos = cube.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);

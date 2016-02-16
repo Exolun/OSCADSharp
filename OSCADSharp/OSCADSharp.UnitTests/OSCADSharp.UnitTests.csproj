@@ -55,6 +55,7 @@
     <Compile Include="CubeTests.cs" />
     <Compile Include="CylinderTests.cs" />
     <Compile Include="HullTests.cs" />
+    <Compile Include="InterpolationTests.cs" />
     <Compile Include="OSCADObjectTests.cs" />
     <Compile Include="SphereTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
