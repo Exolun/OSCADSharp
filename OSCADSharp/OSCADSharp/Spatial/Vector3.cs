@@ -72,6 +72,26 @@ namespace OSCADSharp
             return new Vector3(sum.X / positions.Length, sum.Y / positions.Length, sum.Z / positions.Length);
         }
 
+        /// <summary>
+        /// Returns the unit vector for this vector
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 Normalize()
+        {
+            if(this.X == 0 && this.Y == 0 && this.Z == 0)
+            {
+                return this;
+            }
+
+            double sum = Math.Abs(this.X) + Math.Abs(this.Y) + Math.Abs(this.Z);
+            return new Vector3(this.X / sum, this.Y / sum, this.Z / sum);
+        }
+
+        public double Dot(Vector3 other)
+        {
+            return this.X * other.X + this.Y * other.Y + this.Z * other.Z;
+        }
+
         #region Operators/Overrides
         public override bool Equals(object obj)
         {
@@ -96,7 +116,7 @@ namespace OSCADSharp
                 left.Y == right.Y &&
                 left.Z == right.Z);
         }
-
+        
         public static Vector3 operator +(Vector3 left, Vector3 right)
         {
             return new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
@@ -106,8 +126,23 @@ namespace OSCADSharp
         {
             return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
+
+        public static Vector3 operator *(Vector3 left, Vector3 right)
+        {
+            return new Vector3(left.X * right.X, left.Y * right.Y, left.Z * right.Z);
+        }
+
+        public static Vector3 operator *(Vector3 left, double right)
+        {
+            return new Vector3(left.X * right, left.Y * right, left.Z * right);
+        }
+
+        public static Vector3 operator *(double left, Vector3 right)
+        {
+            return new Vector3(left * right.X, left * right.Y, left * right.Z);
+        }
         #endregion
-        
+
         internal Matrix ToMatrix()
         {
             double[] coords = { this.X, this.Y, this.Z, 0 };
