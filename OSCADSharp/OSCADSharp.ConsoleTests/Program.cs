@@ -16,7 +16,6 @@ namespace OSCADSharp.ConsoleTests
             var obj = new Cube(5, 10, 20).Mirror(0, 0, 1).Mirror(0, 1, 0)
                 .Rotate(15, -45, 120).Translate(-20, 10, 15).Rotate(90, 15, 25)
                 .Translate(-10, -20, -20).Rotate(-90, -90, -45);
-            obj = obj.Minkowski(new Cube(1, 1, 5));
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);

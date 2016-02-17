@@ -115,5 +115,16 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(-9.11374600044971, 6.5, 1.19984742333634), cube.Position());
         }
+
+        [TestMethod]
+        public void Interpolation_PositionAfterLotsOfOperations()
+        {
+            var obj = new Cube(5, 10, 20).Mirror(0, 0, 1).Mirror(0, 1, 0)
+                .Rotate(15, -45, 120).Translate(-20, 10, 15).Rotate(90, 15, 25)
+                .Translate(-10, -20, -20).Rotate(-90, -90, -45);
+
+            var position = obj.Position();
+            Assert.AreEqual(new Vector3(-21.7567866493247, 28.2686425980997, -21.6189570529939), position);
+        }
     }
 }
