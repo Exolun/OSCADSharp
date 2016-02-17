@@ -31,5 +31,14 @@ namespace OSCADSharp.UnitTests
             pos.Z = -pos.Z;
             Assert.AreEqual(pos, zMirror.Position());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void Mirror_MultiAxisPositionThrowsNotSupportedException()
+        {
+            var cube = new Cube(5, 10, 20);
+
+            var pos = cube.Mirror(1, 1, 0).Position();
+        }
     }
 }
