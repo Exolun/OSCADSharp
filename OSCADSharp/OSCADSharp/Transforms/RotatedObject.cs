@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Scripting;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace OSCADSharp.Transforms
         public OSCADObject MimicObject(OSCADObject obj)
         {
             return new RotatedObject(obj, this.Angle);
+        }
+
+        public override Vector3 Position()
+        {
+            return Matrix.GetRotatedPoint(this.obj.Position(), this.Angle.X, this.Angle.Y, this.Angle.Z);
         }
     }
 }

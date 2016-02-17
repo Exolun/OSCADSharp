@@ -18,6 +18,11 @@ namespace OSCADSharp.Booleans
         /// <param name="children"></param>
         public Difference(IEnumerable<OSCADObject> children) : base("difference()", children)
         {
-        }        
+        }
+
+        public override Vector3 Position()
+        {
+            throw new NotSupportedException("Position is not supported on Differenced objects.");
+        }
     }
 }

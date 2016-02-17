@@ -80,6 +80,11 @@ namespace OSCADSharp.Solids
                 Radius = this.Radius
             };
         }
+
+        public override Vector3 Position()
+        {
+            return new Vector3();
+        }
         #endregion
     }
 }

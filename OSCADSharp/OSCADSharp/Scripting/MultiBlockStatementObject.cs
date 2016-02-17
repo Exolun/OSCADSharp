@@ -43,5 +43,11 @@ namespace OSCADSharp.Scripting
 
             return new MultiBlockStatementObject(this.outerStatement, childClones);
         }
+
+        public override Vector3 Position()
+        {
+            var positions = this.children.Select(child => child.Position());
+            return Vector3.Average(positions.ToArray());
+        }
     }
 }

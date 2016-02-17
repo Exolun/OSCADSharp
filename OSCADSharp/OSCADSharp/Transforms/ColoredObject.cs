@@ -50,5 +50,10 @@ namespace OSCADSharp.Transforms
         {
             return new ColoredObject(obj, this.ColorName, this.Opacity);
         }
+
+        public override Vector3 Position()
+        {
+            return this.obj.Position();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Scripting;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,30 @@ namespace OSCADSharp.Transforms
         public OSCADObject MimicObject(OSCADObject obj)
         {
             return new MirroredObject(obj, this.Normal);
+        }
+
+        // TODO:  This will yield incorrect positions if mirroring on multiple axes
+        // fix mirrored positions for multiple-axis mirroring
+        public override Vector3 Position()
+        {
+            if (this.isMoreThanOneAxis())
+            {
+                throw new NotSupportedException("Getting the position of an object that's been mirrored on more than one axis is not currently supported.");
+            }
+
+            var pos = obj.Position();
+
+            double x = this.Normal.X != 0 ? pos.X * -1 : pos.X;
+            double y = this.Normal.Y != 0 ? pos.Y * -1 : pos.Y;
+            double z = this.Normal.Z != 0 ? pos.Z * -1 : pos.Z;
+
+            return new Vector3(x, y, z);
+        }
+
+        private bool isMoreThanOneAxis()
+        {
+            return (this.Normal.X != 0 && (this.Normal.Y != 0 || this.Normal.Z != 0)) ||
+                (this.Normal.Y != 0 && (this.Normal.X != 0 || this.Normal.Z != 0));
         }
     }
 }

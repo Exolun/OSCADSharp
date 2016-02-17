@@ -76,6 +76,21 @@ namespace OSCADSharp.Solids
                 Center = this.Center
             };
         }
+
+        public override Vector3 Position()
+        {
+            Vector3 position;
+            if(this.Center == false)
+            {
+                position = new Vector3(this.Size.X / 2, this.Size.Y / 2, this.Size.Z / 2);
+            }
+            else
+            {
+                position = new Vector3();
+            }
+
+            return position;
+        }
         #endregion
     }
 }

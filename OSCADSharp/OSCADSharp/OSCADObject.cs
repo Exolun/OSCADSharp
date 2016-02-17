@@ -205,6 +205,16 @@ namespace OSCADSharp
 
         #region Utility Methods
         /// <summary>
+        /// Returns the computed position of this object.
+        /// 
+        /// For some objects that are the aggregate of many operations or
+        /// multiple children, this may be an approximation or average
+        /// of the position.
+        /// </summary>
+        /// <returns></returns>
+        public abstract Vector3 Position();        
+
+        /// <summary>
         /// Creates a copy of this object and all of its children
         /// 
         /// This is not a deep copy in the sense that all OSCADObjects will be new instances,

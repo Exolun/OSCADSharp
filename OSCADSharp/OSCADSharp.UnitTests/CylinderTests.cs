@@ -23,5 +23,21 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("h = 12.1"));
             Assert.IsTrue(script.Contains("center = true"));
         }
+
+        [TestMethod]
+        public void Cylinder_UncenteredPositionZValueIsHalfTheHeight()
+        {
+            var cylinder = new Cylinder(3, 40);
+
+            Assert.AreEqual(new Vector3(0, 0, 20), cylinder.Position());
+        }
+
+        [TestMethod]
+        public void Cylinder_CenteredCylinderPositionIsZero()
+        {
+            var cylinder = new Cylinder(5, 20, true);
+
+            Assert.AreEqual(new Vector3(), cylinder.Position());
+        }
     }
 }

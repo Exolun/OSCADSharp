@@ -48,5 +48,10 @@ namespace OSCADSharp.Transforms
         {
             return new ResizedObject(obj, this.Size);
         }
+
+        public override Vector3 Position()
+        {
+            return obj.Position();
+        }
     }
 }

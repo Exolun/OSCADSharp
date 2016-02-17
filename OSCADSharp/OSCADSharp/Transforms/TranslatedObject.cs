@@ -45,5 +45,10 @@ namespace OSCADSharp.Transforms
         {
             return new TranslatedObject(obj, this.Vector);
         }
+
+        public override Vector3 Position()
+        {
+            return this.obj.Position() + this.Vector;
+        }
     }
 }

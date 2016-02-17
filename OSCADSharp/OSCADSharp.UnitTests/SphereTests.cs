@@ -69,5 +69,13 @@ namespace OSCADSharp.UnitTests
 
             Assert.IsTrue(sphere.IsSameAs(clone));
         }
+
+        [TestMethod]
+        public void Sphere_PositionIsAtZero()
+        {
+            var sphere = new Sphere();
+
+            Assert.AreEqual(new Vector3(), sphere.Position());
+        }
     }
 }

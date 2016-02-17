@@ -48,5 +48,10 @@ namespace OSCADSharp.Transforms
         {
             return new ScaledObject(obj, this.ScaleFactor);
         }
+
+        public override Vector3 Position()
+        {
+            return obj.Position();
+        }
     }
 }

@@ -53,5 +53,37 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.StartsWith("cube("));
             Assert.IsTrue(script.EndsWith(");"));
         }
+
+        [TestMethod]
+        public void Cube_InitialPositionForNonCenteredCubeIsHalfLengthWidthAndHeight()
+        {
+            var cube = new Cube(10, 10, 10);
+
+            Assert.IsTrue(cube.Position() == new Vector3(5, 5, 5));
+        }
+
+        [TestMethod]
+        public void Cube_InitialPositionIfCenteredIsOrigin()
+        {
+            var cube = new Cube(25, 25, 25, true);
+
+            Assert.AreEqual(new Vector3(), cube.Position());
+        }
+
+        [TestMethod]
+        public void Cube_PositionMovesWithCubeOnTranslate()
+        {
+            var cube = new Cube(50, 50, 50).Translate(10, 10, 0);
+
+            Assert.AreEqual(new Vector3(35, 35, 25), cube.Position());
+        }
+
+        [TestMethod]
+        public void Cube_PositionMovesWithCubeOnNegativeTranslate()
+        {
+            var cube = new Cube(50, 50, 50, true).Translate(-5, 0, -15);
+
+            Assert.AreEqual(new Vector3(-5, 0, -15), cube.Position());
+        }
     }
 }
