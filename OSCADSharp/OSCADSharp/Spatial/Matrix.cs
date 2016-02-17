@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OSCADSharp.Spatial
 {
     /// <summary>
-    /// An n-dimensional Matrix for performing operations on doubles that
+    /// A Matrix for performing operations on doubles that
     /// represent spatial positions
     /// </summary>
     internal class Matrix
