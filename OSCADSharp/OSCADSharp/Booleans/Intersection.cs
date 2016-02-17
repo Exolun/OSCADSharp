@@ -19,5 +19,10 @@ namespace OSCADSharp.Booleans
         public Intersection(IEnumerable<OSCADObject> children) : base("intersection()", children)
         {
         }
+
+        public override Vector3 Position()
+        {
+            throw new NotSupportedException("Position is not supported on Intersected objects.");
+        }
     }
 }

@@ -15,6 +15,11 @@ namespace OSCADSharp.Transforms
         
         public MinkowskiedObject(IEnumerable<OSCADObject> children) : base("minkowski()", children)
         {
-        }        
+        }
+
+        public override Vector3 Position()
+        {
+            throw new NotSupportedException("Position is not supported on Minkowskied objects.");
+        }
     }
 }
