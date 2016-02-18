@@ -51,7 +51,7 @@ namespace OSCADSharp.UnitTests
             string script = cube.ToString();
 
             Assert.IsTrue(script.StartsWith("cube("));
-            Assert.IsTrue(script.EndsWith(");"));
+            Assert.IsTrue(script.TrimEnd().EndsWith(");"));
         }
 
         [TestMethod]

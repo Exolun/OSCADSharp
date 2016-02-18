@@ -125,9 +125,9 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6});", 
+            return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6}); {7}", 
                 Resolution.ToString(), MinimumAngle.ToString(),  MinimumCircumferentialLength.ToString(),
-                Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower());
+                Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower(), Environment.NewLine);
         }
 
         /// <summary>

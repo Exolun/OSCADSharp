@@ -69,9 +69,9 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});", 
+            return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});{4}", 
                 this.Resolution.ToString(), this.MinimumAngle.ToString(), 
-                this.MinimumFragmentSize.ToString(), this.Radius.ToString());
+                this.MinimumFragmentSize.ToString(), this.Radius.ToString(), Environment.NewLine);
         }
 
         /// <summary>

@@ -123,6 +123,7 @@ namespace OSCADSharp.Solids
             appendIfValueNotNullOrEmpty("language", this.Language?.ToString(), sb);            
 
             sb.Append(");");
+            sb.Append(Environment.NewLine);
             
             var formatter = new SingleBlockFormatter(String.Format("linear_extrude(height = {0})", 1), sb.ToString());
             return formatter.ToString();

@@ -51,7 +51,7 @@ namespace OSCADSharp.UnitTests
             string script = basicSphere.ToString();
 
             Assert.IsTrue(script.StartsWith("sphere("));
-            Assert.IsTrue(script.EndsWith(");"));
+            Assert.IsTrue(script.TrimEnd().EndsWith(");"));
         }
 
         [TestMethod]

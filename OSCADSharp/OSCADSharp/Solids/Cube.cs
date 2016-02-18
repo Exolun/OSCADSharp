@@ -68,8 +68,9 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cube(size = [{0}, {1}, {2}], center = {3});", 
-                this.Size.X.ToString(), this.Size.Y.ToString(), this.Size.Z.ToString(), this.Center.ToString().ToLower()); ;
+            return String.Format("cube(size = [{0}, {1}, {2}], center = {3}); {4}", 
+                this.Size.X.ToString(), this.Size.Y.ToString(), this.Size.Z.ToString(), 
+                this.Center.ToString().ToLower(), Environment.NewLine); ;
         }
 
         /// <summary>
