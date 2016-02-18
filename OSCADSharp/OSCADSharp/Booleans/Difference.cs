@@ -22,7 +22,7 @@ namespace OSCADSharp.Booleans
 
         public override Vector3 Position()
         {
-            throw new NotSupportedException("Position is not supported on Differenced objects.");
+            return children[0].Position();
         }
     }
 }

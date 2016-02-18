@@ -8,13 +8,21 @@ namespace OSCADSharp.UnitTests
     [TestClass]
     public class DifferenceTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
-        public void Difference_PositionThrowsNotSupportedException()
+        /// <summary>
+        /// Note:  The decision that Difference should yield the position of the
+        /// first child stems from the common use case of using Difference to bore out
+        /// holes for pegs, screws, supports, etc.  It's often used in such a way that 
+        /// the overall structure of the object being differenced is not greatly affected,
+        /// thus the position should not change.
+        /// -MLS 2/17/2016
+        /// </summary>
+        [TestMethod]     
+        public void Difference_PositionYieldsPositionOfFirstChild()
         {
-            var diff = new Sphere().Difference(new Cube());
+            var sphere = new Sphere().Translate(.25, .25, 1);
+            var diff = sphere.Difference(new Cube());
 
-            var pos = diff.Position();
+            Assert.AreEqual(sphere.Position(), diff.Position());
         }
 
         [TestMethod]
