@@ -48,5 +48,25 @@ namespace OSCADSharp.UnitTests
 
             Assert.IsTrue(script.IndexOf("cube(") < script.IndexOf("cylinder("));
         }
+
+        [TestMethod]
+        public void Union_AddingObjectsCreatesUnion()
+        {
+            var obj = new Cube() + new Cylinder();
+            var union = new Cube().Union(new Cylinder());
+
+            Assert.IsTrue(obj.GetType() == union.GetType());
+        }
+
+        [TestMethod]
+        public void Union_ChainingAdditionAddsToTheSameUnion()
+        {
+            var obj = new Cube() + new Sphere() + new Text3D("WOW!") + new Cylinder().Translate(1, 2, 5);
+            var union = new Sphere().Union(new Cube());
+
+            var unionChildrenCount = obj.Children().Where(child => child.GetType() == union.GetType()).Count();
+
+            Assert.AreEqual(0, unionChildrenCount);
+        }
     }
 }

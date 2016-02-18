@@ -307,7 +307,20 @@ namespace OSCADSharp
         /// <returns></returns>
         public static OSCADObject operator +(OSCADObject left, OSCADObject right)
         {
-            return new Union(new OSCADObject[] {left, right });
+            if(left.GetType() == typeof(Union))
+            {
+                left.children.Add(right);
+                return left;
+            }
+            else if(right.GetType() == typeof(Union))
+            {
+                right.children.Add(left);
+                return right;
+            }
+            else
+            {
+                return new Union(new OSCADObject[] {left, right });
+            }
         }
 
         /// <summary>
@@ -318,7 +331,20 @@ namespace OSCADSharp
         /// <returns></returns>
         public static OSCADObject operator -(OSCADObject left, OSCADObject right)
         {
-            return new Difference(new OSCADObject[] {left, right });
+            if (left.GetType() == typeof(Difference))
+            {
+                left.children.Add(right);
+                return left;
+            }
+            else if (right.GetType() == typeof(Difference))
+            {
+                right.children.Add(left);
+                return right;
+            }
+            else
+            {
+                return new Difference(new OSCADObject[] {left, right });
+            }
         }
         #endregion
     }
