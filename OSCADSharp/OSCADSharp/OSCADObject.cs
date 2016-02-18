@@ -295,6 +295,31 @@ namespace OSCADSharp
 
             return finalObject;
         }
+
+        #endregion
+
+        #region Operators
+        /// <summary>
+        /// Adds two OSCADObjects together (unions them)
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static OSCADObject operator +(OSCADObject left, OSCADObject right)
+        {
+            return new Union(new OSCADObject[] {left, right });
+        }
+
+        /// <summary>
+        /// Subtracts two OSCADObjects (differences them)
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static OSCADObject operator -(OSCADObject left, OSCADObject right)
+        {
+            return new Difference(new OSCADObject[] {left, right });
+        }
         #endregion
     }
 }
