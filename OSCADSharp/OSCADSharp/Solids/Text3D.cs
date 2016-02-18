@@ -27,22 +27,10 @@ namespace OSCADSharp.Solids
         /// <summary>
         /// The name of the font that should be used. This is not the name of the font file, 
         /// but the logical font name (internally handled by the fontconfig library). This can also include a style parameter, see below. 
-        /// A list of installed fonts & styles can be obtained using the font list dialog (Help -> Font List).
+        /// A list of installed fonts and styles can be obtained using the font list dialog (Help -> Font List).
         /// </summary>
         public string Font { get; set; } = null;
-
-        /// <summary>
-        /// The horizontal alignment for the text. Possible values are "left", "center" and "right". Default is "left".
-        /// </summary>
-        /// TODO: Implement alignments
-        //public string HorizontalAlignment { get; set; }
-
-        /// <summary>
-        /// The vertical alignment for the text. Possible values are "top", "center", "baseline" and "bottom". Default is "baseline".
-        /// </summary>
-        /// TODO: Implement alignments
-        // public string VerticalAlignment { get; set; }
-
+        
         /// <summary>
         /// Factor to increase/decrease the character spacing. The default value of 1 will result in the normal spacing for the font, giving a value greater than 1 will cause the letters to be spaced further apart.
         /// </summary>
@@ -79,10 +67,14 @@ namespace OSCADSharp.Solids
         {
             this.Text = text;
             this.Size = size;
-        }        
+        }
         #endregion
 
         #region Overrides
+        /// <summary>
+        /// Gets a copy of this object that is a new instance
+        /// </summary>
+        /// <returns></returns>
         public override OSCADObject Clone()
         {
             return new Text3D()
@@ -106,7 +98,11 @@ namespace OSCADSharp.Solids
                 sb.Append(value);
             }
         }
-
+        
+        /// <summary>
+        /// Converts this object to an OpenSCAD script
+        /// </summary>
+        /// <returns>Script for this object</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

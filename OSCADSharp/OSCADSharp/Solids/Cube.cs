@@ -62,12 +62,20 @@ namespace OSCADSharp.Solids
         #endregion
 
         #region Overrides
+        /// <summary>
+        /// Converts this object to an OpenSCAD script
+        /// </summary>
+        /// <returns>Script for this object</returns>
         public override string ToString()
         {
             return String.Format("cube(size = [{0}, {1}, {2}], center = {3});", 
                 this.Size.X.ToString(), this.Size.Y.ToString(), this.Size.Z.ToString(), this.Center.ToString().ToLower()); ;
         }
 
+        /// <summary>
+        /// Gets a copy of this object that is a new instance
+        /// </summary>
+        /// <returns></returns>
         public override OSCADObject Clone()
         {
             return new Cube()
@@ -77,6 +85,11 @@ namespace OSCADSharp.Solids
             };
         }
 
+        /// <summary>
+        /// Gets the position of this object's center (origin) in
+        /// world space
+        /// </summary>
+        /// <returns></returns>
         public override Vector3 Position()
         {
             Vector3 position;

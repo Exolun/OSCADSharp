@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace OSCADSharp
 {
+    /// <summary>
+    /// Represents any Object or collection of objects that becomes am
+    /// an OpenSCAD script when converted to a string.
+    /// </summary>
     public abstract class OSCADObject
     {
         #region Transforms
@@ -137,7 +141,7 @@ namespace OSCADSharp
         /// <summary>
         /// Creates a minkowski sum of child nodes (including this object)
         /// </summary>
-        /// <param name="nodes">Nodes to sum with</param>
+        /// <param name="objects">Nodes to sum with</param>
         /// <returns>A minkowski sum</returns>
         public OSCADObject Minkowski(params OSCADObject[] objects)
         {
@@ -147,7 +151,7 @@ namespace OSCADSharp
         /// <summary>
         /// Creates a conved hull from child nodes (including this object)
         /// </summary>
-        /// <param name="nodes">Nodes to hull</param>
+        /// <param name="objects">Nodes to hull</param>
         /// <returns>Hull of nodes</returns>
         public OSCADObject Hull(params OSCADObject[] objects)
         {
@@ -235,8 +239,11 @@ namespace OSCADSharp
             return this.ToString() == other.ToString();
         }
 
-
+        /// <summary>
+        /// Internal collection of children for this object
+        /// </summary>
         protected List<OSCADObject> children = new List<OSCADObject>();
+
         /// <summary>
         /// Returns all children of this OSCADObject
         /// </summary>

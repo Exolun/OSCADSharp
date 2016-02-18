@@ -107,6 +107,7 @@ namespace OSCADSharp.Solids
         /// Creates a cylinder with the specified diameter and centering
         /// </summary>
         /// <param name="diameter">Diameter of the cylinder</param>
+        /// <param name="height">Height of the cylinder</param>
         /// <param name="center">Determines whether the cylinder should be centered on the z-axis, if false the base will start on the Z axis</param>
         public Cylinder(double diameter = 2, double height = 1, bool center = false)
         {
@@ -117,6 +118,11 @@ namespace OSCADSharp.Solids
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Converts this object to an OpenSCAD script
+        /// </summary>
+        /// <returns>Script for this object</returns>
         public override string ToString()
         {
             return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6});", 
@@ -124,6 +130,10 @@ namespace OSCADSharp.Solids
                 Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower());
         }
 
+        /// <summary>
+        /// Gets a copy of this object that is a new instance
+        /// </summary>
+        /// <returns></returns>
         public override OSCADObject Clone()
         {
             return new Cylinder()
@@ -138,6 +148,11 @@ namespace OSCADSharp.Solids
             };
         }
 
+        /// <summary>
+        /// Gets the position of this object's center (origin) in
+        /// world space
+        /// </summary>
+        /// <returns></returns>
         public override Vector3 Position()
         {
             Vector3 position;

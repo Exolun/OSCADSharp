@@ -63,6 +63,10 @@ namespace OSCADSharp.Solids
         #endregion
 
         #region Overrides
+        /// <summary>
+        /// Converts this object to an OpenSCAD script
+        /// </summary>
+        /// <returns>Script for this object</returns>
         public override string ToString()
         {
             return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});", 
@@ -70,6 +74,10 @@ namespace OSCADSharp.Solids
                 this.MinimumFragmentSize.ToString(), this.Radius.ToString());
         }
 
+        /// <summary>
+        /// Gets a copy of this object that is a new instance
+        /// </summary>
+        /// <returns></returns>
         public override OSCADObject Clone()
         {
             return new Sphere()
@@ -81,6 +89,11 @@ namespace OSCADSharp.Solids
             };
         }
 
+        /// <summary>
+        /// Gets the position of this object's center (origin) in
+        /// world space
+        /// </summary>
+        /// <returns></returns>
         public override Vector3 Position()
         {
             return new Vector3();
