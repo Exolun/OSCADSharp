@@ -52,19 +52,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CubeTests.cs" />
-    <Compile Include="CylinderTests.cs" />
-    <Compile Include="HullTests.cs" />
+    <Compile Include="Solids\CubeTests.cs" />
+    <Compile Include="Solids\CylinderTests.cs" />
+    <Compile Include="Transforms\HullTests.cs" />
     <Compile Include="InterpolationTests.cs" />
-    <Compile Include="MirrorTests.cs" />
+    <Compile Include="Transforms\MirrorTests.cs" />
     <Compile Include="OSCADObjectTests.cs" />
-    <Compile Include="SphereTests.cs" />
+    <Compile Include="Solids\SphereTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Text3DTests.cs" />
-    <Compile Include="UnionTests.cs" />
-    <Compile Include="DifferenceTests.cs" />
-    <Compile Include="IntersectionTests.cs" />
-    <Compile Include="MinkowskiTests.cs" />
+    <Compile Include="Solids\Text3DTests.cs" />
+    <Compile Include="Booleans\UnionTests.cs" />
+    <Compile Include="Booleans\DifferenceTests.cs" />
+    <Compile Include="Booleans\IntersectionTests.cs" />
+    <Compile Include="Transforms\MinkowskiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSCADSharp\OSCADSharp.csproj">
