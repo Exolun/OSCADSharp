@@ -14,6 +14,16 @@ namespace OSCADSharp
     /// </summary>
     public abstract class OSCADObject
     {
+        #region Fields
+        private uint id = Ids.Get();
+
+        /// <summary>
+        /// The unique Id of the object
+        /// these values auto-increment
+        /// </summary>
+        public uint Id { get { return this.id; } }
+        #endregion
+
         #region Transforms
         /// <summary>
         /// Applies Color and/or Opacity to this object

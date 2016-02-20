@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Solids;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,6 +79,46 @@ namespace OSCADSharp.UnitTests
 
             Assert.IsFalse(sphere.GetType() == cube.GetType());
             Assert.AreEqual(0, sphere.Children().Count());
+        }
+
+        [TestMethod]
+        public void OSCADObject_IdsAreSequentialAndDistinct()
+        {
+            var obj1 = new Sphere();
+            var obj2 = new Cube();
+            var obj3 = new Sphere();
+           
+
+            Assert.IsTrue(obj1.Id < obj2.Id && obj2.Id < obj3.Id);
+
+            Assert.IsTrue(obj1.Id + 1 == obj2.Id);
+            Assert.IsTrue(obj2.Id + 1 == obj3.Id);
+        }
+
+        [TestMethod]
+        public void OSCADObject_ParallelObjectCreationDoesNotYieldDuplicateIds()
+        {
+            ConcurrentBag<OSCADObject> bag = new ConcurrentBag<OSCADObject>();
+
+            Parallel.For(0, 1000, (i) => {
+                bag.Add(new Sphere());
+            });
+
+            var ids = bag.Select(obj => obj.Id).ToList();
+            Assert.AreEqual(ids.Count, ids.Distinct().Count());
+        }
+
+        [TestMethod]
+        public void OSCADObject_EachOscadObjectChildHasDistinctId()
+        {
+            var obj = new Cube(5, 5, 10, true)
+                .Translate(0, 5, 10).Rotate(0, 90, 0)
+                .Translate(0, 0, 10).Scale(1, 1, 2);
+
+            List<uint> ids = obj.Children().Select(child => child.Id).ToList();
+            ids.Add(obj.Id);
+
+            Assert.AreEqual(ids.Count, ids.Distinct().Count());
         }
     }
 }
