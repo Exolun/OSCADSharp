@@ -13,7 +13,8 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var obj = new Cube() + new Sphere() + new Sphere().Translate(2, 2, 2) - new Cylinder(2, 5) + new Text3D("Hey hey!");
+            var obj = new Cube(5, 5, 20)
+                .Translate(30, 0, 0).Rotate(0, 90, 0).Scale(2, 2, 2);
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
