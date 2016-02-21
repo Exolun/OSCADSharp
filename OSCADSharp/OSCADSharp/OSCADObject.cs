@@ -3,6 +3,7 @@ using OSCADSharp.Spatial;
 using OSCADSharp.Transforms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -313,6 +314,21 @@ namespace OSCADSharp
             return finalObject;
         }
 
+        /// <summary>
+        /// Writes the script for this OSCADObject to the file specified
+        /// </summary>
+        /// <param name="filePath">Path for the file to write.  Including filename and (optionally) file extension</param>
+        public void ToFile(string filePath)
+        {
+            string path = filePath;
+
+            if (!path.EndsWith(".scad"))
+            {
+                path += ".scad";
+            }
+
+            File.WriteAllLines(path, new string[] { this.ToString() });
+        }
         #endregion
 
         #region Operators
