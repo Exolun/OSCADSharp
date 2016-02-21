@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Booleans;
+using OSCADSharp.Spatial;
 using OSCADSharp.Transforms;
 using System;
 using System.Collections.Generic;
@@ -226,7 +227,13 @@ namespace OSCADSharp
         /// of the position.
         /// </summary>
         /// <returns></returns>
-        public abstract Vector3 Position();        
+        public abstract Vector3 Position();
+
+        /// <summary>
+        /// Returns the approximate boundaries of this OpenSCAD object
+        /// </summary>
+        /// <returns></returns>
+        public abstract Bounds Bounds();
 
         /// <summary>
         /// Creates a copy of this object and all of its children

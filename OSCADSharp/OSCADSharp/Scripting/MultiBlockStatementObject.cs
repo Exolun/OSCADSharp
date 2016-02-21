@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSCADSharp.Spatial;
 
 namespace OSCADSharp.Scripting
 {
@@ -48,6 +49,11 @@ namespace OSCADSharp.Scripting
         {
             var positions = this.children.Select(child => child.Position());
             return Vector3.Average(positions.ToArray());
+        }
+
+        public override Bounds Bounds()
+        {
+            throw new NotImplementedException();
         }
     }
 }

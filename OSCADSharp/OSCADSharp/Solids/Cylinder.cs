@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSCADSharp.Spatial;
 
 namespace OSCADSharp.Solids
 {
@@ -118,7 +119,6 @@ namespace OSCADSharp.Solids
         #endregion
 
         #region Overrides
-
         /// <summary>
         /// Converts this object to an OpenSCAD script
         /// </summary>
@@ -166,6 +166,15 @@ namespace OSCADSharp.Solids
             }
 
             return position;
+        }
+
+        /// <summary>
+        /// Returns the approximate boundaries of this OpenSCAD object
+        /// </summary>
+        /// <returns></returns>
+        public override Bounds Bounds()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

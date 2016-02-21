@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSCADSharp.Spatial;
 
 namespace OSCADSharp.Transforms
 {
@@ -51,6 +52,11 @@ namespace OSCADSharp.Transforms
         public override Vector3 Position()
         {
             throw new NotSupportedException();
+        }
+
+        public override Bounds Bounds()
+        {
+            throw new NotImplementedException();
         }
     }
 }

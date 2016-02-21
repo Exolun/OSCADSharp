@@ -74,5 +74,10 @@ namespace OSCADSharp.Transforms
             return (this.Normal.X != 0 && (this.Normal.Y != 0 || this.Normal.Z != 0)) ||
                 (this.Normal.Y != 0 && (this.Normal.X != 0 || this.Normal.Z != 0));
         }
+
+        public override Bounds Bounds()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
