@@ -13,8 +13,7 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var obj = new Cube(5, 5, 20)
-                .Translate(30, 0, 0).Rotate(0, 90, 0).Scale(2, 2, 2);
+            var obj = new Text3D("BBBB", 16);
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
@@ -22,7 +21,10 @@ namespace OSCADSharp.ConsoleTests
             var cyl3 = new Cylinder(1, 100, true).Rotate(90, 0, 0).Translate(pos);
             var axisHelper = cyl1.Union(cyl2, cyl3).Color("Red");
 
-            string script = obj.Union(axisHelper).ToString();
+            var topCorner = new Sphere().Translate(obj.Bounds().TopRight);
+            var botCorner = new Sphere().Translate(obj.Bounds().BottomLeft);
+
+            string script = (obj + topCorner + botCorner).ToString();
 
             File.WriteAllLines("test.scad", new string[] { script.ToString() });
             //Console.ReadKey();

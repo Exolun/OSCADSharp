@@ -39,5 +39,23 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(), cylinder.Position());
         }
+
+        [TestMethod]
+        public void Cylinder_BoundsAreInExpectedPositionNotCentered()
+        {
+            var obj = new Cylinder(5, 20);
+
+            Assert.AreEqual(new Vector3(2.5, 2.5, 20), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(-2.5, -2.5, 0), obj.Bounds().BottomLeft);
+        }
+
+        [TestMethod]
+        public void Cylinder_BoundsAreInExpectedPositionCentered()
+        {
+            var obj = new Cylinder(5, 20, true);
+
+            Assert.AreEqual(new Vector3(2.5, 2.5, 10), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(-2.5, -2.5, -10), obj.Bounds().BottomLeft);
+        }
     }
 }

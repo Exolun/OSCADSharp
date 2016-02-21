@@ -77,5 +77,14 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(), sphere.Position());
         }
+
+        [TestMethod]
+        public void Sphere_BoundsAreInExpectedPositionCentered()
+        {
+            var obj = new Sphere(30);
+
+            Assert.AreEqual(new Vector3(15, 15, 15), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(-15, -15, -15), obj.Bounds().BottomLeft);
+        }
     }
 }

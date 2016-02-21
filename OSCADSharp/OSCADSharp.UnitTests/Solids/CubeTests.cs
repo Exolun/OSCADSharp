@@ -85,5 +85,23 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(-5, 0, -15), cube.Position());
         }
+
+        [TestMethod]
+        public void Cube_BoundsAreInExpectedPositionNotCentered()
+        {
+            var obj = new Cube(5, 5, 20, false);
+
+            Assert.AreEqual(new Vector3(5, 5, 20), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(), obj.Bounds().BottomLeft);
+        }
+
+        [TestMethod]
+        public void Cube_BoundsAreInExpectedPositionCentered()
+        {
+            var obj = new Cube(5, 5, 20, true);
+
+            Assert.AreEqual(new Vector3(2.5, 2.5, 10), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(-2.5, -2.5, -10), obj.Bounds().BottomLeft);
+        }
     }
 }

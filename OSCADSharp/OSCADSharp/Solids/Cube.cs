@@ -113,7 +113,15 @@ namespace OSCADSharp.Solids
         /// <returns></returns>
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            if(Center == false)
+            {
+                return new Bounds(new Vector3(), new Vector3(this.Size.X, this.Size.Y, this.Size.Z));
+            }
+            else
+            {
+                return new Bounds(new Vector3(-this.Size.X / 2, -this.Size.Y / 2, -this.Size.Z / 2), 
+                                  new Vector3(this.Size.X / 2, this.Size.Y / 2, this.Size.Z / 2));
+            }
         }
         #endregion
     }

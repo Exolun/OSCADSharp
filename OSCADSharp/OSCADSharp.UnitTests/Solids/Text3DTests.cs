@@ -18,5 +18,14 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(), text.Position());
         }
+
+        [TestMethod]
+        public void Text_BoundsBasedOnFontSize()
+        {
+            var obj = new Text3D("BBBB", 16);
+
+            Assert.AreEqual(new Vector3(32, 8, 0.5), obj.Bounds().TopRight);
+            Assert.AreEqual(new Vector3(-32, -8, -0.5), obj.Bounds().BottomLeft);
+        }
     }
 }
