@@ -40,5 +40,24 @@ namespace OSCADSharp.UnitTests
 
             var pos = cube.Mirror(1, 1, 0).Position();
         }
+
+        [TestMethod]
+        public void Mirror_SingleAxisMirrorInvertsBounds()
+        {
+            OSCADObject cube = new Cube(5, 10, 20);
+            var boundsBefore = cube.Bounds();
+            cube = cube.Mirror(0, 1, 0);
+
+            Assert.AreEqual(cube.Bounds().Y_Max, boundsBefore.Y_Min);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void Mirror_MultiAxisBoundsThrowsNotSupportedException()
+        {
+            var cube = new Cube(5, 10, 20);
+
+            var pos = cube.Mirror(1, 1, 0).Bounds();
+        }
     }
 }

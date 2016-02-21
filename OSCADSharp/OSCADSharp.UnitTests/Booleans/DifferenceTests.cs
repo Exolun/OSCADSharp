@@ -26,6 +26,15 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
+        public void Difference_BoundsYieldsBoundsOfFirstChild()
+        {
+            var sphere = new Sphere().Translate(.25, .25, 1);
+            var diff = sphere.Difference(new Cube());
+
+            Assert.AreEqual(sphere.Bounds(), diff.Bounds());
+        }
+
+        [TestMethod]
         public void Difference_MinusOperatorCreatesDifferenceObject()
         {
             var obj = new Cube() - new Sphere();

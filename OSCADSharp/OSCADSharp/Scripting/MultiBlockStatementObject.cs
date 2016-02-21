@@ -53,7 +53,40 @@ namespace OSCADSharp.Scripting
 
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            var newBottomLeft = new Vector3();
+            var newTopRight = new Vector3();
+
+            foreach (var child in this.children)
+            {
+                var bounds = child.Bounds();
+                if (bounds.X_Min < newBottomLeft.X)
+                {
+                    newBottomLeft.X = bounds.X_Min;
+                }
+                if (bounds.Y_Min < newBottomLeft.Y)
+                {
+                    newBottomLeft.Y = bounds.Y_Min;
+                }
+                if (bounds.Z_Min < newBottomLeft.Z)
+                {
+                    newBottomLeft.Z = bounds.Z_Min;
+                }
+
+                if (bounds.X_Max > newTopRight.X)
+                {
+                    newTopRight.X = bounds.X_Max;
+                }
+                if (bounds.Y_Max> newTopRight.Y)
+                {
+                    newTopRight.Y = bounds.Y_Max;
+                }
+                if (bounds.Z_Max > newTopRight.Z)
+                {
+                    newTopRight.Z = bounds.Z_Max;
+                }
+            }
+
+            return new Bounds(newBottomLeft, newTopRight);
         }
     }
 }

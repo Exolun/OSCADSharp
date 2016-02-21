@@ -59,7 +59,7 @@ namespace OSCADSharp.Transforms
 
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            return this.obj.Bounds();
         }
     }
 }

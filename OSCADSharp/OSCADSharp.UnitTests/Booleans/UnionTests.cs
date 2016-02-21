@@ -68,5 +68,21 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(0, unionChildrenCount);
         }
+
+        [TestMethod]
+        public void Union_BoundsForUnionedObjectsBecomeExtremitiesOfBoth()
+        {
+            var obj = new Cube(5, 10, 20) + new Sphere(10).Translate(-10, 5, 0);
+
+            var bounds = obj.Bounds();
+
+            Assert.AreEqual(20, bounds.Z_Max);
+            Assert.AreEqual(10, bounds.Y_Max);
+            Assert.AreEqual(5, bounds.X_Max);
+
+            Assert.AreEqual(-5, bounds.Z_Min);
+            Assert.AreEqual(0, bounds.Y_Min);
+            Assert.AreEqual(-15, bounds.X_Min);
+        }
     }
 }

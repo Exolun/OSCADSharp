@@ -57,7 +57,8 @@ namespace OSCADSharp.Transforms
 
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            var oldBounds = obj.Bounds();
+            return new Bounds(oldBounds.BottomLeft * this.ScaleFactor, oldBounds.TopRight * this.ScaleFactor);
         }
     }
 }

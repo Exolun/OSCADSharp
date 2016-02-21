@@ -18,5 +18,15 @@ namespace OSCADSharp.UnitTests.Transforms
             var pos = new Cube(5, 5, 20)
                 .Translate(30, 0, 0).Rotate(0, 90, 0).Resize(2, 2, 2).Position();
         }
+
+        [TestMethod]
+        public void Resize_ResizeScalesBoundariesToFit()
+        {
+            var obj = new Cube(20, 20, 10).Resize(5, 5, 5);
+
+            var bounds = obj.Bounds();
+            Assert.AreEqual(new Vector3(5, 5, 5), bounds.TopRight);
+            Assert.AreEqual(new Vector3(0, 0, 0), bounds.BottomLeft);
+        }
     }
 }

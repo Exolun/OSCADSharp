@@ -57,7 +57,14 @@ namespace OSCADSharp.Transforms
 
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            var oldBounds = obj.Bounds();            
+
+            double xScaleFactor =  this.Size.X > 0 ? this.Size.X / Math.Abs(oldBounds.X_Max - oldBounds.X_Min) : 1;
+            double yScaleFactor = this.Size.Y > 0 ? this.Size.Y / Math.Abs(oldBounds.Y_Max - oldBounds.Y_Min) : 1;
+            double zScaleFactor = this.Size.Z > 0 ? this.Size.Z / Math.Abs(oldBounds.Z_Max - oldBounds.Z_Min) : 1;
+            Vector3 scaleMultiplier = new Vector3(xScaleFactor, yScaleFactor, zScaleFactor);
+
+            return new Bounds(oldBounds.BottomLeft * scaleMultiplier, oldBounds.TopRight * scaleMultiplier);            
         }
     }
 }

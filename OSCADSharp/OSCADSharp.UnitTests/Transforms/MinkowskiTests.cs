@@ -11,9 +11,17 @@ namespace OSCADSharp.UnitTests
         [ExpectedException(typeof(NotSupportedException))]
         public void Minkowski_PositionThrowsNotSupportedException()
         {
-            var obj = new Cylinder().Intersection(new Sphere()).Translate(0, 5, 5);
+            var obj = new Cylinder().Minkowski(new Sphere()).Translate(0, 5, 5);
 
             var pos = obj.Position();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void Minkowski_BoundsThrowsNotSupportedException()
+        {
+            var obj = new Cylinder().Minkowski(new Sphere()).Translate(0, 5, 5);
+            obj.Bounds();
         }
     }
 }

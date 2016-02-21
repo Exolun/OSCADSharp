@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSCADSharp.Spatial;
 
 namespace OSCADSharp.Booleans
 {
@@ -23,6 +24,11 @@ namespace OSCADSharp.Booleans
         public override Vector3 Position()
         {
             return children[0].Position();
+        }
+
+        public override Bounds Bounds()
+        {
+            return children[0].Bounds();
         }
     }
 }

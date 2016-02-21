@@ -64,5 +64,25 @@ namespace OSCADSharp.Spatial
         /// </summary>
         public double Z_Min { get { return TopRight.Z < BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
         #endregion
+
+        /// <summary>
+        /// Compares a set of bounds to another object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return obj.GetHashCode() == this.GetHashCode();
+        }
+
+        /// <summary>
+        /// Gets a hashcode based on the string representation of the vectors
+        /// that make up this set of bounds
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return String.Format("TR: {0}, BL: {1}", this.TopRight.ToString(), this.BottomLeft.ToString()).GetHashCode();
+        }
     }
 }

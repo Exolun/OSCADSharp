@@ -75,9 +75,25 @@ namespace OSCADSharp.Transforms
                 (this.Normal.Y != 0 && (this.Normal.X != 0 || this.Normal.Z != 0));
         }
 
+        // TODO:  As with Position, will yield incorrect positions if mirroring on multiple axes
+        // fix mirrored positions for multiple-axis mirroring
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            if (this.isMoreThanOneAxis())
+            {
+                throw new NotSupportedException("Getting the position of an object that's been mirrored on more than one axis is not currently supported.");
+            }
+
+            var oldBounds = this.obj.Bounds();
+            var newBottomLeft = new Vector3(this.Normal.X != 0 ? oldBounds.BottomLeft.X * -1 : oldBounds.BottomLeft.X,
+                                            this.Normal.Y != 0 ? oldBounds.BottomLeft.Y * -1 : oldBounds.BottomLeft.Y,
+                                            this.Normal.Z != 0 ? oldBounds.BottomLeft.Z * -1 : oldBounds.BottomLeft.Z);
+
+            var newTopRight = new Vector3(this.Normal.X != 0 ? oldBounds.TopRight.X * -1 : oldBounds.TopRight.X,
+                                          this.Normal.Y != 0 ? oldBounds.TopRight.Y * -1 : oldBounds.TopRight.Y,
+                                          this.Normal.Z != 0 ? oldBounds.TopRight.Z * -1 : oldBounds.TopRight.Z);
+
+            return new Bounds(newBottomLeft, newTopRight);
         }
     }
 }

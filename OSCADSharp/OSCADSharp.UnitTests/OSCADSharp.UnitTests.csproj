@@ -67,6 +67,7 @@
     <Compile Include="Transforms\MinkowskiTests.cs" />
     <Compile Include="Transforms\ResizeTests.cs" />
     <Compile Include="Transforms\ScaleTests.cs" />
+    <Compile Include="Transforms\TranslateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSCADSharp\OSCADSharp.csproj">

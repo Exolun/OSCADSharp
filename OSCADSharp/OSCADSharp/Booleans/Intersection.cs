@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Scripting;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace OSCADSharp.Booleans
         public override Vector3 Position()
         {
             throw new NotSupportedException("Position is not supported on Intersected objects.");
+        }
+
+        public override Bounds Bounds()
+        {
+            throw new NotSupportedException("Bounds is not supported on Intersected objects.");
         }
     }
 }

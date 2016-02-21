@@ -57,7 +57,9 @@ namespace OSCADSharp.Transforms
 
         public override Bounds Bounds()
         {
-            throw new NotImplementedException();
+            var oldBounds = obj.Bounds();
+            return new Bounds(Matrix.GetRotatedPoint(oldBounds.BottomLeft, this.Angle.X, this.Angle.Y, this.Angle.Z),
+                              Matrix.GetRotatedPoint(oldBounds.TopRight, this.Angle.X, this.Angle.Y, this.Angle.Z));
         }
     }
 }
