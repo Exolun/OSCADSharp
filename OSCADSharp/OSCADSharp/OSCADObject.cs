@@ -316,6 +316,8 @@ namespace OSCADSharp
 
         /// <summary>
         /// Writes the script for this OSCADObject to the file specified
+        /// 
+        /// (This is just a shortcut for File.WriteAllLines)
         /// </summary>
         /// <param name="filePath">Path for the file to write.  Including filename and (optionally) file extension</param>
         public void ToFile(string filePath)

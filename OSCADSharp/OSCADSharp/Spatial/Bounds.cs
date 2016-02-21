@@ -63,8 +63,24 @@ namespace OSCADSharp.Spatial
         /// Z position with the smallest value
         /// </summary>
         public double Z_Min { get { return TopRight.Z < BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
+
+        /// <summary>
+        /// Size on the X axis
+        /// </summary>
+        public double Length { get { return this.X_Max - this.X_Min; } }
+
+        /// <summary>
+        /// Size on the Y axis
+        /// </summary>
+        public double Width { get { return this.Y_Max - this.Y_Min; } }
+
+        /// <summary>
+        /// Size on the Z axis
+        /// </summary>
+        public double Height { get { return this.Z_Max - this.Z_Min; } }
         #endregion
 
+        #region Overrides
         /// <summary>
         /// Compares a set of bounds to another object
         /// </summary>
@@ -84,5 +100,6 @@ namespace OSCADSharp.Spatial
         {
             return String.Format("TR: {0}, BL: {1}", this.TopRight.ToString(), this.BottomLeft.ToString()).GetHashCode();
         }
+        #endregion
     }
 }
