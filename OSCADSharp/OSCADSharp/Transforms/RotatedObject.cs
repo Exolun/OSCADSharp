@@ -42,7 +42,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new RotatedObject(this.obj.Clone(), this.Angle);
+            return new RotatedObject(this.obj.Clone(), this.Angle)
+            {
+                Name = this.Name
+            };
         }
 
         public OSCADObject MimicObject(OSCADObject obj)

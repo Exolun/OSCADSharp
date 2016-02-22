@@ -42,7 +42,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new ResizedObject(this.obj.Clone(), this.Size);
+            return new ResizedObject(this.obj.Clone(), this.Size)
+            {
+                Name = this.Name
+            };
         }
 
         public OSCADObject MimicObject(OSCADObject obj)

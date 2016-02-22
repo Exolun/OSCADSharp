@@ -44,7 +44,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new ColoredObject(this.obj.Clone(), this.ColorName, this.Opacity);
+            return new ColoredObject(this.obj.Clone(), this.ColorName, this.Opacity)
+            {
+                Name = this.Name
+            };
         }
 
         public OSCADObject MimicObject(OSCADObject obj)

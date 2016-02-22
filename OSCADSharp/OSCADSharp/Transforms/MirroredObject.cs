@@ -43,7 +43,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new MirroredObject(this.obj.Clone(), this.Normal);
+            return new MirroredObject(this.obj.Clone(), this.Normal)
+            {
+                Name = this.Name
+            };
         }
 
         public OSCADObject MimicObject(OSCADObject obj)

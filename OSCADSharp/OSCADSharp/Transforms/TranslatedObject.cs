@@ -39,7 +39,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new TranslatedObject(this.obj.Clone(), this.Vector);
+            return new TranslatedObject(this.obj.Clone(), this.Vector)
+            {
+                Name = this.Name
+            };
         }
 
         public OSCADObject MimicObject(OSCADObject obj)

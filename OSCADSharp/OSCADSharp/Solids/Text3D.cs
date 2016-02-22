@@ -80,6 +80,7 @@ namespace OSCADSharp.Solids
         {
             return new Text3D()
             {
+                Name = this.Name,
                 Text = this.Text,
                 Size = this.Size,
                 Font = this.Font,

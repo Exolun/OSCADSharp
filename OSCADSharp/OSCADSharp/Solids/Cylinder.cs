@@ -138,6 +138,7 @@ namespace OSCADSharp.Solids
         {
             return new Cylinder()
             {
+                Name = this.Name,
                 Height = this.Height,
                 Radius1 = this.Radius1,
                 Radius2 = this.Radius2,

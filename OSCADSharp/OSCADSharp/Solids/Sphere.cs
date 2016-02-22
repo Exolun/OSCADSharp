@@ -83,6 +83,7 @@ namespace OSCADSharp.Solids
         {
             return new Sphere()
             {
+                Name = this.Name,
                 Resolution = this.Resolution,
                 MinimumAngle = this.MinimumAngle,
                 MinimumFragmentSize = this.MinimumFragmentSize,

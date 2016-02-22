@@ -42,7 +42,10 @@ namespace OSCADSharp.Scripting
                 childClones.Add(child.Clone());
             }
 
-            return new MultiBlockStatementObject(this.outerStatement, childClones);
+            return new MultiBlockStatementObject(this.outerStatement, childClones)
+            {
+                Name = this.Name
+            };
         }
 
         public override Vector3 Position()

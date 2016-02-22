@@ -39,7 +39,10 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new LinearExtrudedObject(this.obj.Clone(), this.Height);
+            return new LinearExtrudedObject(this.obj.Clone(), this.Height)
+            {
+                Name = this.Name
+            };
         }
 
         public override string ToString()

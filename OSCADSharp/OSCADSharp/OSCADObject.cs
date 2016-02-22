@@ -16,7 +16,7 @@ namespace OSCADSharp
     /// </summary>
     public abstract class OSCADObject
     {
-        #region Fields
+        #region Attributes
         private uint id = Ids.Get();
 
         /// <summary>
@@ -24,6 +24,11 @@ namespace OSCADSharp
         /// these values auto-increment
         /// </summary>
         public uint Id { get { return this.id; } }
+
+        /// <summary>
+        /// Name of this OSCADObject
+        /// </summary>
+        public string Name { get; set; } = null;
         #endregion
 
         #region Transforms
@@ -286,6 +291,16 @@ namespace OSCADSharp
             }
 
             return allChildren;
+        }
+
+        /// <summary>
+        /// Retrieves children that match the filtering predicate
+        /// </summary>
+        /// <param name="predicate">An expression like Linq's .Where() clause</param>
+        /// <returns></returns>
+        public IEnumerable<OSCADObject> Children(Func<OSCADObject, bool> predicate)
+        {
+            return this.Children().Where(predicate);
         }
 
         /// <summary>
