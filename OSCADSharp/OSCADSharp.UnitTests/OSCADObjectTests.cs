@@ -43,44 +43,7 @@ namespace OSCADSharp.UnitTests
             //But the child should be a different instance
             Assert.IsFalse(clone.Children().FirstOrDefault() == text.Children().FirstOrDefault());
         }
-
-        [TestMethod]
-        public void OSCADObject_MimickedObjectHasSameTransform()
-        {
-            var cube = new Cube(null, true).Translate(10, 0, 5);
-            var sphere = new Sphere().Mimic(cube);
-
-            Assert.IsTrue(sphere.GetType() == cube.GetType());
-            Assert.IsTrue(cube.ToString().StartsWith("translate("));
-            Assert.IsTrue(sphere.ToString().StartsWith("translate("));
-        }
-
-        [TestMethod]
-        public void OSCADObject_MimicTakesMultipleTransformsFromObject()
-        {
-            var cube = new Cube(null, true)
-                .Translate(10, 0, 5).Rotate(0, 30, 0).Scale(1, 1.5, 1);
-            var sphere = new Sphere().Mimic(cube);
-
-
-            Assert.IsTrue(sphere.GetType() == cube.GetType());
-            var mimicedChildren = sphere.Children();
-
-            Assert.IsTrue(mimicedChildren.ElementAt(0).ToString().StartsWith("rotate("));
-            Assert.IsTrue(mimicedChildren.ElementAt(1).ToString().StartsWith("translate("));
-            Assert.IsTrue(mimicedChildren.ElementAt(2).ToString().StartsWith("sphere("));
-        }
-
-        [TestMethod]
-        public void OSCADObject_MimicDoesNothingOnObjectWithNoTransforms()
-        {
-            var cube = new Cube(null, true);
-            var sphere = new Sphere().Mimic(cube);
-
-            Assert.IsFalse(sphere.GetType() == cube.GetType());
-            Assert.AreEqual(0, sphere.Children().Count());
-        }
-
+        
         [TestMethod]
         public void OSCADObject_IdsAreSequentialAndDistinct()
         {

@@ -302,33 +302,7 @@ namespace OSCADSharp
         {
             return this.Children().Where(predicate);
         }
-
-        /// <summary>
-        /// Copies the transforms that have been applied to another OSCADObject, and applies
-        /// the same transforms to this object. (Only pure transforms, like Translate, Rotate, Scale, Color)
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public OSCADObject Mimic(OSCADObject other)
-        {
-            OSCADObject finalObject = this;
-
-            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>();
-            toTraverse.Push(other);
-            other.Children().ToList().ForEach(child => toTraverse.Push(child));            
-
-            while(toTraverse.Count > 0)
-            {
-                var current = toTraverse.Pop() as IMimic;     
-                if(current != null)
-                {
-                    finalObject = current.MimicObject(finalObject);                
-                }
-            }
-
-            return finalObject;
-        }
-
+        
         /// <summary>
         /// Writes the script for this OSCADObject to the file specified
         /// 

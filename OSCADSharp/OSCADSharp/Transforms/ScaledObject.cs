@@ -11,7 +11,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been rescaled
     /// </summary>
-    internal class ScaledObject : OSCADObject, IMimic
+    internal class ScaledObject : OSCADObject
     {
         /// <summary>
         /// The scale factor to be applied
@@ -47,12 +47,7 @@ namespace OSCADSharp.Transforms
                 Name = this.Name
             };
         }
-
-        public OSCADObject MimicObject(OSCADObject obj)
-        {
-            return new ScaledObject(obj, this.ScaleFactor);
-        }
-
+        
         public override Vector3 Position()
         {
             return obj.Position() * this.ScaleFactor;

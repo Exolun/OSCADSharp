@@ -11,7 +11,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's mirrored on a plane
     /// </summary>
-    internal class MirroredObject : OSCADObject, IMimic
+    internal class MirroredObject : OSCADObject
     {
         /// <summary>
         /// The normal vector of a plane intersecting the origin of the object,
@@ -47,11 +47,6 @@ namespace OSCADSharp.Transforms
             {
                 Name = this.Name
             };
-        }
-
-        public OSCADObject MimicObject(OSCADObject obj)
-        {
-            return new MirroredObject(obj, this.Normal);
         }
 
         // TODO:  This will yield incorrect positions if mirroring on multiple axes

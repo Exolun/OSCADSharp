@@ -11,7 +11,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that has color and/or opacity applied to it
     /// </summary>
-    internal class ColoredObject : OSCADObject, IMimic
+    internal class ColoredObject : OSCADObject
     {
         #region Attributes
         internal string ColorName { get; set; } = "Yellow";
@@ -49,12 +49,7 @@ namespace OSCADSharp.Transforms
                 Name = this.Name
             };
         }
-
-        public OSCADObject MimicObject(OSCADObject obj)
-        {
-            return new ColoredObject(obj, this.ColorName, this.Opacity);
-        }
-
+        
         public override Vector3 Position()
         {
             return this.obj.Position();

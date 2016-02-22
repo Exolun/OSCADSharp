@@ -11,7 +11,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object with rotation applied
     /// </summary>
-    internal class RotatedObject : OSCADObject, IMimic
+    internal class RotatedObject : OSCADObject
     {
         /// <summary>
         /// The angle to rotate, in terms of X/Y/Z euler angles
@@ -47,12 +47,7 @@ namespace OSCADSharp.Transforms
                 Name = this.Name
             };
         }
-
-        public OSCADObject MimicObject(OSCADObject obj)
-        {
-            return new RotatedObject(obj, this.Angle);
-        }
-
+        
         public override Vector3 Position()
         {
             return Matrix.GetRotatedPoint(this.obj.Position(), this.Angle.X, this.Angle.Y, this.Angle.Z);
