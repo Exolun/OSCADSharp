@@ -120,5 +120,44 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(ids.Count, ids.Distinct().Count());
         }
+
+        [TestMethod]
+        public void OSCADObject_ClonedObjectsRetainTheirNamesAfterBasicTransforms()
+        {
+            var obj = new Cube() { Name = "Cube" }
+                            .Translate(1, 1, 1);
+            obj.Name = "TranslatedCube";
+            obj = obj.Rotate(0, 90, 0);
+            obj.Name = "RotatedAndTranslatedCube";
+            obj = obj.Scale(1, 1, 2);
+            obj.Name = "ScaledAndRotatedAndTranslatedCube";
+
+            var clone = obj.Clone();
+
+            Assert.AreEqual("ScaledAndRotatedAndTranslatedCube", clone.Name);
+
+            var children = clone.Children().ToList();
+            Assert.AreEqual("RotatedAndTranslatedCube", children[0].Name);
+            Assert.AreEqual("TranslatedCube", children[1].Name);
+            Assert.AreEqual("Cube", children[2].Name);
+        }
+
+        [TestMethod]
+        public void OSCADObject_ClonedObjectsRetainNamesAfterBooleanOperations()
+        {
+            //Union, Difference using operators
+            var obj = new Cube() { Name = "Cube" }
+                + new Cylinder() { Name = "Cylinder" } - new Sphere() { Name = "Sphere" };
+
+            obj = obj.Intersection(new Text3D("Heyyy") { Name="Text" });
+
+            var clone = obj.Clone();
+
+            var children = clone.Children().ToList();
+            Assert.AreEqual("Text", children[5].Name);
+            Assert.AreEqual("Cylinder", children[3].Name);
+            Assert.AreEqual("Cube", children[4].Name);
+            Assert.AreEqual("Sphere", children[1].Name);
+        }
     }
 }
