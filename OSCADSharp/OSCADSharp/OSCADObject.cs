@@ -266,13 +266,19 @@ namespace OSCADSharp
         /// Internal collection of children for this object
         /// </summary>
         protected List<OSCADObject> children = new List<OSCADObject>();
-
+        
         /// <summary>
-        /// Returns all children of this OSCADObject
+        /// Returns all chidren of this OSCADObject
         /// </summary>
+        /// <param name="recursive">If true, returns all descendants.  If false, returns only direct children.</param>
         /// <returns></returns>
-        public IEnumerable<OSCADObject> Children()
+        public IEnumerable<OSCADObject> Children(bool recursive = true)
         {
+            if(recursive == false)
+            {
+                return new List<OSCADObject>(this.children);
+            }
+
             // Initial children are reversed here because for objects with multiple children (such as boolean operations)
             // the natural collection order would yield opposite the expected order in a stack (first child would be the last popped)
             Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.children.Reverse<OSCADObject>());

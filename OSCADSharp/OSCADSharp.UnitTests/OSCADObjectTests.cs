@@ -122,5 +122,19 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual("Cube", children[4].Name);
             Assert.AreEqual("Sphere", children[1].Name);
         }
+
+        [TestMethod]
+        public void OSCADObject_ChildrenWithRecursiveFalseReturnsOnlyDirectChildren()
+        {
+            var firstLevel = new Sphere().Union(new Cube(), new Sphere(), new Cylinder());
+            firstLevel.Name = "Union";
+            var secondLevel = new Text3D() { Name = "Text" }.Difference(firstLevel);
+
+            var children = secondLevel.Children(false).ToList();
+
+            Assert.AreEqual("Text", children[0].Name);
+            Assert.AreEqual("Union", children[1].Name);
+        }
     }
 }
+
