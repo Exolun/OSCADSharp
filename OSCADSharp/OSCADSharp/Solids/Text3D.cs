@@ -107,22 +107,22 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StatementBuilder sb = new StatementBuilder();
             sb.Append("text(");
             sb.Append("\"");
             sb.Append(this.Text);
             sb.Append("\"");
 
-            appendIfValueNotNullOrEmpty("size", this.Size?.ToString(), sb);
+            sb.AppendValuePairIfExists("size", this.Size?.ToString(), true);
             // Text is always centered in OSCADSharp to ensure correctness of
             // position interpolation
-            appendIfValueNotNullOrEmpty("halign", "\"center\"", sb);
-            appendIfValueNotNullOrEmpty("valign", "\"center\"", sb);
+            sb.AppendValuePairIfExists("halign", "\"center\"", true);
+            sb.AppendValuePairIfExists("valign", "\"center\"", true);
 
-            appendIfValueNotNullOrEmpty("font", this.Font, sb);
-            appendIfValueNotNullOrEmpty("spacing", this.Spacing?.ToString(), sb);
-            appendIfValueNotNullOrEmpty("direction", this.TextDirection?.ToString(), sb);
-            appendIfValueNotNullOrEmpty("language", this.Language?.ToString(), sb);            
+            sb.AppendValuePairIfExists("font", this.Font, true);
+            sb.AppendValuePairIfExists("spacing", this.Spacing?.ToString(), true);
+            sb.AppendValuePairIfExists("direction", this.TextDirection?.ToString(), true);
+            sb.AppendValuePairIfExists("language", this.Language?.ToString(), true);            
 
             sb.Append(");");
             sb.Append(Environment.NewLine);
