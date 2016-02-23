@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ids.cs" />
+    <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Sizes.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
