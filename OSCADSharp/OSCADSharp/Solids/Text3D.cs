@@ -145,6 +145,7 @@ namespace OSCADSharp.Solids
 
         /// <summary>
         /// Returns the approximate boundaries of this OpenSCAD object
+        /// </summary>
         /// <returns></returns>
         public override Bounds Bounds()
         {

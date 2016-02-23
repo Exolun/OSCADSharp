@@ -29,7 +29,7 @@ namespace OSCADSharp.Scripting
                 }
 
                 SB.Append(name);
-                SB.Append("=");
+                SB.Append(" = ");
                 SB.Append(value);
             }
         }
