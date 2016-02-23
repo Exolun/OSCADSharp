@@ -50,7 +50,8 @@ namespace OSCADSharp.Transforms
         
         public override Vector3 Position()
         {
-            throw new NotSupportedException("Position is not supported on Resized objects.");
+            var bounds = this.Bounds();
+            return Vector3.Average(bounds.BottomLeft, bounds.TopRight);
         }
 
         public override Bounds Bounds()

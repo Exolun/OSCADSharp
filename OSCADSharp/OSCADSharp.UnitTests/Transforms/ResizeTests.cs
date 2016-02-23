@@ -12,11 +12,12 @@ namespace OSCADSharp.UnitTests.Transforms
     public class ResizeTests
     {
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
-        public void Resize_PositionNotSupportedAfterResize()
+        public void Resize_BoundaryBasedPositionAfterResizeIsInExpectedLocation()
         {
             var pos = new Cube(5, 5, 20)
                 .Translate(30, 0, 0).Rotate(0, 90, 0).Resize(2, 2, 2).Position();
+
+            Assert.AreEqual(new Vector3(1, 1, -13), pos);
         }
 
         [TestMethod]

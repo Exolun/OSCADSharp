@@ -13,7 +13,9 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var obj = new Cube(5, 10, 20) + new Sphere(10).Translate(-10, 5, 0);
+
+            var obj = new Cube(5, 5, 20)
+                .Translate(30, 0, 0).Rotate(0, 90, 0).Resize(2, 2, 2);
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
