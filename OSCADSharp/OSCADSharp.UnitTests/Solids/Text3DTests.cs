@@ -20,12 +20,10 @@ namespace OSCADSharp.UnitTests
         }
 
         [TestMethod]
-        public void Text_BoundsBasedOnFontSize()
+        [ExpectedException(typeof(NotSupportedException))]
+        public void Text_BoundsNotSupported()
         {
-            var obj = new Text3D("BBBB", 16);
-
-            Assert.AreEqual(new Vector3(32, 8, 0.5), obj.Bounds().TopRight);
-            Assert.AreEqual(new Vector3(-32, -8, -0.5), obj.Bounds().BottomLeft);
+            var obj = new Text3D("BBBB", 16).Bounds();
         }
     }
 }

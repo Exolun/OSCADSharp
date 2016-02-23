@@ -145,18 +145,10 @@ namespace OSCADSharp.Solids
 
         /// <summary>
         /// Returns the approximate boundaries of this OpenSCAD object
-        /// 
-        /// Disclaimer:  The bounds for text are particularly inaccurate, since
-        /// OSCADSharp doesn't have all font data necessary to calculate the
-        /// boundaries for all the possible fonts that could be used
-        /// </summary>
         /// <returns></returns>
         public override Bounds Bounds()
         {
-            double fontSize = this.Size ?? 8;
-            double xAmount = fontSize * this.Text.Length;
-            
-            return new Bounds(new Vector3(-xAmount/2, -fontSize/2, -.5), new Vector3(xAmount / 2, fontSize / 2, .5));
+            throw new NotSupportedException("Bounds are not supported for objects using Text3D");
         }
         #endregion
     }
