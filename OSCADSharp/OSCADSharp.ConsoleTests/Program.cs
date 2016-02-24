@@ -14,7 +14,7 @@ namespace OSCADSharp.ConsoleTests
         static void Main(string[] args)
         {
 
-            var obj = new Text3D("Whaat is thissss?");
+            var obj = new Sphere(30);
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);

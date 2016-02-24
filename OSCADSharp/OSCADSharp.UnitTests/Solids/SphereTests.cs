@@ -86,5 +86,34 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(new Vector3(15, 15, 15), obj.Bounds().TopRight);
             Assert.AreEqual(new Vector3(-15, -15, -15), obj.Bounds().BottomLeft);
         }
+
+        [TestMethod]
+        public void Sphere_ScriptOutputDoesNotContainResolutionValuesIfNotSpecified()
+        {
+            var sphere = new Sphere();
+
+            string script = sphere.ToString();
+
+            Assert.IsTrue(!script.Contains("$fn"));
+            Assert.IsTrue(!script.Contains("$fa"));
+            Assert.IsTrue(!script.Contains("$fs"));
+        }
+
+        [TestMethod]
+        public void Sphere_ScriptOutpuHasResolutionValuesIfSpecified()
+        {
+            var sphere = new Sphere()
+            {
+                Resolution = 40,
+                MinimumAngle = 5,
+                MinimumFragmentSize = 2
+            };
+
+            string script = sphere.ToString();
+
+            Assert.IsTrue(script.Contains("$fn"));
+            Assert.IsTrue(script.Contains("$fa"));
+            Assert.IsTrue(script.Contains("$fs"));
+        }
     }
 }
