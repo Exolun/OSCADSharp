@@ -328,8 +328,8 @@ namespace OSCADSharp
             {
                 path += ".scad";
             }
-
-            File.WriteAllLines(path, new string[] 
+            
+            Settings.FileWriter.WriteAllLines(path, new string[] 
             {
                 Settings.OSCADSharpHeader,
                 Settings.Globals.ToString(),

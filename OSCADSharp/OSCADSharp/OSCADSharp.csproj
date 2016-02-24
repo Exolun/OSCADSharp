@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scripting\DefaultFileWriter.cs" />
+    <Compile Include="Scripting\IFileWriter.cs" />
     <Compile Include="Ids.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Settings.cs" />

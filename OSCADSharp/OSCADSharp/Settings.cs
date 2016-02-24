@@ -23,5 +23,10 @@ namespace OSCADSharp
         /// top of OpenSCAD scripts
         /// </summary>
         public static Variables Globals = new Variables();
+
+        /// <summary>
+        /// Used to write scripts to file
+        /// </summary>
+        public static IFileWriter FileWriter = new DefaultFileWriter();
     }
 }
