@@ -32,6 +32,7 @@ namespace OSCADSharp.Transforms
             this.Normal = normal;
 
             this.children.Add(obj);
+            obj.Parent = this;
         }
         
         public override string ToString()

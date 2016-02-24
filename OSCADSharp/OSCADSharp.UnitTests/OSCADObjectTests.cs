@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using OSCADSharp.Scripting;
 using OSCADSharp.Solids;
 using System;
 using System.Collections.Concurrent;
@@ -134,6 +136,39 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual("Text", children[0].Name);
             Assert.AreEqual("Union", children[1].Name);
+        }
+
+        [TestMethod]
+        public void OSCADObject_ToFileIncludesOSCADSharpGeneratedHeader()
+        {
+            var cube = new Cube();
+            string[] output = null;
+
+            var mock = new Mock<IFileWriter>();
+            mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
+                .Callback<string, string[]>((path, contents) => { output = contents; });
+            Settings.FileWriter = mock.Object;
+
+            cube.ToFile("myFile");
+
+            Assert.AreEqual(Settings.OSCADSharpHeader, output[0]);
+       }
+
+        [TestMethod]
+        public void OSCADObject_ToFileIncludesGlobalVariablesDefinedInSettings()
+        {
+            var cube = new Cube();
+            string[] output = null;
+            Settings.Globals["$fn"] = 100;
+
+            var mock = new Mock<IFileWriter>();
+            mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
+                .Callback<string, string[]>((path, contents) => { output = contents; });
+            Settings.FileWriter = mock.Object;
+
+            cube.ToFile("myFile");
+
+            Assert.AreEqual("$fn = 100;\r\n", output[1]);
         }
     }
 }

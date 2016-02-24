@@ -30,6 +30,7 @@ namespace OSCADSharp.Transforms
             this.Angle = angle;
 
             this.children.Add(obj);
+            obj.Parent = this;
         }
 
         public override string ToString()

@@ -33,6 +33,7 @@ namespace OSCADSharp.Transforms
             this.Opacity = opacity;
 
             this.children.Add(obj);
+            obj.Parent = this;
         }
 
         public override string ToString()

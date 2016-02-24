@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Scripting;
 
 namespace OSCADSharp.Solids
 {
@@ -30,19 +31,19 @@ namespace OSCADSharp.Solids
         /// Minimum angle (in degrees) of each cylinder fragment.
         /// ($fa in OpenSCAD)
         /// </summary>
-        public int MinimumAngle { get; set; } = 12;
+        public int? MinimumAngle { get; set; }
 
         /// <summary>
         /// Fragment size in mm
         /// ($fs in OpenSCAD)
         /// </summary>
-        public int MinimumFragmentSize { get; set; } = 2;
+        public int? MinimumFragmentSize { get; set; }
 
         /// <summary>
         /// Number of fragments in 360 degrees. Values of 3 or more override MinimumAngle and MinimumCircumferentialLength
         /// ($fn in OpenSCAD)
         /// </summary>
-        public int Resolution { get; set; } = 0;
+        public int? Resolution { get; set; }
         #endregion
 
         #region Constructors
@@ -70,9 +71,16 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("sphere($fn = {0}, $fa = {1}, $fs = {2}, r = {3});{4}", 
-                this.Resolution.ToString(), this.MinimumAngle.ToString(), 
-                this.MinimumFragmentSize.ToString(), this.Radius.ToString(), Environment.NewLine);
+            StatementBuilder sb = new StatementBuilder();
+            sb.Append("sphere(");
+            sb.AppendValuePairIfExists("r", this.Radius);
+            sb.AppendValuePairIfExists("$fn", this.Resolution, true);
+            sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
+            sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
+            sb.Append(");");
+            sb.Append(Environment.NewLine);
+
+            return sb.ToString();
         }
 
         /// <summary>

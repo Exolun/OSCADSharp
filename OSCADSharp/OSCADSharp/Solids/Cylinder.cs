@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Scripting;
 
 namespace OSCADSharp.Solids
 {
@@ -81,19 +82,19 @@ namespace OSCADSharp.Solids
         /// Minimum angle (in degrees) of each cylinder fragment.
         /// ($fa in OpenSCAD)
         /// </summary>
-        public int MinimumAngle { get; set; } = 12;
+        public int? MinimumAngle { get; set; }
 
         /// <summary>
         /// Minimum circumferential length of each fragment.
         /// ($fs in OpenSCAD)
         /// </summary>
-        public int MinimumCircumferentialLength { get; set; } = 2;
+        public int? MinimumCircumferentialLength { get; set; }
 
         /// <summary>
         /// Number of fragments in 360 degrees. Values of 3 or more override MinimumAngle and MinimumCircumferentialLength
         /// ($fn in OpenSCAD)
         /// </summary>
-        public int Resolution { get; set; } = 0;
+        public int? Resolution { get; set; }
         #endregion
 
         #region Constructors
@@ -125,9 +126,18 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cylinder($fn = {0}, $fa = {1}, $fs = {2}, h = {3}, r1 = {4}, r2 = {5}, center = {6}); {7}", 
-                Resolution.ToString(), MinimumAngle.ToString(),  MinimumCircumferentialLength.ToString(),
-                Height.ToString(), Radius1.ToString(), Radius2.ToString(), Center.ToString().ToLower(), Environment.NewLine);
+            var sb = new StatementBuilder();
+            sb.Append("cylinder(");
+            sb.AppendValuePairIfExists("center", this.Center.ToString().ToLower());
+            sb.AppendValuePairIfExists("r1", this.Radius1, true);
+            sb.AppendValuePairIfExists("r2", this.Radius2, true);
+            sb.AppendValuePairIfExists("h", this.Height, true);
+            sb.AppendValuePairIfExists("$fn", this.Resolution, true);
+            sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
+            sb.AppendValuePairIfExists("$fs", this.MinimumCircumferentialLength, true);
+            sb.Append(");");
+            sb.Append(Environment.NewLine);
+            return sb.ToString();
         }
 
         /// <summary>

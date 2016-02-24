@@ -30,6 +30,7 @@ namespace OSCADSharp.Transforms
             this.ScaleFactor = scale;
 
             this.children.Add(obj);
+            obj.Parent = this;
         }
 
         public override string ToString()

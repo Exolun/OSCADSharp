@@ -57,5 +57,34 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(new Vector3(2.5, 2.5, 10), obj.Bounds().TopRight);
             Assert.AreEqual(new Vector3(-2.5, -2.5, -10), obj.Bounds().BottomLeft);
         }
+
+        [TestMethod]
+        public void Cylinder_ScriptOutputDoesNotContainResolutionValuesIfNotSpecified()
+        {
+            var cylinder = new Cylinder();
+
+            string script = cylinder.ToString();
+
+            Assert.IsTrue(!script.Contains("$fn"));
+            Assert.IsTrue(!script.Contains("$fa"));
+            Assert.IsTrue(!script.Contains("$fs"));
+        }
+
+        [TestMethod]
+        public void Cylinder_ScriptOutpuHasResolutionValuesIfSpecified()
+        {
+            var cylinder = new Cylinder()
+            {
+                Resolution = 40,
+                MinimumAngle = 5,
+                MinimumCircumferentialLength = 2
+            };
+
+            string script = cylinder.ToString();
+
+            Assert.IsTrue(script.Contains("$fn"));
+            Assert.IsTrue(script.Contains("$fa"));
+            Assert.IsTrue(script.Contains("$fs"));
+        }
     }
 }
