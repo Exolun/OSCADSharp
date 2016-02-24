@@ -329,7 +329,12 @@ namespace OSCADSharp
                 path += ".scad";
             }
 
-            File.WriteAllLines(path, new string[] { this.ToString() });
+            File.WriteAllLines(path, new string[] 
+            {
+                Settings.OSCADSharpHeader,
+                Settings.Globals.ToString(),
+                this.ToString()
+            });
         }
         #endregion
 

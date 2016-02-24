@@ -14,6 +14,7 @@ namespace OSCADSharp.ConsoleTests
         static void Main(string[] args)
         {
 
+            Settings.Globals["$fn"] = 100;
             var obj = new Sphere(30);
 
             var pos = obj.Position();

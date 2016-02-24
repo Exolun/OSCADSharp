@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Ids.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Sizes.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Transforms\ScaledObject.cs" />
     <Compile Include="Transforms\TranslatedObject.cs" />
     <Compile Include="Spatial\Vector3.cs" />
+    <Compile Include="Scripting\Variables.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
