@@ -20,6 +20,10 @@ namespace OSCADSharp.Scripting
         {
             this.outerStatement = outerStatement;
             this.children = children.ToList();
+            foreach (var child in children)
+            {
+                child.Parent = this;
+            }
         }
 
         public override string ToString()

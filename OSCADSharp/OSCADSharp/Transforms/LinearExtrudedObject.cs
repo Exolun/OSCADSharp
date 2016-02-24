@@ -35,6 +35,7 @@ namespace OSCADSharp.Transforms
             this.Height = height;
 
             this.children.Add(obj);
+            obj.Parent = this;
         }
 
         public override OSCADObject Clone()

@@ -27,6 +27,7 @@ namespace OSCADSharp.Transforms
             this.Vector = vector;
 
             this.children.Add(obj);
+            obj.Parent = this;            
         }
 
         public override string ToString()

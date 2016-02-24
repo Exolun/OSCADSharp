@@ -263,6 +263,11 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// The parent of this object in its OSCADObject tree
+        /// </summary>
+        internal OSCADObject Parent { get; set; }
+
+        /// <summary>
         /// Internal collection of children for this object
         /// </summary>
         protected List<OSCADObject> children = new List<OSCADObject>();
