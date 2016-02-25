@@ -18,7 +18,7 @@ namespace OSCADSharp.UnitTests
         public void Settings_NullVariablesDoNothing()
         {
             var cube = new Cube();
-            Settings.Globals["thing"] = null;
+            Variables.Global["thing"] = null;
             string[] output = null;
 
             var mock = new Mock<IFileWriter>();

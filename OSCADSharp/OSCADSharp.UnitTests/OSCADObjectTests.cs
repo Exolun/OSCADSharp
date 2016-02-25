@@ -160,7 +160,7 @@ namespace OSCADSharp.UnitTests
         {
             var cube = new Cube();
             string[] output = null;
-            Settings.Globals["$fn"] = 100;
+            Variables.Global["$fn"] = 100;
 
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))

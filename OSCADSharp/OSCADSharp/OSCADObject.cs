@@ -334,7 +334,7 @@ namespace OSCADSharp
             Settings.FileWriter.WriteAllLines(path, new string[] 
             {
                 Settings.OSCADSharpHeader,
-                Settings.Globals.ToString(),
+                Variables.Global.ToString(),
                 this.ToString()
             });
 

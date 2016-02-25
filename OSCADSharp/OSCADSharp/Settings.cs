@@ -18,13 +18,7 @@ namespace OSCADSharp
         /// </summary>
         public static readonly string OSCADSharpHeader = String.Format("/*Code Generated using OSCADSharp on {0}. {1}{2}For more information, please visit https://github.com/Exolun/OSCADSharp */{3}", 
             DateTime.Now.ToString(), Environment.NewLine, Environment.NewLine, Environment.NewLine);
-
-        /// <summary>
-        /// Global variables that can be assigned for output at the 
-        /// top of OpenSCAD scripts
-        /// </summary>
-        public static Variables Globals = new Variables();
-
+                
         /// <summary>
         /// Used to write scripts to file
         /// </summary>

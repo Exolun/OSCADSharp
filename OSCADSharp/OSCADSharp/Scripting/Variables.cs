@@ -11,6 +11,12 @@ namespace OSCADSharp.Scripting
     /// </summary>
     public sealed class Variables
     {
+        /// <summary>
+        /// Global variables that can be assigned for output at the 
+        /// top of OpenSCAD scripts
+        /// </summary>
+        public static Variables Global = new Variables();
+
         private Dictionary<string, object> variables = new Dictionary<string, object>();
 
         /// <summary>

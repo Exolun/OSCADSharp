@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Solids;
+﻿using OSCADSharp.Scripting;
+using OSCADSharp.Solids;
 using OSCADSharp.Transforms;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,9 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-
-            Settings.Globals["$fn"] = 100;
+            Variables.Global["$fn"] = 100;
             var obj = new Sphere(30);
-
+            
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
             var cyl2 = new Cylinder(1, 100, true).Rotate(0, 90, 0).Translate(pos);
