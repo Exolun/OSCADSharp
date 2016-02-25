@@ -11,7 +11,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// Creates an object that's the minkowski sum of child objects
     /// </summary>
-    internal class MinkowskiedObject : MultiBlockStatementObject
+    internal class MinkowskiedObject : MultiStatementObject
     {
         
         public MinkowskiedObject(IEnumerable<OSCADObject> children) : base("minkowski()", children)

@@ -12,11 +12,11 @@ namespace OSCADSharp.Scripting
     /// A statement that has multiple child nodes, whose ToString output
     /// is more or less just an aggregate of the children
     /// </summary>
-    internal class MultiBlockStatementObject : OSCADObject
+    internal class MultiStatementObject : OSCADObject
     {
         private string outerStatement;
 
-        internal MultiBlockStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
+        internal MultiStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
         {
             this.outerStatement = outerStatement;
             this.children = children.ToList();
@@ -46,7 +46,7 @@ namespace OSCADSharp.Scripting
                 childClones.Add(child.Clone());
             }
 
-            return new MultiBlockStatementObject(this.outerStatement, childClones)
+            return new MultiStatementObject(this.outerStatement, childClones)
             {
                 Name = this.Name
             };

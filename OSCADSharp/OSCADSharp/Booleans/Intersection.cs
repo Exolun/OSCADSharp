@@ -11,7 +11,7 @@ namespace OSCADSharp.Booleans
     /// <summary>
     /// Creates the intersection of all child nodes
     /// </summary>
-    internal class Intersection : MultiBlockStatementObject
+    internal class Intersection : MultiStatementObject
     {
         /// <summary>
         /// Creates the intersection of all child nodes

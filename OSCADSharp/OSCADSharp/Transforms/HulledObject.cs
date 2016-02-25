@@ -10,7 +10,7 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// Creates an object that's the convex hull of child objects
     /// </summary>
-    internal class HulledObject : MultiBlockStatementObject
+    internal class HulledObject : MultiStatementObject
     {
         public HulledObject(IEnumerable<OSCADObject> children) : base("hull()", children)
         {

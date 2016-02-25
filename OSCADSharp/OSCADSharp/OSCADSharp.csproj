@@ -56,7 +56,7 @@
     <Compile Include="Transforms\HulledObject.cs" />
     <Compile Include="Transforms\LinearExtrudedObject.cs" />
     <Compile Include="Scripting\SingleBlockFormatter.cs" />
-    <Compile Include="Scripting\MultiBlockStatementObject.cs" />
+    <Compile Include="Scripting\MultiStatementObject.cs" />
     <Compile Include="Booleans\Difference.cs" />
     <Compile Include="Booleans\Intersection.cs" />
     <Compile Include="Booleans\Union.cs" />
