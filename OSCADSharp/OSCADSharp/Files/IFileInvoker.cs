@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp.Files
 {
     /// <summary>
     /// Invokes OpenSCAD actions on output files

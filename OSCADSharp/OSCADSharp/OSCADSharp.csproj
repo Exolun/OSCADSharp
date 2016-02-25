@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scripting\DefaultFileInvoker.cs" />
-    <Compile Include="Scripting\DefaultFileWriter.cs" />
-    <Compile Include="Scripting\IFileInvoker.cs" />
-    <Compile Include="Scripting\IFileWriter.cs" />
+    <Compile Include="Files\DefaultFileInvoker.cs" />
+    <Compile Include="Files\DefaultFileWriter.cs" />
+    <Compile Include="Files\IFileInvoker.cs" />
+    <Compile Include="Files\IFileWriter.cs" />
     <Compile Include="Ids.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Settings.cs" />
