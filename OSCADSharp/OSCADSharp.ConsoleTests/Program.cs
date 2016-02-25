@@ -26,7 +26,7 @@ namespace OSCADSharp.ConsoleTests
             //var topCorner = new Sphere().Translate(obj.Bounds().TopRight);
             //var botCorner = new Sphere().Translate(obj.Bounds().BottomLeft);
 
-            (obj + axisHelper).ToFile("test.scad");
+            (obj + axisHelper).ToFile("test.scad").Open();
             
             //Console.ReadKey();
         }

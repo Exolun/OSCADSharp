@@ -28,5 +28,11 @@ namespace OSCADSharp
         /// Used to write scripts to file
         /// </summary>
         public static IFileWriter FileWriter = new DefaultFileWriter();
+
+        /// <summary>
+        /// Path to the OpenSCAD executable for file invocation
+        /// (Default value is set the default install directory on Windows)
+        /// </summary>
+        public static string OpenSCADPath = @"C:\Program Files (x86)\OpenSCAD\openscad.exe";
     }
 }

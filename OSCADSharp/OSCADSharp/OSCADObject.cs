@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.Booleans;
+using OSCADSharp.Scripting;
 using OSCADSharp.Spatial;
 using OSCADSharp.Transforms;
 using System;
@@ -320,7 +321,7 @@ namespace OSCADSharp
         /// (This is just a shortcut for File.WriteAllLines)
         /// </summary>
         /// <param name="filePath">Path for the file to write.  Including filename and (optionally) file extension</param>
-        public void ToFile(string filePath)
+        public IFileInvoker ToFile(string filePath)
         {
             string path = filePath;
 
@@ -335,6 +336,8 @@ namespace OSCADSharp
                 Settings.Globals.ToString(),
                 this.ToString()
             });
+
+            return new DefaultFileInvoker(filePath);
         }
         #endregion
 

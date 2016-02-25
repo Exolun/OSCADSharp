@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 namespace OSCADSharp.Scripting
 {
     /// <summary>
-    /// Opens a file
+    /// Invokes OpenSCAD actions on output files
     /// </summary>
     public interface IFileInvoker
     {
         /// <summary>
-        /// Opens the specified file
+        /// Launches OpenSCAD with the specified file open
         /// </summary>
-        /// <param name="path">Path to the file to open</param>
-        /// <param name="arguments">Command-line arguments to pass in</param>
-        void Invoke(string path, string arguments = null);
+        void Open();
+
+        /// <summary>
+        /// Generates an STL from this file with the specified path/name
+        /// </summary>
+        /// <param name="outputFile"></param>
+        void CreateModel(string outputFile);        
     }
 }
