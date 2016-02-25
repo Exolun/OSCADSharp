@@ -18,12 +18,7 @@ namespace OSCADSharp
         /// </summary>
         public static readonly string OSCADSharpHeader = String.Format("/*Code Generated using OSCADSharp on {0}. {1}{2}For more information, please visit https://github.com/Exolun/OSCADSharp */{3}", 
             DateTime.Now.ToString(), Environment.NewLine, Environment.NewLine, Environment.NewLine);
-                
-        /// <summary>
-        /// Used to write scripts to file
-        /// </summary>
-        public static IFileWriter FileWriter = new DefaultFileWriter();
-
+        
         /// <summary>
         /// Path to the OpenSCAD executable for file invocation
         /// (Default value is set the default install directory on Windows)

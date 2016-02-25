@@ -8,6 +8,8 @@ namespace OSCADSharp.Files
 {
     /// <summary>
     /// Invokes OpenSCAD actions on output files
+    /// 
+    /// If these methods don't work, double check that your Settings.OpenSCADPath value is correct
     /// </summary>
     public interface IFileInvoker
     {

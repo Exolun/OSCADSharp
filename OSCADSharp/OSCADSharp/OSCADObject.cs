@@ -331,14 +331,14 @@ namespace OSCADSharp
                 path += ".scad";
             }
             
-            Settings.FileWriter.WriteAllLines(path, new string[] 
+            Dependencies.FileWriter.WriteAllLines(path, new string[] 
             {
                 Settings.OSCADSharpHeader,
                 Variables.Global.ToString(),
                 this.ToString()
             });
 
-            return new DefaultFileInvoker(filePath);
+            return Dependencies.FileInvokerFactory(filePath);
         }
         #endregion
 

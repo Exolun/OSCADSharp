@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dependencies.cs" />
     <Compile Include="Files\DefaultFileInvoker.cs" />
     <Compile Include="Files\DefaultFileWriter.cs" />
     <Compile Include="Files\IFileInvoker.cs" />
