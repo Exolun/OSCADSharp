@@ -11,28 +11,22 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's mirrored on a plane
     /// </summary>
-    internal class MirroredObject : OSCADObject
+    internal class MirroredObject : SingleStatementObject
     {
         /// <summary>
         /// The normal vector of a plane intersecting the origin of the object,
         /// through which to mirror it.
         /// </summary>
         internal Vector3 Normal { get; set; } = new Vector3();
-
-        private OSCADObject obj;
-
+        
         /// <summary>
         /// Creates an object that's mirrored on a plane
         /// </summary>
         /// <param name="obj">The object(s) to be mirrored</param>
         /// <param name="normal">The normal vector of the plane on the object's origin to mirror upon</param>
-        internal MirroredObject(OSCADObject obj, Vector3 normal)
+        internal MirroredObject(OSCADObject obj, Vector3 normal) : base(obj)
         {
-            this.obj = obj;
             this.Normal = normal;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
         
         public override string ToString()

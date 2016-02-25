@@ -11,26 +11,21 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been resized to a specified set of X/Y/Z dimensions
     /// </summary>
-    internal class ResizedObject : OSCADObject
+    internal class ResizedObject : SingleStatementObject
     {
         /// <summary>
         /// Size of the object in terms of X/Y/Z
         /// </summary>
         internal Vector3 Size { get; set; }
-        private OSCADObject obj;
 
         /// <summary>
         /// Creates a resized object
         /// </summary>
         /// <param name="obj">The object(s) to be resized</param>
         /// <param name="size">The size to resize to, in terms of x/y/z dimensions</param>
-        internal ResizedObject(OSCADObject obj, Vector3 size)
+        internal ResizedObject(OSCADObject obj, Vector3 size) : base(obj)
         {
-            this.obj = obj;
             this.Size = size;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
 
         public override string ToString()

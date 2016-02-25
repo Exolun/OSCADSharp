@@ -8,6 +8,7 @@ namespace OSCADSharp.Scripting
 {
     /// <summary>
     /// Extends the capabilities of StringBuilder with domain-specific behavior
+    /// aimed at constructing OpenSCAD commands
     /// </summary>
     internal class StatementBuilder
     {

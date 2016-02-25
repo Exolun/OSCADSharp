@@ -11,23 +11,18 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object or objects that have been moved along the specified vector
     /// </summary>
-    internal class TranslatedObject : OSCADObject
+    internal class TranslatedObject : SingleStatementObject
     {
         internal Vector3 Vector { get; set; }
-        private OSCADObject obj;
 
         /// <summary>
         /// Creates a translated object
         /// </summary>
         /// <param name="obj">Object(s) to translate</param>
         /// <param name="vector">Amount to translate by</param>
-        internal TranslatedObject(OSCADObject obj, Vector3 vector)
+        internal TranslatedObject(OSCADObject obj, Vector3 vector) : base(obj)
         {
-            this.obj = obj;
             this.Vector = vector;
-
-            this.children.Add(obj);
-            obj.Parent = this;            
         }
 
         public override string ToString()

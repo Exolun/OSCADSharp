@@ -11,26 +11,21 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object with rotation applied
     /// </summary>
-    internal class RotatedObject : OSCADObject
+    internal class RotatedObject : SingleStatementObject
     {
         /// <summary>
         /// The angle to rotate, in terms of X/Y/Z euler angles
         /// </summary>
         internal Vector3 Angle { get; set; } = new Vector3();
-        private OSCADObject obj;
 
         /// <summary>
         /// Creates an object with rotation applied
         /// </summary>
         /// <param name="obj">The object being rotated</param>
         /// <param name="angle">The angle to rotate</param>
-        internal RotatedObject(OSCADObject obj, Vector3 angle)
+        internal RotatedObject(OSCADObject obj, Vector3 angle) : base(obj)
         {
-            this.obj = obj;
             this.Angle = angle;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
 
         public override string ToString()

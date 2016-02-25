@@ -11,29 +11,23 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that has color and/or opacity applied to it
     /// </summary>
-    internal class ColoredObject : OSCADObject
+    internal class ColoredObject : SingleStatementObject
     {
         #region Attributes
         internal string ColorName { get; set; } = "Yellow";
         internal double Opacity { get; set; } = 1.0;
         #endregion
-
-        private OSCADObject obj;
-
+        
         /// <summary>
         /// Creates a colorized object
         /// </summary>
         /// <param name="obj">The object(s) to which color will be applied</param>
         /// <param name="color">The string-wise name of the color to be applied</param>
         /// <param name="opacity">Opacity from 0.0 to 1.0 </param>
-        internal ColoredObject(OSCADObject obj, string color = "Yellow", double opacity = 1.0)
+        internal ColoredObject(OSCADObject obj, string color = "Yellow", double opacity = 1.0) : base(obj)
         {
-            this.obj = obj;
             this.ColorName = color;
             this.Opacity = opacity;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
 
         public override string ToString()

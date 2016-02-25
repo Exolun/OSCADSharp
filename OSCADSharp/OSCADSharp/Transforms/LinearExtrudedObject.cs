@@ -13,13 +13,12 @@ namespace OSCADSharp.Transforms
     /// 
     /// This is a limited subset of the capabilities
     /// </summary>
-    internal class LinearExtrudedObject : OSCADObject
+    internal class LinearExtrudedObject : SingleStatementObject
     {
         /// <summary>
         /// Height to extrude to
         /// </summary>
         public double Height { get; set; } = 1.0;
-        private OSCADObject obj;
 
         //TODO: Possibly implement everything else?
         //linear_extrude(height = fanwidth, center = true, convexity = 10, twist = -fanrot, slices = 20, scale = 1.0) {...}        
@@ -29,13 +28,9 @@ namespace OSCADSharp.Transforms
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="height"></param>
-        public LinearExtrudedObject(OSCADObject obj, double height)
+        public LinearExtrudedObject(OSCADObject obj, double height) : base(obj)
         {
-            this.obj = obj;
             this.Height = height;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
 
         public override OSCADObject Clone()

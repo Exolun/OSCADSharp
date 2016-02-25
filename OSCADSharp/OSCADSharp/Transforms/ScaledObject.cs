@@ -11,26 +11,21 @@ namespace OSCADSharp.Transforms
     /// <summary>
     /// An object that's been rescaled
     /// </summary>
-    internal class ScaledObject : OSCADObject
+    internal class ScaledObject : SingleStatementObject
     {
         /// <summary>
         /// The scale factor to be applied
         /// </summary>
         internal Vector3 ScaleFactor { get; set; } = new Vector3(1, 1, 1);
-        private OSCADObject obj;
 
         /// <summary>
         /// Creates a scaled object
         /// </summary>
         /// <param name="obj">Object(s) to be scaled</param>
         /// <param name="scale">Scale factor in x/y/z components</param>
-        internal ScaledObject(OSCADObject obj, Vector3 scale)
+        internal ScaledObject(OSCADObject obj, Vector3 scale) : base(obj)
         {
-            this.obj = obj;
             this.ScaleFactor = scale;
-
-            this.children.Add(obj);
-            obj.Parent = this;
         }
 
         public override string ToString()
