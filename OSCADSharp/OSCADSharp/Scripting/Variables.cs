@@ -54,6 +54,11 @@ namespace OSCADSharp.Scripting
             StringBuilder sb = new StringBuilder();
             foreach (var kvp in this.variables)
             {
+                if(kvp.Value == null || String.IsNullOrEmpty(kvp.Value.ToString()) || String.IsNullOrEmpty(kvp.Key))
+                {
+                    continue;
+                }
+
                 sb.Append(kvp.Key);
                 sb.Append(" = ");
                 sb.Append(kvp.Value);

@@ -56,6 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SettingsTests.cs" />
     <Compile Include="Solids\CubeTests.cs" />
     <Compile Include="Solids\CylinderTests.cs" />
     <Compile Include="Transforms\HullTests.cs" />
