@@ -158,8 +158,8 @@ namespace OSCADSharp.UnitTests
         public void OSCADObject_ToFileIncludesGlobalVariablesDefinedInSettings()
         {
             var cube = new Cube();
-            Settings.Globals["$fn"] = 100;
             string[] output = null;
+            Settings.Globals["$fn"] = 100;
 
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
@@ -167,8 +167,8 @@ namespace OSCADSharp.UnitTests
             Settings.FileWriter = mock.Object;
 
             cube.ToFile("myFile");
-            bool outputMatches = "$fn = 100;\r\n" == output[1];
-            Assert.IsTrue(outputMatches);
+
+            Assert.AreEqual("$fn = 100;\r\n", output[1]);
         }
     }
 }
