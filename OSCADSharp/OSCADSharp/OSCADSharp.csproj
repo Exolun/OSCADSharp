@@ -50,6 +50,7 @@
     <Compile Include="Ids.cs" />
     <Compile Include="Scripting\SingleStatementObject.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
+    <Compile Include="Scripting\Variable.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Sizes.cs" />
     <Compile Include="Spatial\Bounds.cs" />

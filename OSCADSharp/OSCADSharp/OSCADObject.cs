@@ -227,6 +227,17 @@ namespace OSCADSharp
         #endregion
 
         #region Utility Methods
+        private Dictionary<string, Variable> bindings = new Dictionary<string, Variable>();
+        /// <summary>
+        /// Binds a variable to property of this object
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="variable"></param>
+        public void Bind(string property, Variable variable)
+        {
+            bindings[property] = variable;
+        }
+
         /// <summary>
         /// Returns the computed position of this object.
         /// 
