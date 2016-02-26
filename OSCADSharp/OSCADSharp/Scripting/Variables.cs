@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace OSCADSharp.Scripting
         /// </summary>
         public static Variables Global = new Variables();
 
-        private Dictionary<string, object> variables = new Dictionary<string, object>();
+        private ConcurrentDictionary<string, object> variables = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// Assigns or gets a variable's value
