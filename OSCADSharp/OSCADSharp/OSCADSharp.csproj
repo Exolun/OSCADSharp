@@ -48,6 +48,9 @@
     <Compile Include="Files\IFileInvoker.cs" />
     <Compile Include="Files\IFileWriter.cs" />
     <Compile Include="Ids.cs" />
+    <Compile Include="Scripting\BindingMapper.cs" />
+    <Compile Include="Scripting\Bindings.cs" />
+    <Compile Include="Scripting\IBindable.cs" />
     <Compile Include="Scripting\SingleStatementObject.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Scripting\Variable.cs" />
