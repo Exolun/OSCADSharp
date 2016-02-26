@@ -228,7 +228,7 @@ namespace OSCADSharp
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("[X: {0}, Y: {1}, Z: {2}]", this.X.ToString(), this.Y.ToString(), this.Z.ToString());
+            return String.Format("[{0}, {1}, {2}]", this.X.ToString(), this.Y.ToString(), this.Z.ToString());
         }
     }
 }
