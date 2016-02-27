@@ -11,7 +11,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Sphere geometry
     /// </summary>
-    public class Sphere : OSCADObject
+    public class Sphere : OSCADObject, IBindable
     {
         #region Attributes
         /// <summary>
@@ -117,6 +117,18 @@ namespace OSCADSharp.Solids
         {
             return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Radius), 
                               new Vector3(this.Radius, this.Radius, this.Radius));
+        }
+
+        private Bindings bindings = new Bindings();
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public void Bind(string property, Variable variable)
+        {
+            this.bindings.Add(property, variable);
         }
         #endregion
     }

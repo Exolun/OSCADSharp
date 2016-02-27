@@ -13,6 +13,17 @@ namespace OSCADSharp.Scripting
     public class Variable
     {
         /// <summary>
+        /// Creates a new Variable with the specified name/value
+        /// </summary>
+        /// <param name="name">Name of the variable.  This is the name that will appear in script output</param>
+        /// <param name="value">The variable's value</param>
+        public Variable(string name, object value)
+        {
+            this.Name = name;
+            this.Value = value;
+        }
+
+        /// <summary>
         /// Name of the variable
         /// </summary>
         public string Name { get; set; }
@@ -22,6 +33,15 @@ namespace OSCADSharp.Scripting
         /// 
         /// Must be compatible with the data type being assigned to.
         /// </summary>
-        public object Value { get; set; }        
+        public object Value { get; set; }
+
+        /// <summary>
+        /// Gets this variable as a name = value string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("{0} = {1}", this.Name, this.Value.ToString());
+        }
     }
 }

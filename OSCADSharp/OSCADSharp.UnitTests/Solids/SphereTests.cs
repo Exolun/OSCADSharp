@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Solids;
+using OSCADSharp.Scripting;
 
 namespace OSCADSharp.UnitTests
 {
@@ -114,6 +115,21 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("$fn"));
             Assert.IsTrue(script.Contains("$fa"));
             Assert.IsTrue(script.Contains("$fs"));
+        }
+
+        [TestMethod]
+        public void Sphere_RadiusVariableBoundAppearsInOutput()
+        {
+            string variableName = "mySphereRadius";
+            double radius = 15;
+
+            Variables.Global.Add(variableName, radius);
+
+            var sphere = new Sphere();
+            sphere.Bind("Radius", Variables.Global["mySphereRadius"]);
+
+            string script = sphere.ToString();
+           // Assert.IsTrue(script.Contains("r = mySphereRadius"));
         }
     }
 }
