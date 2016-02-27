@@ -30,5 +30,21 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual("", output[1]);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Settings_NullOpenSCADPathThrowsError()
+        {
+            Settings.OpenSCADPath = null;
+
+            var cube = new Cube();
+
+            var mock = new Mock<IFileWriter>();
+            mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
+                .Callback<string, string[]>((path, contents) => { });
+            Dependencies.FileWriter = mock.Object;
+
+            cube.ToFile("test").Open();
+        }
     }
 }
