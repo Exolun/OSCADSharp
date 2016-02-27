@@ -8,12 +8,20 @@ namespace OSCADSharp.Scripting
 {
     internal class Bindings
     {
-        internal List<BindingMapper> Mappers { get; set; } = new List<BindingMapper>();
-
-        private Dictionary<string, Variable> bindings = new Dictionary<string, Variable>();
-        internal void Add(string property, Variable variable)
+        private Dictionary<string, Binding> bindings = new Dictionary<string, Binding>();
+        internal void Add(Binding binding)
         {
-            bindings[property] = variable;
+            bindings[binding.OpenSCADFieldName] = binding;
+        }
+
+        internal bool Contains(string property)
+        {
+            return bindings.ContainsKey(property);
+        }
+
+        internal Binding Get(string property)
+        {
+            return bindings[property];
         }
     }
 }

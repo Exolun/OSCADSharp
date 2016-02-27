@@ -127,9 +127,10 @@ namespace OSCADSharp.UnitTests
 
             var sphere = new Sphere();
             sphere.Bind("Radius", Variables.Global["mySphereRadius"]);
+            Assert.IsTrue(sphere.Radius == radius);
 
             string script = sphere.ToString();
-           // Assert.IsTrue(script.Contains("r = mySphereRadius"));
+            Assert.IsTrue(script.Contains("r = mySphereRadius"));
         }
     }
 }

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OSCADSharp.Scripting
 {
-    internal class BindingMapper
+    internal class Binding
     {
         public string OpenSCADFieldName { get; set; }
-        public List<string> BindingOptions { get; set; }
-        public Dictionary<string, Func<object, string>> BindingTransformers { get; set; }
+        public Variable BoundVariable { get; set; }
     }
 }

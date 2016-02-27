@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
 using OSCADSharp.Scripting;
+using System.Collections.Concurrent;
 
 namespace OSCADSharp.Solids
 {
@@ -71,7 +72,7 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder();
+            StatementBuilder sb = new StatementBuilder(this.bindings);
             sb.Append("sphere(");
             sb.AppendValuePairIfExists("r", this.Radius);
             sb.AppendValuePairIfExists("$fn", this.Resolution, true);
@@ -120,6 +121,11 @@ namespace OSCADSharp.Solids
         }
 
         private Bindings bindings = new Bindings();
+        private static Dictionary<string, string> bindingMapping = new Dictionary<string, string>()
+        {
+            { "radius", "r" }
+        };
+
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
@@ -128,7 +134,31 @@ namespace OSCADSharp.Solids
         /// literal value of the property</param>
         public void Bind(string property, Variable variable)
         {
-            this.bindings.Add(property, variable);
+
+            string lowercaseProp = property.ToLower();
+            if (!bindingMapping.ContainsKey(lowercaseProp))
+            {
+                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found"));
+            }
+
+            //Set value of property to variable value
+            this.setValueForBinding(lowercaseProp, variable);
+
+            //Assign mapping r -> radius -> variable
+            var binding = new Binding()
+            {
+                OpenSCADFieldName = bindingMapping[lowercaseProp],
+                BoundVariable = variable
+            };
+
+            this.bindings.Add(binding);           
+        }
+
+        private void setValueForBinding(string property, Variable variable)
+        {
+            if (property == "radius") {
+                this.Radius = Convert.ToDouble(variable.Value);
+            }
         }
         #endregion
     }

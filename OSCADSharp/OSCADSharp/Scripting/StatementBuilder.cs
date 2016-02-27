@@ -13,6 +13,18 @@ namespace OSCADSharp.Scripting
     internal class StatementBuilder
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
+        private Bindings bindings; 
+
+        internal StatementBuilder()
+        {
+            this.bindings = new Bindings();
+        }
+
+        internal StatementBuilder(Bindings bindings)
+        {
+            this.bindings = bindings;
+        }
+
 
         /// <summary>
         /// Special append method for conditionally adding value-pairs
@@ -22,6 +34,8 @@ namespace OSCADSharp.Scripting
         /// <param name="prefixWithComma">(optional) Flag indicating whether a comma should be added before the value-pair</param>
         public void AppendValuePairIfExists(string name, object value, bool prefixWithComma = false)
         {
+            bool useBinding = this.shouldUseBinding(name);
+
             if (!String.IsNullOrEmpty(value?.ToString()))
             {
                 if (prefixWithComma)
@@ -31,8 +45,21 @@ namespace OSCADSharp.Scripting
 
                 SB.Append(name);
                 SB.Append(" = ");
-                SB.Append(value);
+
+                if(useBinding)
+                {
+                    SB.Append(this.bindings.Get(name).BoundVariable.Name);
+                }
+                else
+                {
+                    SB.Append(value);
+                }
             }
+        }
+
+        private bool shouldUseBinding(string name)
+        {
+            return this.bindings.Contains(name);
         }
 
         /// <summary>
