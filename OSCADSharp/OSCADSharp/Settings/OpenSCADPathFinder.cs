@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace OSCADSharp
 {
     /// <summary>
-    /// Knowns where the default installation locations for OpenSCAD
+    /// Known where the default installation locations for OpenSCAD
     /// are, and finds the right path for the current environment
     /// </summary>
     internal class OpenSCADPathFinder
