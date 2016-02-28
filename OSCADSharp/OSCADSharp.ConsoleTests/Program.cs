@@ -14,10 +14,11 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            Variables.Global.Add("$fn", 100);
+            Variables.Global.Add("sphereRadius", 15);
 
-            var obj = new Sphere(30);
-            
+            var obj = new Sphere();
+            obj.Bind("Radius", Variables.Global["sphereRadius"]);
+
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
             var cyl2 = new Cylinder(1, 100, true).Rotate(0, 90, 0).Translate(pos);
