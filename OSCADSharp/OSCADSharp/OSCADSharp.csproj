@@ -48,6 +48,7 @@
     <Compile Include="Files\IFileInvoker.cs" />
     <Compile Include="Files\IFileWriter.cs" />
     <Compile Include="Ids.cs" />
+    <Compile Include="OpenSCADPathFinder.cs" />
     <Compile Include="Scripting\Binding.cs" />
     <Compile Include="Scripting\Bindings.cs" />
     <Compile Include="Scripting\IBindable.cs" />
