@@ -132,5 +132,21 @@ namespace OSCADSharp.UnitTests
             string script = sphere.ToString();
             Assert.IsTrue(script.Contains("r = mySphereRadius"));
         }
+
+        [TestMethod]
+        public void Sphere_BindingDiameterSetsDiameterInOutput()
+        {
+            string variableName = "diam";
+            double diam = 20;
+
+            Variables.Global.Add(variableName, diam);
+
+            var sphere = new Sphere();
+            sphere.Bind("Diameter", Variables.Global["diam"]);
+            Assert.IsTrue(sphere.Diameter == diam);
+
+            string script = sphere.ToString();
+            Assert.IsTrue(script.Contains("d = diam"));
+        }
     }
 }

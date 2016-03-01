@@ -75,7 +75,16 @@ namespace OSCADSharp.Solids
         {
             StatementBuilder sb = new StatementBuilder(this.bindings);
             sb.Append("sphere(");
-            sb.AppendValuePairIfExists("r", this.Radius);
+
+            if (this.bindings.Contains("d"))
+            {
+                sb.AppendValuePairIfExists("d", this.Diameter);
+            }
+            else
+            {
+                sb.AppendValuePairIfExists("r", this.Radius);
+            }
+
             sb.AppendValuePairIfExists("$fn", this.Resolution, true);
             sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
             sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
@@ -123,7 +132,11 @@ namespace OSCADSharp.Solids
 
         private Bindings bindings = new Bindings(new Dictionary<string, string>()
         {
-            { "radius", "r" }
+            { "radius", "r" },
+            { "minimumangle", "$fa" },
+            { "minimumFragmentsize", "$fs" },
+            { "resolution", "$fn" },
+            { "diameter", "d" }
         });
 
         /// <summary>
