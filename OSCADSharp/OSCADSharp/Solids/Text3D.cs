@@ -46,7 +46,6 @@ namespace OSCADSharp.Solids
         /// The language of the text. Default is "en".
         /// </summary>
         public string Language { get; set; }
-
         #endregion
        
         #region Constructors
@@ -88,18 +87,7 @@ namespace OSCADSharp.Solids
                 TextDirection = this.TextDirection,
                 Language = this.Language                
             };
-        }
-
-        private void appendIfValueNotNullOrEmpty(string name, string value, StringBuilder sb)
-        {
-            if(!String.IsNullOrEmpty(value))
-            {
-                sb.Append(", ");
-                sb.Append(name);
-                sb.Append("=");
-                sb.Append(value);
-            }
-        }
+        }        
         
         /// <summary>
         /// Converts this object to an OpenSCAD script
