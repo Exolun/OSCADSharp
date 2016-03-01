@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Bindings;
+using OSCADSharp.Scripting;
 
 namespace OSCADSharp.Solids
 {
     /// <summary>
     /// A Cube geometry
     /// </summary>
-    public class Cube : OSCADObject
+    public class Cube : OSCADObject, IBindable
     {
         #region Attributes
         /// <summary>
@@ -123,6 +125,24 @@ namespace OSCADSharp.Solids
                 return new Bounds(new Vector3(-this.Size.X / 2, -this.Size.Y / 2, -this.Size.Z / 2), 
                                   new Vector3(this.Size.X / 2, this.Size.Y / 2, this.Size.Z / 2));
             }
+        }
+
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        {
+            { "center", "center" },
+            { "size", "size" }
+        });
+
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+            //this.bindings.Add<Cube>(this, property, variable);
         }
         #endregion
     }
