@@ -15,10 +15,16 @@ namespace OSCADSharp.Solids
     public class Cube : OSCADObject, IBindable
     {
         #region Attributes
+        private Vector3 size = new BindableVector(1, 1, 1, sizeSynonyms);
+
         /// <summary>
         /// The Size of the cube in terms of X/Y/Z units
         /// </summary>
-        public Vector3 Size { get; set; } = new Vector3(1, 1, 1);
+        public Vector3 Size
+        {
+            get { return this.size; }
+            set { this.size = new BindableVector(value, sizeSynonyms); }
+        }
 
         /// <summary>
         /// If True, the center of the cube will be at 0, 0, 0
@@ -43,7 +49,7 @@ namespace OSCADSharp.Solids
         /// <param name="center">Indicates whether the cube should be centered on the origin</param>
         public Cube(Vector3 size = null, bool center = false)
         {
-            this.Size = size ?? new Vector3(1, 1, 1);
+            this.Size = new BindableVector(size, sizeSynonyms) ?? new BindableVector(1, 1, 1, sizeSynonyms);
             this.Center = center;
         }
 
@@ -71,9 +77,8 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cube(size = [{0}, {1}, {2}], center = {3}); {4}", 
-                this.Size.X.ToString(), this.Size.Y.ToString(), this.Size.Z.ToString(), 
-                this.Center.ToString().ToLower(), Environment.NewLine); ;
+            return String.Format("cube(size = {0}, center = {1}); {2}", 
+                this.Size.ToString(), this.Center.ToString().ToLower(), Environment.NewLine); ;
         }
 
         /// <summary>
@@ -127,11 +132,16 @@ namespace OSCADSharp.Solids
             }
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        private Bindings.Bindings bindings = new Bindings.Bindings();
+        private static readonly Dictionary<string, string> sizeSynonyms = new Dictionary<string, string>()
         {
-            { "center", "center" },
-            { "size", "size" }
-        });
+            {"size.x", "x" },
+            {"size.y", "y" },
+            {"size.z", "z" },
+            {"length", "x" },
+            {"width", "y" },
+            {"height", "z" }
+        };
 
         /// <summary>
         /// Binds a a variable to a property on this object
@@ -141,8 +151,16 @@ namespace OSCADSharp.Solids
         /// literal value of the property</param>
         public void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
-            //this.bindings.Add<Cube>(this, property, variable);
+            if (sizeSynonyms.ContainsKey(property.ToLower()))
+            {
+                BindableVector vec;
+                if (this.size is BindableVector)
+                    vec = this.Size as BindableVector;
+                else
+                    vec = new BindableVector(this.size);
+
+                vec.Bind(property, variable);
+            }
         }
         #endregion
     }

@@ -16,6 +16,30 @@ namespace OSCADSharp.Bindings
             { "z", "z" }
         });
 
+        public BindableVector(Vector3 vector, Dictionary<string, string> synonyms = null) : this(vector.X, vector.Y, vector.Z)
+        {
+        }
+
+        public BindableVector(double x = 0, double y = 0, double z = 0, Dictionary<string, string> synonyms = null)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+
+            this.setSynonyms(synonyms);
+        }
+
+        private void setSynonyms(Dictionary<string, string> synonyms)
+        {
+            if (synonyms == null)
+                return;
+
+            foreach (KeyValuePair<string, string> item in synonyms)
+            {
+                this.bindings.Synonym(item.Value, item.Key);
+            }
+        }
+
         public void Bind(string property, Variable variable)
         {
             this.bindings.Add<BindableVector>(this, property, variable);

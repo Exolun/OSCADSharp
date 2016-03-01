@@ -13,9 +13,15 @@ namespace OSCADSharp.Bindings
         #region Fields
         private Dictionary<string, Binding> bindings = new Dictionary<string, Binding>();
         private Dictionary<string, string> propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
+        private Dictionary<string, string> synonyms = new Dictionary<string, string>();
         #endregion
-        
+
         #region Constructors
+        public Bindings()
+        {
+            this.propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
+        }
+
         public Bindings(Dictionary<string, string> mappings)
         {
             this.propertyNametoOpenSCADFieldMappings = mappings;
@@ -23,7 +29,7 @@ namespace OSCADSharp.Bindings
         #endregion
 
         #region Private Methods
-        private void SetProperty<T>(T instance, string property, Variable variable)
+        private void setProperty<T>(T instance, string property, Variable variable)
         {
             PropertyInfo[] properties;
             properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -31,7 +37,11 @@ namespace OSCADSharp.Bindings
             for (int i = properties.Length - 1; i >= 0; i--)
             {
                 var prop = properties[i];
-                if (prop.Name.ToLower() == property.ToLower())
+                string lProperty = property.ToLower();
+                if (this.hasMatchingSynonym(lProperty))
+                    lProperty = this.synonyms[lProperty];
+
+                if (prop.Name.ToLower() == lProperty)
                 {
                     prop.SetValue(instance, variable.Value);
                 }
@@ -43,9 +53,10 @@ namespace OSCADSharp.Bindings
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        private bool HasMapping(string propertyName)
+        private bool hasMapping(string propertyName)
         {
-            return this.propertyNametoOpenSCADFieldMappings.ContainsKey(propertyName.ToLower());
+            return this.propertyNametoOpenSCADFieldMappings.ContainsKey(propertyName.ToLower())
+                || this.hasMatchingSynonym(propertyName.ToLower());
         }
 
         /// <summary>
@@ -54,21 +65,38 @@ namespace OSCADSharp.Bindings
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        private string PropertyToOpenSCADField(string propertyName)
+        private string propertyToOpenSCADField(string propertyName)
         {
-            return this.propertyNametoOpenSCADFieldMappings[propertyName.ToLower()];
+            string lpropertyName = propertyName.ToLower();
+            if (this.hasMatchingSynonym(lpropertyName))
+            {
+                return this.synonymToOpenScadField(lpropertyName);
+            }
+
+            return this.propertyNametoOpenSCADFieldMappings[lpropertyName];
         }
 
-        private void Add(Binding binding)
+        private void add(Binding binding)
         {
             bindings[binding.OpenSCADFieldName] = binding;
+        }
+
+
+        private bool hasMatchingSynonym(string synonymName)
+        {
+            return this.synonyms.ContainsKey(synonymName);
+        }
+
+        private string synonymToOpenScadField(string synonymName)
+        {
+            return this.propertyToOpenSCADField(this.synonyms[synonymName]);
         }
         #endregion
 
         #region Internal API
         internal void Add<T>(T instance, string propertyName, Variable variable)
         {
-            if (!this.HasMapping(propertyName))
+            if (!this.hasMapping(propertyName))
             {
                 throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found"));
             }
@@ -76,24 +104,29 @@ namespace OSCADSharp.Bindings
             //Assign mapping r -> radius -> variable
             var binding = new Binding()
             {
-                OpenSCADFieldName = this.PropertyToOpenSCADField(propertyName),
+                OpenSCADFieldName = this.propertyToOpenSCADField(propertyName),
                 BoundVariable = variable
             };
 
             //Set value of property to variable value
-            this.SetProperty<T>(instance, propertyName, variable);
-            this.Add(binding);
+            this.setProperty<T>(instance, propertyName, variable);
+            this.add(binding);
         }
 
-        internal bool Contains(string propertyName)
+        internal bool Contains(string openScadFieldName)
         {
-            return bindings.ContainsKey(propertyName);
+            return bindings.ContainsKey(openScadFieldName);
         }
 
         internal Binding Get(string propertyName)
         {
             return bindings[propertyName];
-        }        
+        }      
+        
+        internal void Synonym(string propertyName, string alternateName)
+        {
+            this.synonyms[alternateName] = propertyName;
+        }  
         #endregion
     }
 }
