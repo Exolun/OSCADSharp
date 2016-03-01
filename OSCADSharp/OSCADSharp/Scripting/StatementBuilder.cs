@@ -13,11 +13,10 @@ namespace OSCADSharp.Scripting
     internal class StatementBuilder
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
-        private Bindings bindings; 
+        private Bindings bindings = null;
 
         internal StatementBuilder()
         {
-            this.bindings = new Bindings();
         }
 
         internal StatementBuilder(Bindings bindings)
@@ -59,7 +58,7 @@ namespace OSCADSharp.Scripting
 
         private bool shouldUseBinding(string name)
         {
-            return this.bindings.Contains(name);
+            return this.bindings != null && this.bindings.Contains(name);
         }
 
         /// <summary>
