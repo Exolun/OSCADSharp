@@ -134,7 +134,7 @@ namespace OSCADSharp.Solids
         {
             { "radius", "r" },
             { "minimumangle", "$fa" },
-            { "minimumFragmentsize", "$fs" },
+            { "minimumfragmentsize", "$fs" },
             { "resolution", "$fn" },
             { "diameter", "d" }
         });

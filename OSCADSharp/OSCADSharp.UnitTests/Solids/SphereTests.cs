@@ -148,5 +148,23 @@ namespace OSCADSharp.UnitTests
             string script = sphere.ToString();
             Assert.IsTrue(script.Contains("d = diam"));
         }
+
+        [TestMethod]
+        public void Sphere_ResolutionAngleAndFragmentSizeTest()
+        {
+            var resolution = new Variable("resolution", 30);
+            var angle = new Variable("angle", 5);
+            var fragSize = new Variable("fragSize", 10);
+
+            var sphere = new Sphere();
+            sphere.Bind("Resolution", resolution);
+            sphere.Bind("MinimumAngle", angle);
+            sphere.Bind("MinimumFragmentSize", fragSize);
+
+            string script = sphere.ToString();
+            Assert.IsTrue(script.Contains("$fn = resolution"));
+            Assert.IsTrue(script.Contains("$fa = angle"));
+            Assert.IsTrue(script.Contains("$fs = fragSize"));
+        }
     }
 }
