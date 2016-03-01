@@ -13,13 +13,13 @@ namespace OSCADSharp.Scripting
     internal class StatementBuilder
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
-        private Bindings bindings = null;
+        private Bindings.Bindings bindings = null;
 
         internal StatementBuilder()
         {
         }
 
-        internal StatementBuilder(Bindings bindings)
+        internal StatementBuilder(Bindings.Bindings bindings)
         {
             this.bindings = bindings;
         }

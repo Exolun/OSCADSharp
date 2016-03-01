@@ -1,11 +1,12 @@
-﻿using System;
+﻿using OSCADSharp.Scripting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp.Bindings
 {
     internal class Bindings
     {

@@ -7,6 +7,7 @@ using OSCADSharp.Spatial;
 using OSCADSharp.Scripting;
 using System.Collections.Concurrent;
 using System.Reflection;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Solids
 {
@@ -130,7 +131,7 @@ namespace OSCADSharp.Solids
                               new Vector3(this.Radius, this.Radius, this.Radius));
         }
 
-        private Bindings bindings = new Bindings(new Dictionary<string, string>()
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
         {
             { "radius", "r" },
             { "minimumangle", "$fa" },

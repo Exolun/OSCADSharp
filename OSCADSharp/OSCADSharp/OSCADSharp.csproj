@@ -49,9 +49,9 @@
     <Compile Include="Files\IFileWriter.cs" />
     <Compile Include="Settings\Ids.cs" />
     <Compile Include="Settings\OpenSCADPathFinder.cs" />
-    <Compile Include="Scripting\Binding.cs" />
-    <Compile Include="Scripting\Bindings.cs" />
-    <Compile Include="Scripting\IBindable.cs" />
+    <Compile Include="Bindings\Binding.cs" />
+    <Compile Include="Bindings\Bindings.cs" />
+    <Compile Include="Bindings\IBindable.cs" />
     <Compile Include="Scripting\SingleStatementObject.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Scripting\Variable.cs" />
