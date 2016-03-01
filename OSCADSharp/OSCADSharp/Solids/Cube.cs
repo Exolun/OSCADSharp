@@ -16,6 +16,8 @@ namespace OSCADSharp.Solids
     {
         #region Attributes
         private Vector3 size = new BindableVector(1, 1, 1, sizeSynonyms);
+        private bool center = false;
+        private BindableBoolean centerBinding = new BindableBoolean("center");
 
         /// <summary>
         /// The Size of the cube in terms of X/Y/Z units
@@ -31,7 +33,15 @@ namespace OSCADSharp.Solids
         /// 
         /// If False (default) one corner will be centered at 0,0, 0, with the cube extending into the positive octant (positive X/Y/Z)
         /// </summary>
-        public bool Center { get; set; } = false;
+        public bool Center
+        {
+            get { return this.center; }
+            set
+            {
+                this.center = value;
+                this.centerBinding.InnerValue = this.center.ToString().ToLower();
+            }
+        }
         #endregion
 
         #region Constructors
@@ -77,8 +87,10 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cube(size = {0}, center = {1}); {2}", 
-                this.Size.ToString(), this.Center.ToString().ToLower(), Environment.NewLine); ;
+            return String.Format("cube(size = {0}, center = {1}); {2}",
+                this.Size.ToString(), 
+                this.centerBinding.IsBound ? this.centerBinding.ToString() : this.center.ToString().ToLower(), 
+                Environment.NewLine); ;
         }
 
         /// <summary>
@@ -160,6 +172,12 @@ namespace OSCADSharp.Solids
                     vec = new BindableVector(this.size);
 
                 vec.Bind(property, variable);
+            }
+
+            if(property.ToLower() == "center")
+            {
+                this.centerBinding.Bind(property, variable);
+                this.center = Convert.ToBoolean(variable.Value);
             }
         }
         #endregion

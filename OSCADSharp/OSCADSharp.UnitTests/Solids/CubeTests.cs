@@ -144,5 +144,19 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(Convert.ToDouble(zValue.Value), obj.Size.Z);
             Assert.IsTrue(script.Contains("size = [xVal, yVal, zVal]"));
         }
+
+        [TestMethod]
+        public void Cube_CenterBindingAppearsInOutput()
+        {
+            Variable centerVal = new Variable("isCentered", true);
+
+            var obj = new Cube();
+            obj.Bind("Center", centerVal);
+
+            string script = obj.ToString();
+
+            Assert.AreEqual(centerVal.Value, obj.Center);
+            Assert.IsTrue(script.Contains("center = isCentered"));
+        }
     }
 }

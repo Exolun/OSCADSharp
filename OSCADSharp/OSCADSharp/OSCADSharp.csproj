@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bindings\BindableBoolean.cs" />
     <Compile Include="Settings\Dependencies.cs" />
     <Compile Include="Files\DefaultFileInvoker.cs" />
     <Compile Include="Files\DefaultFileWriter.cs" />

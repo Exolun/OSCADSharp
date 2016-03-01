@@ -120,6 +120,9 @@ namespace OSCADSharp.Bindings
 
         internal Binding Get(string propertyName)
         {
+            if (this.hasMatchingSynonym(propertyName))
+                return this.bindings[this.synonyms[propertyName]];
+
             return bindings[propertyName];
         }      
         
