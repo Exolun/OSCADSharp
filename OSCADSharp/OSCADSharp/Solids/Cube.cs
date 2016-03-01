@@ -173,11 +173,14 @@ namespace OSCADSharp.Solids
 
                 vec.Bind(property, variable);
             }
-
-            if(property.ToLower() == "center")
+            else if(property.ToLower() == "center")
             {
                 this.centerBinding.Bind(property, variable);
                 this.center = Convert.ToBoolean(variable.Value);
+            }
+            else
+            {
+                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found", property));
             }
         }
         #endregion

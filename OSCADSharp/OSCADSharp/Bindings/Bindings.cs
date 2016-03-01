@@ -98,7 +98,7 @@ namespace OSCADSharp.Bindings
         {
             if (!this.hasMapping(propertyName))
             {
-                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found"));
+                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found", propertyName));
             }
 
             //Assign mapping r -> radius -> variable

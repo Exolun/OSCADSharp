@@ -5,15 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
 using OSCADSharp.Scripting;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Solids
 {
     /// <summary>
     /// A Cylinder geometry
     /// </summary>
-    public class Cylinder : OSCADObject
+    public class Cylinder : OSCADObject, IBindable
     {
         #region Attributes
+        private bool center = false;
+        private BindableBoolean centerBinding = new BindableBoolean("center");
+
         /// <summary>
         /// Height of the cylinder or cone
         /// </summary>
@@ -76,7 +80,15 @@ namespace OSCADSharp.Solids
         /// false: (default), z ranges from 0 to h
         /// true: z ranges from -h/2 to +h/2
         /// </summary>
-        public bool Center { get; set; } = false;
+        public bool Center
+        {
+            get { return this.center; }
+            set
+            {
+                this.center = value;
+                this.centerBinding.InnerValue = this.center.ToString().ToLower();
+            }
+        }
 
         /// <summary>
         /// Minimum angle (in degrees) of each cylinder fragment.
@@ -126,11 +138,12 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            var sb = new StatementBuilder();
+            var sb = new StatementBuilder(this.bindings);
             sb.Append("cylinder(");
-            sb.AppendValuePairIfExists("center", this.Center.ToString().ToLower());
-            sb.AppendValuePairIfExists("r1", this.Radius1, true);
-            sb.AppendValuePairIfExists("r2", this.Radius2, true);
+            sb.AppendValuePairIfExists("center", this.centerBinding.IsBound ? this.centerBinding.ToString() : this.center.ToString().ToLower());
+
+            appendDiameterAndRadius(sb);
+
             sb.AppendValuePairIfExists("h", this.Height, true);
             sb.AppendValuePairIfExists("$fn", this.Resolution, true);
             sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
@@ -138,6 +151,33 @@ namespace OSCADSharp.Solids
             sb.Append(");");
             sb.Append(Environment.NewLine);
             return sb.ToString();
+        }
+
+        private void appendDiameterAndRadius(StatementBuilder sb)
+        {
+            if (bindings.Contains("d"))
+            {
+                sb.AppendValuePairIfExists("d", this.Diameter, true);
+            }
+            else if (bindings.Contains("r"))
+            {
+                sb.AppendValuePairIfExists("r", this.Radius, true);
+            }
+            else if (bindings.Contains("d1") || bindings.Contains("d2"))
+            {
+                sb.AppendValuePairIfExists("d1", this.Diameter1, true);
+                sb.AppendValuePairIfExists("d2", this.Diameter2, true);
+            }
+            else if (bindings.Contains("r1") || bindings.Contains("r2"))
+            {
+                sb.AppendValuePairIfExists("r1", this.Radius1, true);
+                sb.AppendValuePairIfExists("r2", this.Radius2, true);
+            }
+            else
+            {
+                sb.AppendValuePairIfExists("r1", this.Radius1, true);
+                sb.AppendValuePairIfExists("r2", this.Radius2, true);
+            }
         }
 
         /// <summary>
@@ -194,6 +234,37 @@ namespace OSCADSharp.Solids
             {
                 return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Height / 2),
                                   new Vector3(this.Radius, this.Radius, this.Height / 2));
+            }
+        }
+                
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        {
+            {"radius", "r" },
+            {"radius1", "r1" },
+            {"radius2", "r2" },
+            {"diameter", "d" },
+            {"diameter1", "d1" },
+            {"diameter2", "d2" },
+            {"resolution", "$fn" },
+            {"minimumangle", "$fa" },
+            {"minimumcircumferentiallength", "$fs" }
+        });
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public void Bind(string property, Variable variable)
+        {
+            if (property.ToLower() == "center")
+            {
+                this.centerBinding.Bind(property, variable);
+                this.center = Convert.ToBoolean(variable.Value);
+            }
+            else
+            {
+                this.bindings.Add<Cylinder>(this, property, variable);
             }
         }
         #endregion
