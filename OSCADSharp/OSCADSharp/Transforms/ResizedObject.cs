@@ -61,5 +61,10 @@ namespace OSCADSharp.Transforms
 
             return new Bounds(oldBounds.BottomLeft * scaleMultiplier, oldBounds.TopRight * scaleMultiplier);            
         }
+
+        public override void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

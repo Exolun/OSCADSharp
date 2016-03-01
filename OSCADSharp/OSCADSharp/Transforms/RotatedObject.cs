@@ -55,5 +55,10 @@ namespace OSCADSharp.Transforms
             return new Bounds(Matrix.GetRotatedPoint(oldBounds.BottomLeft, this.Angle.X, this.Angle.Y, this.Angle.Z),
                               Matrix.GetRotatedPoint(oldBounds.TopRight, this.Angle.X, this.Angle.Y, this.Angle.Z));
         }
+
+        public override void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

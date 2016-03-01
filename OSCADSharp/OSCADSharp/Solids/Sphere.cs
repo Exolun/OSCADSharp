@@ -14,7 +14,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Sphere geometry
     /// </summary>
-    public class Sphere : OSCADObject, IBindable
+    public class Sphere : OSCADObject
     {
         #region Attributes
         /// <summary>
@@ -146,7 +146,7 @@ namespace OSCADSharp.Solids
         /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
         /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
         /// literal value of the property</param>
-        public void Bind(string property, Variable variable)
+        public override void Bind(string property, Variable variable)
         {
             this.bindings.Add<Sphere>(this, property, variable);
         }

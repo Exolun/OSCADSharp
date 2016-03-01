@@ -12,7 +12,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// Create text using fonts installed on the local system or provided as separate font file.
     /// </summary>
-    public class Text3D : OSCADObject, IBindable
+    public class Text3D : OSCADObject
     {
         #region Attributes
         /// <summary>
@@ -165,7 +165,7 @@ namespace OSCADSharp.Solids
         /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
         /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
         /// literal value of the property</param>
-        public void Bind(string property, Variable variable)
+        public override void Bind(string property, Variable variable)
         {
             this.bindings.Add<Text3D>(this, property, variable);
         }

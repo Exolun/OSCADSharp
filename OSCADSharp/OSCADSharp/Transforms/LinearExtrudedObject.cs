@@ -57,5 +57,10 @@ namespace OSCADSharp.Transforms
         {
             throw new NotImplementedException();
         }
+
+        public override void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

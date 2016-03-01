@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Booleans;
+﻿using OSCADSharp.Bindings;
+using OSCADSharp.Booleans;
 using OSCADSharp.Files;
 using OSCADSharp.Scripting;
 using OSCADSharp.Spatial;
@@ -16,7 +17,7 @@ namespace OSCADSharp
     /// Represents any Object or collection of objects that becomes am
     /// an OpenSCAD script when converted to a string.
     /// </summary>
-    public abstract class OSCADObject
+    public abstract class OSCADObject : IBindable
     {
         #region Attributes
         private uint id = Ids.Get();
@@ -340,6 +341,14 @@ namespace OSCADSharp
 
             return Dependencies.FileInvokerFactory(filePath);
         }
+
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public abstract void Bind(string property, Variable variable);        
         #endregion
 
         #region Operators

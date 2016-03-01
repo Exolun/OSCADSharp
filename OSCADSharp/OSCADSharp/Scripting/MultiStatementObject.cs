@@ -95,5 +95,10 @@ namespace OSCADSharp.Scripting
 
             return new Bounds(newBottomLeft, newTopRight);
         }
+
+        public override void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

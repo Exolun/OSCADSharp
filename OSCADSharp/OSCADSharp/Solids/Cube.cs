@@ -12,7 +12,7 @@ namespace OSCADSharp.Solids
     /// <summary>
     /// A Cube geometry
     /// </summary>
-    public class Cube : OSCADObject, IBindable
+    public class Cube : OSCADObject
     {
         #region Attributes
         private Vector3 size = new BindableVector(1, 1, 1, sizeSynonyms);
@@ -161,7 +161,7 @@ namespace OSCADSharp.Solids
         /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
         /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
         /// literal value of the property</param>
-        public void Bind(string property, Variable variable)
+        public override void Bind(string property, Variable variable)
         {
             if (sizeSynonyms.ContainsKey(property.ToLower()))
             {

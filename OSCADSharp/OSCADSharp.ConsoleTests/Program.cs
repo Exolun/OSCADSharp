@@ -18,7 +18,7 @@ namespace OSCADSharp.ConsoleTests
             Variables.Global.Add("cubeWidth", 10);
 
             OSCADObject obj = new Sphere();
-            ((Sphere)obj).Bind("Radius", Variables.Global["sphereRadius"]);
+            obj.Bind("Radius", Variables.Global["sphereRadius"]);
 
             var cube = new Cube();
             cube.Bind("Width", Variables.Global["cubeWidth"]);

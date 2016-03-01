@@ -54,5 +54,10 @@ namespace OSCADSharp.Transforms
         {
             return this.obj.Bounds();
         }
+
+        public override void Bind(string property, Variable variable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
