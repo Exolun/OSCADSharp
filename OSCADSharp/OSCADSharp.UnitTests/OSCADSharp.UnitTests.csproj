@@ -59,6 +59,7 @@
     <Compile Include="SettingsTests.cs" />
     <Compile Include="Solids\CubeTests.cs" />
     <Compile Include="Solids\CylinderTests.cs" />
+    <Compile Include="Transforms\ColorTests.cs" />
     <Compile Include="Transforms\HullTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="Transforms\MirrorTests.cs" />

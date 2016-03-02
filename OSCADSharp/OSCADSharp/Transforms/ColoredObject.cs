@@ -32,7 +32,12 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string colorCommand = String.Format("color(\"{0}\", {1})", this.ColorName, this.Opacity);
+            string colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Name :
+                this.ColorName;
+            string opacity = this.bindings.Contains("opacity") ? this.bindings.Get("opacity").BoundVariable.Name
+                : this.Opacity.ToString();
+
+            string colorCommand = String.Format("color(\"{0}\", {1})", colorName, opacity);
             var formatter = new SingleBlockFormatter(colorCommand, this.obj.ToString());            
             return formatter.ToString();
         }
@@ -55,9 +60,13 @@ namespace OSCADSharp.Transforms
             return this.obj.Bounds();
         }
 
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+            {"color", "color" },
+            {"opacity", "opacity" }
+        });
         public override void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
+            this.bindings.Add<ColoredObject>(this, property, variable);
         }
     }
 }
