@@ -98,7 +98,7 @@ namespace OSCADSharp.Scripting
 
         public override void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("This object has no bindable properties.");
         }
     }
 }
