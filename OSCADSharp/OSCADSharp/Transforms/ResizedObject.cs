@@ -29,6 +29,23 @@ namespace OSCADSharp.Transforms
             Size = new BindableVector(size);
         }
 
+        internal ResizedObject(OSCADObject obj, Variable size) : base(obj)
+        {
+            this.Bind("size", size);
+        }
+
+        internal ResizedObject(OSCADObject obj, Vector3 size, Variable x, Variable y, Variable z) :base(obj)
+        {
+            this.Size = new BindableVector(size);
+
+            if (x != null)
+                this.Bind("x", x);
+            if (y != null)
+                this.Bind("y", y);
+            if (z != null)
+                this.Bind("z", z);
+        }
+
         public override string ToString()
         {
             string size = this.bindings.Contains("size") ? this.bindings.Get("size").BoundVariable.Name : this.Size.ToString();

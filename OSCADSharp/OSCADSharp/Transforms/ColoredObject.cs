@@ -38,10 +38,10 @@ namespace OSCADSharp.Transforms
         /// <param name="opacity"></param>
         internal ColoredObject(OSCADObject obj, Variable colorName, Variable opacity) : base(obj)
         {
-            this.bindings.Add<ColoredObject>(this, "color", colorName);
+            this.Bind("color", colorName);
             if(opacity != null)
             {
-                this.bindings.Add<ColoredObject>(this, "opacity", opacity);
+                this.Bind("opacity", opacity);
             }
         }
 
@@ -79,8 +79,6 @@ namespace OSCADSharp.Transforms
             {"color", "color" },
             {"opacity", "opacity" }
         });
-        private Variable colorName;
-        private Variable opacity;
 
         public override void Bind(string property, Variable variable)
         {

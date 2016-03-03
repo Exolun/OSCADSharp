@@ -51,12 +51,13 @@ namespace OSCADSharp
         /// </summary>
         /// <param name="colorName">Color name variable to apply</param>
         /// <param name="opacity">(optional)Opacity variable</param>
-        /// <returns></returns>
+        /// <returns>A colored object</returns>
         public OSCADObject Color(Variable colorName, Variable opacity = null)
         {
             return new ColoredObject(this, colorName, opacity);
         }
 
+        #region Mirror
         /// <summary>
         /// Mirrors the object about a plane, as specified by the normal
         /// </summary>
@@ -64,6 +65,16 @@ namespace OSCADSharp
         /// through which to mirror it.</param>
         /// <returns>A mirrored object</returns>
         public OSCADObject Mirror(Vector3 normal)
+        {
+            return new MirroredObject(this, normal);
+        }
+        
+        /// <summary>
+        /// Mirrors the object on a plane represented in a variable
+        /// </summary>
+        /// <param name="normal">Variable for the normal vector of the plane</param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(Variable normal)
         {
             return new MirroredObject(this, normal);
         }
@@ -82,11 +93,107 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(Variable x, Variable y, Variable z)
+        {
+            return new MirroredObject(this, new Vector3(), x, y, z);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(Variable x, double y, double z)
+        {
+            return new MirroredObject(this, new Vector3(0, y, z), x, null, null);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(double x, Variable y, double z)
+        {
+            return new MirroredObject(this, new Vector3(x, 0, z), null, y, null);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(double x, double y, Variable z)
+        {
+            return new MirroredObject(this, new Vector3(x, y, 0), null, null, z);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(Variable x, Variable y, double z)
+        {
+            return new MirroredObject(this, new Vector3(0, 0, z), x, y, null);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(double x, Variable y, Variable z)
+        {
+            return new MirroredObject(this, new Vector3(x, 0, 0), null, y, z);
+        }
+
+        /// <summary>
+        /// Mirrors an object about a plane with variables for some components of the normal
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A mirrored object</returns>
+        public OSCADObject Mirror(Variable x, double y, Variable z)
+        {
+            return new MirroredObject(this, new Vector3(0, y, 0), x, null, z);
+        }
+        #endregion
+
+        #region Resize
+        /// <summary>
         /// Resizes to a specified set of X/Y/Z dimensions
         /// </summary>
         /// <param name="newsize">The X/Y/Z dimensions</param>
         /// <returns>A resized object</returns>
         public OSCADObject Resize(Vector3 newsize)
+        {
+            return new ResizedObject(this, newsize);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using a variable
+        /// </summary>
+        /// <param name="newsize">The X/Y/Z dimensions</param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(Variable newsize)
         {
             return new ResizedObject(this, newsize);
         }
@@ -102,6 +209,91 @@ namespace OSCADSharp
         {
             return this.Resize(new Vector3(x, y, z));
         }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(Variable x, Variable y, Variable z)
+        {
+            return new ResizedObject(this, new Vector3(), x, y, z);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(Variable x, double y, double z)
+        {
+            return new ResizedObject(this, new Vector3(0, y, z), x, null, null);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(double x, Variable y, double z)
+        {
+            return new ResizedObject(this, new Vector3(x, 0, z), null, y, null);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(double x, double y, Variable z)
+        {
+            return new ResizedObject(this, new Vector3(x, y, 0), null, null, z);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(Variable x, double y, Variable z)
+        {
+            return new ResizedObject(this, new Vector3(0, y, 0), x, null, z);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(double x, Variable y, Variable z)
+        {
+            return new ResizedObject(this, new Vector3(x, 0, 0), null, y, z);
+        }
+
+        /// <summary>
+        /// Resizes to a specified set of X/Y/Z dimensions using one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A resized object</returns>
+        public OSCADObject Resize(Variable x, Variable y, double z)
+        {
+            return new ResizedObject(this, new Vector3(0, 0, z), x, y, null);
+        }
+        #endregion
 
         /// <summary>
         /// Rotates about a specified X/Y/Z euler angle

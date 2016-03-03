@@ -29,6 +29,23 @@ namespace OSCADSharp.Transforms
         {
             this.Normal = new BindableVector(normal);
         }
+
+        internal MirroredObject(OSCADObject obj, Variable normal) : base(obj)
+        {
+            this.Bind("normal", normal);
+        }
+
+        internal MirroredObject(OSCADObject obj, Vector3 normal, Variable x, Variable y, Variable z) : base(obj)
+        {
+            this.Normal = new BindableVector(normal);
+
+            if (x != null)
+                this.Bind("x", x);
+            if (y != null)
+                this.Bind("y", y);
+            if (z != null)
+                this.Bind("z", z);
+        }
         
         public override string ToString()
         {
@@ -97,7 +114,16 @@ namespace OSCADSharp.Transforms
         });
         public override void Bind(string property, Variable variable)
         {
-            this.bindings.Add<MirroredObject>(this, property, variable);
+            var bindableVec = this.Normal as BindableVector;
+
+            if (bindableVec != null && property == "x" || property == "y" || property == "z")
+            {
+                bindableVec.Bind(property, variable);
+            }
+            else
+            {
+                this.bindings.Add<MirroredObject>(this, property, variable);
+            }
         }
     }
 }

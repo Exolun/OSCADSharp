@@ -44,5 +44,17 @@ namespace OSCADSharp.UnitTests.Transforms
 
             Assert.IsTrue(script.Contains("resize(mySize)"));
         }
+
+        [TestMethod]
+        public void Resize_ParameterizedSizeBindingAppearsInOutput()
+        {
+            var xAmount = new Variable("xAmt", 15);
+
+            var resizedCube = new Cube().Resize(xAmount, 5, 10);            
+
+            string script = resizedCube.ToString();
+
+            Assert.IsTrue(script.Contains("resize([xAmt, 5, 10])"));
+        }
     }
 }
