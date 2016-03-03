@@ -72,6 +72,7 @@
     <Compile Include="Booleans\IntersectionTests.cs" />
     <Compile Include="Transforms\MinkowskiTests.cs" />
     <Compile Include="Transforms\ResizeTests.cs" />
+    <Compile Include="Transforms\RotateTests.cs" />
     <Compile Include="Transforms\ScaleTests.cs" />
     <Compile Include="Transforms\TranslateTests.cs" />
   </ItemGroup>

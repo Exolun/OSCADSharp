@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Scripting;
+﻿using OSCADSharp.Bindings;
+using OSCADSharp.Scripting;
 using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace OSCADSharp.Transforms
         /// The normal vector of a plane intersecting the origin of the object,
         /// through which to mirror it.
         /// </summary>
-        internal Vector3 Normal { get; set; } = new Vector3();
+        internal Vector3 Normal { get; set; } = new BindableVector();
         
         /// <summary>
         /// Creates an object that's mirrored on a plane
@@ -26,12 +27,14 @@ namespace OSCADSharp.Transforms
         /// <param name="normal">The normal vector of the plane on the object's origin to mirror upon</param>
         internal MirroredObject(OSCADObject obj, Vector3 normal) : base(obj)
         {
-            this.Normal = normal;
+            this.Normal = new BindableVector(normal);
         }
         
         public override string ToString()
         {
-            string mirrorCommand = String.Format("mirror([{0}, {1}, {2}])", this.Normal.X, this.Normal.Y, this.Normal.Z);
+            string normal = this.bindings.Contains("normal") ? this.bindings.Get("normal").BoundVariable.Name : this.Normal.ToString();
+
+            string mirrorCommand = String.Format("mirror({0})", normal);
             var formatter = new SingleBlockFormatter(mirrorCommand, this.obj.ToString());
             return formatter.ToString();
         }
@@ -89,9 +92,12 @@ namespace OSCADSharp.Transforms
             return new Bounds(newBottomLeft, newTopRight);
         }
 
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+            {"normal", "normal"}
+        });
         public override void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
+            this.bindings.Add<MirroredObject>(this, property, variable);
         }
     }
 }

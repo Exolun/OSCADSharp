@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Transforms
 {
@@ -22,13 +23,14 @@ namespace OSCADSharp.Transforms
         /// <param name="vector">Amount to translate by</param>
         internal TranslatedObject(OSCADObject obj, Vector3 vector) : base(obj)
         {
-            this.Vector = vector;
+            this.Vector = new BindableVector(vector);
         }
 
         public override string ToString()
         {
-            string translateCommmand = String.Format("translate(v = [{0}, {1}, {2}])",
-                this.Vector.X.ToString(), this.Vector.Y.ToString(), this.Vector.Z.ToString());
+            string translation = this.bindings.Contains("vector") ? this.bindings.Get("vector").BoundVariable.Name : this.Vector.ToString();
+
+            string translateCommmand = String.Format("translate(v = {0})", translation);
             var formatter = new SingleBlockFormatter(translateCommmand, this.obj.ToString());
             return formatter.ToString();
         }
@@ -52,9 +54,21 @@ namespace OSCADSharp.Transforms
             return new Bounds(oldBounds.BottomLeft + this.Vector, oldBounds.TopRight + this.Vector);
         }
 
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+            { "vector", "vector" }
+        });
         public override void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
+            var bindableVec = this.Vector as BindableVector;
+
+            if (bindableVec != null && property == "x" || property == "y" || property == "z")
+            {
+                bindableVec.Bind(property, variable);
+            }
+            else
+            {
+                this.bindings.Add<TranslatedObject>(this, property, variable);
+            }
         }
     }
 }

@@ -59,5 +59,15 @@ namespace OSCADSharp.UnitTests
 
             var pos = cube.Mirror(1, 1, 0).Bounds();
         }
+
+        [TestMethod]
+        public void Mirror_CanBindNormal()
+        {
+            var cube = new Cube(5, 20, 15).Mirror(1, 0, 0);
+            cube.Bind("normal", new Scripting.Variable("myVar", new Vector3(1, 0, 0)));
+
+            string script = cube.ToString();
+            Assert.IsTrue(script.Contains("mirror(myVar)"));
+        }
     }
 }

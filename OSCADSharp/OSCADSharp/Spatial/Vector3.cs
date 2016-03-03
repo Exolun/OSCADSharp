@@ -142,9 +142,9 @@ namespace OSCADSharp
         /// <returns></returns>
         public static bool operator ==(Vector3 left, Vector3 right)
         {
-            return left.X == right.X &&
-                left.Y == right.Y &&
-                left.Z == right.Z;
+            return left?.X == right?.X &&
+                left?.Y == right?.Y &&
+                left?.Z == right?.Z;
         }
 
         /// <summary>
@@ -155,9 +155,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public static bool operator !=(Vector3 left, Vector3 right)
         {
-            return !(left.X == right.X &&
-                left.Y == right.Y &&
-                left.Z == right.Z);
+            return !(left == right);
         }
         
         /// <summary>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Transforms
 {
@@ -25,13 +26,14 @@ namespace OSCADSharp.Transforms
         /// <param name="size">The size to resize to, in terms of x/y/z dimensions</param>
         internal ResizedObject(OSCADObject obj, Vector3 size) : base(obj)
         {
-            this.Size = size;
+            Size = new BindableVector(size);
         }
 
         public override string ToString()
         {
-            string resizeCommand = String.Format("resize([{0}, {1}, {2}])", this.Size.X.ToString(),
-                this.Size.Y.ToString(), this.Size.Z.ToString());
+            string size = this.bindings.Contains("size") ? this.bindings.Get("size").BoundVariable.Name : this.Size.ToString();
+
+            string resizeCommand = String.Format("resize({0})", size);
             var formatter = new SingleBlockFormatter(resizeCommand, this.obj.ToString());
             return formatter.ToString();
         }
@@ -62,9 +64,22 @@ namespace OSCADSharp.Transforms
             return new Bounds(oldBounds.BottomLeft * scaleMultiplier, oldBounds.TopRight * scaleMultiplier);            
         }
 
+
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+            { "size", "size" }
+        });
         public override void Bind(string property, Variable variable)
         {
-            throw new NotImplementedException();
+            var bindableVec = this.Size as BindableVector;
+
+            if(bindableVec != null && property == "x" || property == "y" || property == "z")
+            {                
+                bindableVec.Bind(property, variable);
+            }
+            else
+            {
+                this.bindings.Add<ResizedObject>(this, property, variable);
+            }            
         }
     }
 }
