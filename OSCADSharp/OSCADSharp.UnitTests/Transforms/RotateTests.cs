@@ -23,5 +23,17 @@ namespace OSCADSharp.UnitTests.Transforms
             string script = cyl.ToString();
             Assert.IsTrue(script.Contains("rotate(myRot)"));
         }
+
+        [TestMethod]
+        public void Rotate_CanBindAngleWithParameters()
+        {
+            var xAngle = new Variable("xAngle", 30);
+            var yAngle = new Variable("yAngle", -20);
+
+            var cyl = new Cylinder().Rotate(xAngle, yAngle, 120);
+
+            string script = cyl.ToString();
+            Assert.IsTrue(script.Contains("rotate([xAngle, yAngle, 120])"));
+        }
     }
 }

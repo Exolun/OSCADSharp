@@ -29,6 +29,23 @@ namespace OSCADSharp.Transforms
             this.Angle = new BindableVector(angle);
         }
 
+        internal RotatedObject(OSCADObject obj, Variable normal) : base(obj)
+        {
+            this.Bind("angle", normal);
+        }
+
+        internal RotatedObject(OSCADObject obj, Vector3 angle, Variable x, Variable y, Variable z) : base(obj)
+        {
+            this.Angle = new BindableVector(angle);
+
+            if (x != null)
+                this.Bind("x", x);
+            if (y != null)
+                this.Bind("y", y);
+            if (z != null)
+                this.Bind("z", z);
+        }
+
         public override string ToString()
         {
             string angle = this.bindings.Contains("angle") ? this.bindings.Get("angle").BoundVariable.Name : this.Angle.ToString();

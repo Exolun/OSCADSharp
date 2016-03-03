@@ -35,6 +35,8 @@ namespace OSCADSharp
         #endregion
 
         #region Transforms
+        
+        #region Color
         /// <summary>
         /// Applies Color and/or Opacity to this object
         /// </summary>
@@ -56,6 +58,7 @@ namespace OSCADSharp
         {
             return new ColoredObject(this, colorName, opacity);
         }
+        #endregion
 
         #region Mirror
         /// <summary>
@@ -295,12 +298,23 @@ namespace OSCADSharp
         }
         #endregion
 
+        #region Rotate
         /// <summary>
         /// Rotates about a specified X/Y/Z euler angle
         /// </summary>
         /// <param name="angle">The angle(s) to rotate</param>
         /// <returns>A rotated object</returns>
         public OSCADObject Rotate(Vector3 angle)
+        {
+            return new RotatedObject(this, angle);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler angle variable
+        /// </summary>
+        /// <param name="angle">The angle(s) to rotate</param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(Variable angle)
         {
             return new RotatedObject(this, angle);
         }
@@ -318,11 +332,107 @@ namespace OSCADSharp
         }
 
         /// <summary>
+        /// Rotates about a specified X/Y/Z euler variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(Variable x, Variable y, Variable z)
+        {
+            return new RotatedObject(this, new Vector3(), x, y, z);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(Variable x, double y, double z)
+        {
+            return new RotatedObject(this, new Vector3(0, y, z), x, null, null);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(double x, Variable y, double z)
+        {
+            return new RotatedObject(this, new Vector3(x, 0, z), null, y, null);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(double x, double y, Variable z)
+        {
+            return new RotatedObject(this, new Vector3(x, y, 0), null, null, z);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(Variable x, double y, Variable z)
+        {
+            return new RotatedObject(this, new Vector3(0, y, 0), x, null, z);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(double x, Variable y, Variable z)
+        {
+            return new RotatedObject(this, new Vector3(x, 0, 0), null, y, z);
+        }
+
+        /// <summary>
+        /// Rotates about a specified X/Y/Z euler with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A rotated object</returns>
+        public OSCADObject Rotate(Variable x, Variable y, double z)
+        {
+            return new RotatedObject(this, new Vector3(0, 0, z), x, y, null);
+        }
+        #endregion
+
+        #region Scale
+        /// <summary>
         /// Rescales an object by an X/Y/Z scale factor
         /// </summary>
         /// <param name="scale">The scale to apply. For example 1, 2, 1 would yield 2x scale on the Y axis</param>
         /// <returns>A scaled object</returns>
         public OSCADObject Scale(Vector3 scale)
+        {
+            return new ScaledObject(this, scale);
+        }
+
+        /// <summary>
+        /// Rescales an object by an X/Y/Z scale factor variable
+        /// </summary>
+        /// <param name="scale">The scale to apply. For example 1, 2, 1 would yield 2x scale on the Y axis</param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(Variable scale)
         {
             return new ScaledObject(this, scale);
         }
@@ -338,6 +448,91 @@ namespace OSCADSharp
         {
             return this.Scale(new Vector3(x, y, z));
         }
+
+        /// <summary>
+        /// Rescales an object by an X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(Variable x, Variable y, Variable z)
+        {
+            return new ScaledObject(this, new Vector3(), x, y, z);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(Variable x, double y, double z)
+        {
+            return new ScaledObject(this, new Vector3(0, y, z), x, null, null);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(double x, Variable y, double z)
+        {
+            return new ScaledObject(this, new Vector3(x, 0, z), null, y, null);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(double x, double y, Variable z)
+        {
+            return new ScaledObject(this, new Vector3(x, y, 0), null, null, z);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(Variable x, double y, Variable z)
+        {
+            return new ScaledObject(this, new Vector3(0, y, 0), x, null, z);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(double x, Variable y, Variable z)
+        {
+            return new ScaledObject(this, new Vector3(x, 0, 0), null, y, z);
+        }
+
+        /// <summary>
+        /// Rescales an object by one or more X/Y/Z scale factor variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A scaled object</returns>
+        public OSCADObject Scale(Variable x, Variable y, double z)
+        {
+            return new ScaledObject(this, new Vector3(0, 0, z), x, y, null);
+        }
+        #endregion
 
         /// <summary>
         /// Translates an object by the specified amount

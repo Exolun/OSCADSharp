@@ -47,5 +47,18 @@ namespace OSCADSharp.UnitTests.Transforms
             string script = cube.ToString();
             Assert.IsTrue(script.Contains("v = scaleVar"));
         }
+
+        [TestMethod]
+        public void Scale_CanBindParameterizedScaleValue()
+        {
+            var x = new Variable("xS", 3);
+            var y = new Variable("yS", 4);
+            var z = new Variable("zS", 3);
+
+            var cube = new Cube().Scale(x, y, z);
+
+            string script = cube.ToString();
+            Assert.IsTrue(script.Contains("v = [xS, yS, zS]"));
+        }
     }
 }

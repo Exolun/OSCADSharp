@@ -29,6 +29,23 @@ namespace OSCADSharp.Transforms
             this.ScaleFactor = new BindableVector(scale);
         }
 
+        internal ScaledObject(OSCADObject obj, Variable normal) : base(obj)
+        {
+            this.Bind("scalefactor", normal);
+        }
+
+        internal ScaledObject(OSCADObject obj, Vector3 scale, Variable x, Variable y, Variable z) : base(obj)
+        {
+            this.ScaleFactor = new BindableVector(scale);
+
+            if (x != null)
+                this.Bind("x", x);
+            if (y != null)
+                this.Bind("y", y);
+            if (z != null)
+                this.Bind("z", z);
+        }
+
         public override string ToString()
         {
             string scale = this.bindings.Contains("scalefactor") ? this.bindings.Get("scalefactor").BoundVariable.Name : this.ScaleFactor.ToString();
