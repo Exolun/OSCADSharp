@@ -53,5 +53,14 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(0, childrenThatAreDiffs);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void Difference_NoBindableProperties()
+        {
+            var diff = new Cube() - new Sphere();
+
+            diff.Bind("SomeProperty", new Scripting.Variable("test", 5));
+        }
     }
 }

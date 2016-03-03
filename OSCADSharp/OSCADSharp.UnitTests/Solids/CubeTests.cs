@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Solids;
+using OSCADSharp.Scripting;
 
 namespace OSCADSharp.UnitTests
 {
@@ -102,6 +103,60 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(2.5, 2.5, 10), obj.Bounds().TopRight);
             Assert.AreEqual(new Vector3(-2.5, -2.5, -10), obj.Bounds().BottomLeft);
+        }
+
+        [TestMethod]
+        public void Cube_Size_XYZBindingsAppearInOutput()
+        {
+            Variable xValue = new Variable("xVal", 10.125);
+            Variable yValue = new Variable("yVal", 15.5);
+            Variable zValue = new Variable("zVal", 25);
+
+            var obj = new Cube();
+            obj.Bind("Size.X", xValue);
+            obj.Bind("Size.Y", yValue);
+            obj.Bind("Size.Z", zValue);
+
+            string script = obj.ToString();
+
+            Assert.AreEqual(Convert.ToDouble(xValue.Value), obj.Size.X);
+            Assert.AreEqual(Convert.ToDouble(yValue.Value), obj.Size.Y);
+            Assert.AreEqual(Convert.ToDouble(zValue.Value), obj.Size.Z);
+            Assert.IsTrue(script.Contains("size = [xVal, yVal, zVal]"));
+        }
+
+        [TestMethod]
+        public void Cube_Size_LengthWidthHeightindingsAppearInOutput()
+        {
+            Variable xValue = new Variable("xVal", 10.125);
+            Variable yValue = new Variable("yVal", 15.5);
+            Variable zValue = new Variable("zVal", 25);
+
+            var obj = new Cube();
+            obj.Bind("Length", xValue);
+            obj.Bind("Width", yValue);
+            obj.Bind("Height", zValue);
+
+            string script = obj.ToString();
+
+            Assert.AreEqual(Convert.ToDouble(xValue.Value), obj.Size.X);
+            Assert.AreEqual(Convert.ToDouble(yValue.Value), obj.Size.Y);
+            Assert.AreEqual(Convert.ToDouble(zValue.Value), obj.Size.Z);
+            Assert.IsTrue(script.Contains("size = [xVal, yVal, zVal]"));
+        }
+
+        [TestMethod]
+        public void Cube_CenterBindingAppearsInOutput()
+        {
+            Variable centerVal = new Variable("isCentered", true);
+
+            var obj = new Cube();
+            obj.Bind("Center", centerVal);
+
+            string script = obj.ToString();
+
+            Assert.AreEqual(centerVal.Value, obj.Center);
+            Assert.IsTrue(script.Contains("center = isCentered"));
         }
     }
 }

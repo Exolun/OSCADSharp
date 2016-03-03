@@ -42,20 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dependencies.cs" />
+    <Compile Include="Bindings\BindableBoolean.cs" />
+    <Compile Include="Settings\Dependencies.cs" />
     <Compile Include="Files\DefaultFileInvoker.cs" />
     <Compile Include="Files\DefaultFileWriter.cs" />
     <Compile Include="Files\IFileInvoker.cs" />
     <Compile Include="Files\IFileWriter.cs" />
-    <Compile Include="Ids.cs" />
-    <Compile Include="Scripting\BindingMapper.cs" />
-    <Compile Include="Scripting\Bindings.cs" />
-    <Compile Include="Scripting\IBindable.cs" />
+    <Compile Include="Settings\Ids.cs" />
+    <Compile Include="Settings\OpenSCADPathFinder.cs" />
+    <Compile Include="Bindings\Binding.cs" />
+    <Compile Include="Bindings\Bindings.cs" />
+    <Compile Include="Bindings\IBindable.cs" />
     <Compile Include="Scripting\SingleStatementObject.cs" />
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Scripting\Variable.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Settings\Settings.cs" />
     <Compile Include="Sizes.cs" />
+    <Compile Include="Bindings\BindableVector.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
     <Compile Include="Transforms\HulledObject.cs" />

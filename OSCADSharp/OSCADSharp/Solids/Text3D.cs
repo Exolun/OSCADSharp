@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Solids
 {
@@ -23,7 +24,7 @@ namespace OSCADSharp.Solids
         /// The generated text will have approximately an ascent of the given value (height above the baseline). Default is 10.
         /// Note that specific fonts will vary somewhat and may not fill the size specified exactly, usually slightly smaller.
         /// </summary>
-        public uint? Size { get; set; } = null;
+        public int? Size { get; set; } = null;
 
         /// <summary>
         /// The name of the font that should be used. This is not the name of the font file, 
@@ -35,7 +36,7 @@ namespace OSCADSharp.Solids
         /// <summary>
         /// Factor to increase/decrease the character spacing. The default value of 1 will result in the normal spacing for the font, giving a value greater than 1 will cause the letters to be spaced further apart.
         /// </summary>
-        public uint? Spacing { get; set; } = null;
+        public int? Spacing { get; set; } = null;
 
         /// <summary>
         /// Direction of the text flow. Possible values are "ltr" (left-to-right), "rtl" (right-to-left), "ttb" (top-to-bottom) and "btt" (bottom-to-top). Default is "ltr".
@@ -46,7 +47,6 @@ namespace OSCADSharp.Solids
         /// The language of the text. Default is "en".
         /// </summary>
         public string Language { get; set; }
-
         #endregion
        
         #region Constructors
@@ -64,7 +64,7 @@ namespace OSCADSharp.Solids
         /// </summary>        
         /// <param name="text">Text to display</param>
         /// <param name="size">Font size for the text</param>
-        public Text3D(string text, uint? size = null)
+        public Text3D(string text, int? size = null)
         {
             this.Text = text;
             this.Size = size;
@@ -88,18 +88,7 @@ namespace OSCADSharp.Solids
                 TextDirection = this.TextDirection,
                 Language = this.Language                
             };
-        }
-
-        private void appendIfValueNotNullOrEmpty(string name, string value, StringBuilder sb)
-        {
-            if(!String.IsNullOrEmpty(value))
-            {
-                sb.Append(", ");
-                sb.Append(name);
-                sb.Append("=");
-                sb.Append(value);
-            }
-        }
+        }        
         
         /// <summary>
         /// Converts this object to an OpenSCAD script
@@ -107,10 +96,18 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder();
+            StatementBuilder sb = new StatementBuilder(this.bindings);
             sb.Append("text(");
             sb.Append("\"");
-            sb.Append(this.Text);
+            if (this.bindings.Contains("text"))
+            {
+                sb.Append(this.bindings.Get("text").BoundVariable.Name);
+            }
+            else
+            { 
+                sb.Append(this.Text);
+            }
+
             sb.Append("\"");
 
             sb.AppendValuePairIfExists("size", this.Size?.ToString(), true);
@@ -150,6 +147,27 @@ namespace OSCADSharp.Solids
         public override Bounds Bounds()
         {
             throw new NotSupportedException("Bounds are not supported for objects using Text3D");
+        }
+
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        {
+            { "text", "text" },
+            { "size", "size" },
+            { "font", "font" },
+            { "spacing", "spacing" },
+            { "textdirection", "direction" },
+            { "language", "language" }
+        });
+
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public override void Bind(string property, Variable variable)
+        {
+            this.bindings.Add<Text3D>(this, property, variable);
         }
         #endregion
     }

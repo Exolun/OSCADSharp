@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OSCADSharp.Scripting;
 using OSCADSharp.Solids;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,32 @@ namespace OSCADSharp.UnitTests.Transforms
             var bounds = obj.Bounds();
             Assert.AreEqual(new Vector3(5, 5, 5), bounds.TopRight);
             Assert.AreEqual(new Vector3(0, 0, 0), bounds.BottomLeft);
+        }
+
+        [TestMethod]
+        public void Resize_SizeBindingwithVectorAppearsInOutput()
+        {
+            var resizedCube = new Cube().Resize(5, 5, 10);
+
+            var sizeVar = new Variable("mySize", new Vector3(20, 30, 20));
+
+            resizedCube.Bind("size", sizeVar);
+
+            string script = resizedCube.ToString();
+
+            Assert.IsTrue(script.Contains("resize(mySize)"));
+        }
+
+        [TestMethod]
+        public void Resize_ParameterizedSizeBindingAppearsInOutput()
+        {
+            var xAmount = new Variable("xAmt", 15);
+
+            var resizedCube = new Cube().Resize(xAmount, 5, 10);            
+
+            string script = resizedCube.ToString();
+
+            Assert.IsTrue(script.Contains("resize([xAmt, 5, 10])"));
         }
     }
 }

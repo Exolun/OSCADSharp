@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.Spatial;
 using OSCADSharp.Scripting;
+using System.Collections.Concurrent;
+using System.Reflection;
+using OSCADSharp.Bindings;
 
 namespace OSCADSharp.Solids
 {
@@ -71,9 +74,18 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder();
+            StatementBuilder sb = new StatementBuilder(this.bindings);
             sb.Append("sphere(");
-            sb.AppendValuePairIfExists("r", this.Radius);
+
+            if (this.bindings.Contains("d"))
+            {
+                sb.AppendValuePairIfExists("d", this.Diameter);
+            }
+            else
+            {
+                sb.AppendValuePairIfExists("r", this.Radius);
+            }
+
             sb.AppendValuePairIfExists("$fn", this.Resolution, true);
             sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
             sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
@@ -117,6 +129,26 @@ namespace OSCADSharp.Solids
         {
             return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Radius), 
                               new Vector3(this.Radius, this.Radius, this.Radius));
+        }
+
+        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        {
+            { "radius", "r" },
+            { "minimumangle", "$fa" },
+            { "minimumfragmentsize", "$fs" },
+            { "resolution", "$fn" },
+            { "diameter", "d" }
+        });
+
+        /// <summary>
+        /// Binds a a variable to a property on this object
+        /// </summary>
+        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
+        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
+        /// literal value of the property</param>
+        public override void Bind(string property, Variable variable)
+        {
+            this.bindings.Add<Sphere>(this, property, variable);
         }
         #endregion
     }

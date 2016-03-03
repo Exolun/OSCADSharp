@@ -14,9 +14,22 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            Variables.Global["$fn"] = 100;
-            var obj = new Sphere(30);
-            
+            Variables.Global.Add("myColor", "\"Red\"");
+            Variables.Global.Add("sphereRadius", 15);
+            Variables.Global.Add("cubeWidth", 10);
+
+            OSCADObject obj = new Sphere();
+            obj.Bind("Radius", Variables.Global["sphereRadius"]);
+
+            var cube = new Cube();
+            cube.Bind("Width", Variables.Global["cubeWidth"]);
+            cube.Bind("Height", Variables.Global["sphereRadius"]);
+            cube.Size.X = 30;
+            var cb = cube.Color(Variables.Global["myColor"]);
+
+
+            obj = obj + cb;
+
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);
             var cyl2 = new Cylinder(1, 100, true).Rotate(0, 90, 0).Translate(pos);
@@ -26,7 +39,7 @@ namespace OSCADSharp.ConsoleTests
             //var topCorner = new Sphere().Translate(obj.Bounds().TopRight);
             //var botCorner = new Sphere().Translate(obj.Bounds().BottomLeft);
 
-            (obj + axisHelper).ToFile("test.scad").Open();
+            (obj  + axisHelper).ToFile("test.scad").Open();
             
             //Console.ReadKey();
         }
