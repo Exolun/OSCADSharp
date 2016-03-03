@@ -26,6 +26,23 @@ namespace OSCADSharp.Transforms
             this.Vector = new BindableVector(vector);
         }
 
+        internal TranslatedObject(OSCADObject obj, Variable normal) : base(obj)
+        {
+            this.Bind("vector", normal);
+        }
+
+        internal TranslatedObject(OSCADObject obj, Vector3 vector, Variable x, Variable y, Variable z) : base(obj)
+        {
+            this.Vector = new BindableVector(vector);
+
+            if (x != null)
+                this.Bind("x", x);
+            if (y != null)
+                this.Bind("y", y);
+            if (z != null)
+                this.Bind("z", z);
+        }
+
         public override string ToString()
         {
             string translation = this.bindings.Contains("vector") ? this.bindings.Get("vector").BoundVariable.Name : this.Vector.ToString();

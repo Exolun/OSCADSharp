@@ -35,5 +35,17 @@ namespace OSCADSharp.UnitTests.Transforms
             string script = cube.ToString();
             Assert.IsTrue(script.Contains("v = vec"));
         }
+
+        [TestMethod]
+        public void Translate_CanBindVectorsByParameters()
+        {
+            var y = new Variable("yAmt", -35);
+            var z = new Variable("zAmt", 40);
+
+            var cube = new Cube().Translate(-5, y, z);
+
+            string script = cube.ToString();
+            Assert.IsTrue(script.Contains("v = [-5, yAmt, zAmt]"));
+        }
     }
 }

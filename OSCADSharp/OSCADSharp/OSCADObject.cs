@@ -534,12 +534,23 @@ namespace OSCADSharp
         }
         #endregion
 
+        #region Translate
         /// <summary>
         /// Translates an object by the specified amount
         /// </summary>
         /// <param name="translation">The vector upon which to translate (move object(s))</param>
         /// <returns>A translated object</returns>
         public OSCADObject Translate(Vector3 translation)
+        {
+            return new TranslatedObject(this, translation);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with a variable
+        /// </summary>
+        /// <param name="translation">The vector upon which to translate (move object(s))</param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(Variable translation)
         {
             return new TranslatedObject(this, translation);
         }
@@ -556,6 +567,92 @@ namespace OSCADSharp
             return this.Translate(new Vector3(x, y, z));
         }
 
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(Variable x, Variable y, Variable z)
+        {
+            return new TranslatedObject(this, new Vector3(), x, y, z);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(Variable x, double y, double z)
+        {
+            return new TranslatedObject(this, new Vector3(0, y, z), x, null, null);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(double x, Variable y, double z)
+        {
+            return new TranslatedObject(this, new Vector3(x, 0, z), null, y, null);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(double x, double y, Variable z)
+        {
+            return new TranslatedObject(this, new Vector3(x, y, 0), null, null, z);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(Variable x, double y, Variable z)
+        {
+            return new TranslatedObject(this, new Vector3(0, y, 0), x, null, z);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(double x, Variable y, Variable z)
+        {
+            return new TranslatedObject(this, new Vector3(x, 0, 0), null, y, z);
+        }
+
+        /// <summary>
+        /// Translates an object by the specified amount with one or more variables
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns>A translated object</returns>
+        public OSCADObject Translate(Variable x, Variable y, double z)
+        {
+            return new TranslatedObject(this, new Vector3(0, 0, z), x, y, null);
+        }
+        #endregion
+
+        #region Minkowski/Hull
         /// <summary>
         /// Creates a minkowski sum of child nodes (including this object)
         /// </summary>
@@ -575,6 +672,8 @@ namespace OSCADSharp
         {
             return doBlockStatement("Hull", objects, (children) => { return new HulledObject(children); });            
         }
+        #endregion
+
         #endregion
 
         #region Boolean Operations
