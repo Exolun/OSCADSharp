@@ -14,6 +14,7 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
+            Variables.Global.Add("myColor", "\"Red\"");
             Variables.Global.Add("sphereRadius", 15);
             Variables.Global.Add("cubeWidth", 10);
 
@@ -24,8 +25,10 @@ namespace OSCADSharp.ConsoleTests
             cube.Bind("Width", Variables.Global["cubeWidth"]);
             cube.Bind("Height", Variables.Global["sphereRadius"]);
             cube.Size.X = 30;
+            var cb = cube.Color(Variables.Global["myColor"]);
 
-            obj = obj + cube;
+
+            obj = obj + cb;
 
             var pos = obj.Position();
             var cyl1 = new Cylinder(1, 100, true).Translate(pos);

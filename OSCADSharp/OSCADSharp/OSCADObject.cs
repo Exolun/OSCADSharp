@@ -44,7 +44,18 @@ namespace OSCADSharp
         public OSCADObject Color(string colorName, double opacity = 1.0)
         {
             return new ColoredObject(this, colorName, opacity);
-        }        
+        }
+
+        /// <summary>
+        /// Applies Color and/or Opacity to this object with variable bindings
+        /// </summary>
+        /// <param name="colorName">Color name variable to apply</param>
+        /// <param name="opacity">(optional)Opacity variable</param>
+        /// <returns></returns>
+        public OSCADObject Color(Variable colorName, Variable opacity = null)
+        {
+            return new ColoredObject(this, colorName, opacity);
+        }
 
         /// <summary>
         /// Mirrors the object about a plane, as specified by the normal

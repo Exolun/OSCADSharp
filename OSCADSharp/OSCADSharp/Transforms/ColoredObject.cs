@@ -30,14 +30,29 @@ namespace OSCADSharp.Transforms
             this.Opacity = opacity;
         }
 
+        /// <summary>
+        /// Creates a colorized object with predefined bindings
+        /// </summary>
+        /// <param name="obj">The object(s) to which color will be applied</param>
+        /// <param name="colorName"></param>
+        /// <param name="opacity"></param>
+        internal ColoredObject(OSCADObject obj, Variable colorName, Variable opacity) : base(obj)
+        {
+            this.bindings.Add<ColoredObject>(this, "color", colorName);
+            if(opacity != null)
+            {
+                this.bindings.Add<ColoredObject>(this, "opacity", opacity);
+            }
+        }
+
         public override string ToString()
         {
             string colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Name :
-                this.ColorName;
+                "\""+this.ColorName+"\"";
             string opacity = this.bindings.Contains("opacity") ? this.bindings.Get("opacity").BoundVariable.Name
                 : this.Opacity.ToString();
 
-            string colorCommand = String.Format("color(\"{0}\", {1})", colorName, opacity);
+            string colorCommand = String.Format("color({0}, {1})", colorName, opacity);
             var formatter = new SingleBlockFormatter(colorCommand, this.obj.ToString());            
             return formatter.ToString();
         }
@@ -64,6 +79,9 @@ namespace OSCADSharp.Transforms
             {"color", "color" },
             {"opacity", "opacity" }
         });
+        private Variable colorName;
+        private Variable opacity;
+
         public override void Bind(string property, Variable variable)
         {
             this.bindings.Add<ColoredObject>(this, property, variable);

@@ -27,5 +27,19 @@ namespace OSCADSharp.UnitTests.Transforms
             Assert.IsTrue(script.Contains("myFavoriteColor"));
             Assert.IsTrue(script.Contains("cubeOpacity"));
         }
+
+        [TestMethod]
+        public void Color_CanBindWithColorOverload()
+        {
+            Variable colorVar = new Variable("myFavoriteColor", "blue");
+            Variable cubeOpacity = new Variable("cubeOpacity", .6);
+
+            var obj = new Cube().Color(colorVar, cubeOpacity);
+
+            string script = obj.ToString();
+
+            Assert.IsTrue(script.Contains("myFavoriteColor"));
+            Assert.IsTrue(script.Contains("cubeOpacity"));
+        }
     }
 }
