@@ -129,6 +129,28 @@ namespace OSCADSharp.Solids
             this.Height = height;
             this.Center = center;
         }
+
+        /// <summary>
+        /// Creates a cylinder with one or more pre-bound variables
+        /// </summary>
+        /// <param name="diameter1"></param>
+        /// <param name="diameter2"></param>
+        /// <param name="height"></param>
+        /// <param name="center"></param>
+        /// <param name="resolution"></param>
+        /// <param name="minimumangle"></param>
+        /// <param name="minimumcircumferentiallength"></param>
+        public Cylinder(Variable diameter1 = null, Variable diameter2 = null, Variable height = null, 
+            Variable center = null, Variable resolution = null, Variable minimumangle = null, Variable minimumcircumferentiallength = null)
+        {
+            this.BindIfVariableNotNull("diameter1", diameter1);
+            this.BindIfVariableNotNull("diameter2", diameter2);
+            this.BindIfVariableNotNull("height", height);
+            this.BindIfVariableNotNull("center", center);
+            this.BindIfVariableNotNull("resolution", resolution);
+            this.BindIfVariableNotNull("minimumangle", minimumangle);
+            this.BindIfVariableNotNull("minimumcircumferentiallength", minimumcircumferentiallength);
+        }
         #endregion
 
         #region Overrides
@@ -245,6 +267,7 @@ namespace OSCADSharp.Solids
             {"diameter", "d" },
             {"diameter1", "d1" },
             {"diameter2", "d2" },
+            {"height", "h" },
             {"resolution", "$fn" },
             {"minimumangle", "$fa" },
             {"minimumcircumferentiallength", "$fs" }

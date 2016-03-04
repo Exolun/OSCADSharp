@@ -179,5 +179,24 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("$fa = angle"));
             Assert.IsTrue(script.Contains("$fs = circLength"));
         }
+
+        [TestMethod]
+        public void Cylinder_CanCreatePreBoundCylinderWithConstructor()
+        {
+            var diam = new Variable("mainColumn", Sizes.HalfInch);
+            var height = new Variable("overallHeight", Sizes.QuarterInch);
+
+            var cyl = new Cylinder(diam, diam, height);
+
+            Assert.AreEqual(diam.Value, cyl.Diameter);
+            Assert.AreEqual(height.Value, cyl.Height);
+
+            string script = cyl.ToString();
+
+            Assert.IsTrue(script.Contains("d1 = mainColumn"));
+            Assert.IsTrue(script.Contains("d2 = mainColumn"));
+            Assert.IsTrue(script.Contains("h = overallHeight"));
+
+        }
     }
 }

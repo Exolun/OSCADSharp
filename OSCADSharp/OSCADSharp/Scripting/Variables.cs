@@ -30,6 +30,15 @@ namespace OSCADSharp.Scripting
         }
 
         /// <summary>
+        /// Adds a variable to the collection
+        /// </summary>
+        /// <param name="variable"></param>
+        public void Add(Variable variable)
+        {
+            this.variables[variable.Name] = variable;
+        }
+
+        /// <summary>
         /// Removes a variable from the collection
         /// </summary>
         /// <param name="name"></param>
