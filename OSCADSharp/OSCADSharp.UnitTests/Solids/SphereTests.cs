@@ -166,5 +166,22 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("$fa = angle"));
             Assert.IsTrue(script.Contains("$fs = fragSize"));
         }
+
+        [TestMethod]
+        public void Sphere_CanCreateSphereWithBindingsFromConstructor()
+        {
+            var diam = new Variable("width", Sizes.OneInch);
+            var resolution = new Variable("rez", 100);
+
+            var sphere = new Sphere(diam, resolution);
+
+            Assert.AreEqual(diam.Value, sphere.Diameter);
+            Assert.AreEqual(resolution.Value, sphere.Resolution);
+
+            string script = sphere.ToString();
+
+            Assert.IsTrue(script.Contains("d = width"));
+            Assert.IsTrue(script.Contains("$fn = rez"));
+        }
     }
 }

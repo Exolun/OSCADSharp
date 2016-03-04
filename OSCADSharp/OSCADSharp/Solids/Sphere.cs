@@ -65,6 +65,25 @@ namespace OSCADSharp.Solids
         {
             this.Diameter = diameter;
         }
+
+        /// <summary>
+        /// Creates a sphere with one more more pre-bound properties
+        /// </summary>
+        /// <param name="diameter"></param>
+        /// <param name="resolution"></param>
+        /// <param name="minimumAngle"></param>
+        /// <param name="minimumFragmentSize"></param>
+        public Sphere(Variable diameter = null, Variable resolution = null, Variable minimumAngle = null, Variable minimumFragmentSize = null)
+        {
+            if (diameter != null)
+                this.Bind("diameter", diameter);
+            if (resolution != null)
+                this.Bind("resolution", resolution);
+            if (minimumAngle != null)
+                this.Bind("minimumangle", minimumAngle);
+            if (minimumFragmentSize != null)
+                this.Bind("minimumfragmentsize", minimumFragmentSize);
+        }
         #endregion
 
         #region Overrides
