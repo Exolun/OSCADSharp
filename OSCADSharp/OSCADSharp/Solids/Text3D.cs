@@ -69,6 +69,26 @@ namespace OSCADSharp.Solids
             this.Text = text;
             this.Size = size;
         }
+
+        /// <summary>
+        /// Creates a 3d text object with pre-bound variables
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="size"></param>
+        /// <param name="font"></param>
+        /// <param name="spacing"></param>
+        /// <param name="language"></param>
+        /// <param name="textdirection"></param>
+        public Text3D(Variable text = null, Variable size = null, Variable font = null, 
+            Variable spacing = null, Variable language = null, Variable textdirection = null)
+        {
+            this.BindIfVariableNotNull("text", text);
+            this.BindIfVariableNotNull("size", size);
+            this.BindIfVariableNotNull("font", font);
+            this.BindIfVariableNotNull("spacing", spacing);
+            this.BindIfVariableNotNull("language", language);
+            this.BindIfVariableNotNull("textdirection", textdirection);
+        }
         #endregion
 
         #region Overrides

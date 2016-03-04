@@ -83,5 +83,19 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains(String.Format("direction = {0}", direction.Name)));
             Assert.IsTrue(script.Contains(String.Format("language = {0}", language.Name)));
         }
+
+        [TestMethod]
+        public void Text_BindingConstructorAffectsOutput()
+        {
+            var text = new Variable("txt", "Greetings, Earthlings");
+            var size = new Variable("txtSize", 82);
+
+            var txt = new Text3D(text, size);
+
+            string script = txt.ToString();
+
+            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
+            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
+        }
     }
 }
