@@ -768,6 +768,17 @@ namespace OSCADSharp
         internal OSCADObject Parent { get; set; }
 
         /// <summary>
+        /// If the variable is not null, binds it to the property specified
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="variable"></param>
+        internal void BindIfVariableNotNull(string property, Variable variable)
+        {
+            if (variable != null)
+                this.Bind(property, variable);
+        }
+
+        /// <summary>
         /// Internal collection of children for this object
         /// </summary>
         protected List<OSCADObject> children = new List<OSCADObject>();

@@ -39,10 +39,7 @@ namespace OSCADSharp.Transforms
         internal ColoredObject(OSCADObject obj, Variable colorName, Variable opacity) : base(obj)
         {
             this.Bind("color", colorName);
-            if(opacity != null)
-            {
-                this.Bind("opacity", opacity);
-            }
+            this.BindIfVariableNotNull("opacity", opacity);
         }
 
         public override string ToString()

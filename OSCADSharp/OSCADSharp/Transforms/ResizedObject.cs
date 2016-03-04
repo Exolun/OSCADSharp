@@ -38,12 +38,9 @@ namespace OSCADSharp.Transforms
         {
             this.Size = new BindableVector(size);
 
-            if (x != null)
-                this.Bind("x", x);
-            if (y != null)
-                this.Bind("y", y);
-            if (z != null)
-                this.Bind("z", z);
+            this.BindIfVariableNotNull("x", x);
+            this.BindIfVariableNotNull("y", y);
+            this.BindIfVariableNotNull("z", z);
         }
 
         public override string ToString()
