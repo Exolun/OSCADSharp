@@ -41,9 +41,9 @@ namespace OSCADSharp
         /// </summary>
         /// <param name="inches">Number of inches</param>
         /// <returns>Equivalent value in milimeters</returns>
-        public double InchesToMillimeters(double inches)
+        public static double InchesToMillimeters(double inches)
         {
-            return inches * 0.03937008;
+            return inches * OneInch;
         }
     }
 }

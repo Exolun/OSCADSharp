@@ -158,5 +158,21 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(centerVal.Value, obj.Center);
             Assert.IsTrue(script.Contains("center = isCentered"));
         }
+
+        [TestMethod]
+        public void Cube_ConstructorBindingsAppearInOutput()
+        {
+            var length = new Variable("deckBoxLength", Sizes.SixteenthInch * 32);
+            var width = new Variable("deckBoxWidth", Sizes.SixteenthInch * 32);
+            var height = new Variable("deckboxHeight", Sizes.InchesToMillimeters(2.5));
+            var centered = new Variable("isCentered", true);
+
+            var cube = new Cube(length, width, height, centered);
+
+            string script = cube.ToString();
+
+            Assert.IsTrue(script.Contains("size = [deckBoxLength, deckBoxWidth, deckboxHeight]"));
+            Assert.IsTrue(script.Contains("center = isCentered"));
+        }
     }
 }

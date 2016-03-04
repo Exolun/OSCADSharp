@@ -78,6 +78,21 @@ namespace OSCADSharp.Solids
 
             this.Center = center;
         }
+
+        /// <summary>
+        /// Creates a new Cube object with variable bindings
+        /// </summary>
+        /// <param name="length">Size on the X axis</param>
+        /// <param name="width">Size on the Y axis</param>
+        /// <param name="height">Size on the Z axis</param>
+        /// <param name="center">Indicates whether the cube should be centered on the origin</param>
+        public Cube(Variable length = null, Variable width = null, Variable height = null, Variable center = null)
+        {
+            this.BindIfVariableNotNull("length", length);
+            this.BindIfVariableNotNull("width", width);
+            this.BindIfVariableNotNull("height", height);
+            this.BindIfVariableNotNull("center", center);
+        }
         #endregion
 
         #region Overrides
