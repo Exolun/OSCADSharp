@@ -183,8 +183,8 @@ namespace OSCADSharp.UnitTests
         [TestMethod]
         public void Cylinder_CanCreatePreBoundCylinderWithConstructor()
         {
-            var diam = new Variable("mainColumn", Sizes.HalfInch);
-            var height = new Variable("overallHeight", Sizes.QuarterInch);
+            var diam = new Variable("mainColumn", Inches.Half);
+            var height = new Variable("overallHeight", Inches.Quarter);
 
             var cyl = new Cylinder(diam, diam, height);
 

@@ -58,7 +58,8 @@ namespace OSCADSharp.Transforms
         {
             return new ColoredObject(this.obj.Clone(), this.ColorName, this.Opacity)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
         

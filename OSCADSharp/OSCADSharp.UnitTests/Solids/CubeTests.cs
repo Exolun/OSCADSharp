@@ -162,9 +162,9 @@ namespace OSCADSharp.UnitTests
         [TestMethod]
         public void Cube_ConstructorBindingsAppearInOutput()
         {
-            var length = new Variable("deckBoxLength", Sizes.SixteenthInch * 32);
-            var width = new Variable("deckBoxWidth", Sizes.SixteenthInch * 32);
-            var height = new Variable("deckboxHeight", Sizes.InchesToMillimeters(2.5));
+            var length = new Variable("deckBoxLength", Inches.Sixteenth * 32);
+            var width = new Variable("deckBoxWidth", Inches.Sixteenth * 32);
+            var height = new Variable("deckboxHeight", Inches.ToMillimeters(2.5));
             var centered = new Variable("isCentered", true);
 
             var cube = new Cube(length, width, height, centered);
@@ -173,6 +173,23 @@ namespace OSCADSharp.UnitTests
 
             Assert.IsTrue(script.Contains("size = [deckBoxLength, deckBoxWidth, deckboxHeight]"));
             Assert.IsTrue(script.Contains("center = isCentered"));
+        }
+
+        [TestMethod]
+        public void Cube_CloneHasSameBindings()
+        {
+            var cubeHeight = new Variable("myHeight", 35);
+            var cubeXTranslation = new Variable("xOffset", 50);
+
+            OSCADObject cube = new Cube(15, 5, 15);
+            cube.Bind("Height", cubeHeight);
+            cube = cube.Translate(cubeXTranslation, 0, 0);
+
+            var clone = cube.Clone();
+
+            string script = clone.ToString();
+
+            
         }
     }
 }

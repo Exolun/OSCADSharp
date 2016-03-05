@@ -53,5 +53,13 @@ namespace OSCADSharp.Bindings
 
             return String.Format("[{0}, {1}, {2}]", x, y, z);
         }
+
+        public new BindableVector Clone()
+        {
+            return new BindableVector(base.Clone())
+            {
+                bindings = this.bindings
+            };
+        }
     }
 }

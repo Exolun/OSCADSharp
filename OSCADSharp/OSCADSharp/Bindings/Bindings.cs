@@ -129,7 +129,16 @@ namespace OSCADSharp.Bindings
         internal void Synonym(string propertyName, string alternateName)
         {
             this.synonyms[alternateName] = propertyName;
-        }  
+        }
+
+        internal Bindings Clone()
+        {
+            var clone = new Bindings(this.propertyNametoOpenSCADFieldMappings);
+            clone.synonyms = this.synonyms;
+            clone.bindings = this.bindings;
+
+            return clone;
+        }
         #endregion
     }
 }

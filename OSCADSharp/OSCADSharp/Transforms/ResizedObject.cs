@@ -56,7 +56,8 @@ namespace OSCADSharp.Transforms
         {
             return new ResizedObject(this.obj.Clone(), this.Size)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
         

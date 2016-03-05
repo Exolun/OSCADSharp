@@ -122,7 +122,8 @@ namespace OSCADSharp.Solids
                 Resolution = this.Resolution,
                 MinimumAngle = this.MinimumAngle,
                 MinimumFragmentSize = this.MinimumFragmentSize,
-                Radius = this.Radius
+                Radius = this.Radius,
+                bindings = this.bindings.Clone()
             };
         }
 

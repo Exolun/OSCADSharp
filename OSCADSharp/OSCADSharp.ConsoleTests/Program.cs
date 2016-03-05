@@ -14,8 +14,8 @@ namespace OSCADSharp.ConsoleTests
     {
         static void Main(string[] args)
         {
-            var diam = new Variable("mainColumn", Sizes.HalfInch);
-            var height = new Variable("overallHeight", Sizes.QuarterInch);
+            var diam = new Variable("mainColumn", Inches.Half);
+            var height = new Variable("overallHeight", Inches.Quarter);
             Variables.Global.Add(diam);
             Variables.Global.Add(height);
 

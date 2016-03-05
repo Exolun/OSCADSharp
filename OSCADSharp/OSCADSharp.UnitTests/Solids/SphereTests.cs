@@ -170,7 +170,7 @@ namespace OSCADSharp.UnitTests
         [TestMethod]
         public void Sphere_CanCreateSphereWithBindingsFromConstructor()
         {
-            var diam = new Variable("width", Sizes.OneInch);
+            var diam = new Variable("width", Inches.One);
             var resolution = new Variable("rez", 100);
 
             var sphere = new Sphere(diam, resolution);

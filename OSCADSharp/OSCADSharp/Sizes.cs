@@ -9,41 +9,41 @@ namespace OSCADSharp
     /// <summary>
     /// Constants and conversions for units for us imperial-minded folks.
     /// </summary>
-    public class Sizes
+    public class Inches
     {
         /// <summary>
         /// One imperial inch
         /// </summary>
-        public const double OneInch = 25.4;
+        public const double One = 25.4;
 
         /// <summary>
         /// Half of an imperial inch
         /// </summary>
-        public const double HalfInch = OneInch / 2;
+        public const double Half = One / 2;
 
         /// <summary>
         /// Quarter of an imperial inch
         /// </summary>
-        public const double QuarterInch = HalfInch / 2;
+        public const double Quarter = Half / 2;
 
         /// <summary>
         /// Eigth of an imperial inch
         /// </summary>
-        public const double EigthInch = QuarterInch / 2;
+        public const double Eigth = Quarter / 2;
 
         /// <summary>
         /// Sixteenth of an imperial inch
         /// </summary>
-        public const double SixteenthInch = EigthInch / 2;
+        public const double Sixteenth = Eigth / 2;
 
         /// <summary>
         /// Converts inches to millimeters
         /// </summary>
         /// <param name="inches">Number of inches</param>
         /// <returns>Equivalent value in milimeters</returns>
-        public static double InchesToMillimeters(double inches)
+        public static double ToMillimeters(double inches)
         {
-            return inches * OneInch;
+            return inches * One;
         }
     }
 }

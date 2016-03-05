@@ -117,8 +117,9 @@ namespace OSCADSharp.Solids
             return new Cube()
             {
                 Name = this.Name,
-                Size = this.Size,
-                Center = this.Center
+                Size = ((BindableVector)this.Size).Clone(),
+                Center = this.Center,
+                bindings = this.bindings.Clone()
             };
         }
 

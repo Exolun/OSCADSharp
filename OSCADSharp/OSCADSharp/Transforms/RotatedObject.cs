@@ -56,7 +56,8 @@ namespace OSCADSharp.Transforms
         {
             return new RotatedObject(this.obj.Clone(), this.Angle)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
         

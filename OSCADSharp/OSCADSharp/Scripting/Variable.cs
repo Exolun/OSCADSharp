@@ -34,7 +34,7 @@ namespace OSCADSharp.Scripting
         /// Must be compatible with the data type being assigned to.
         /// </summary>
         public object Value { get; set; }
-
+             
         /// <summary>
         /// Gets this variable as a name = value string
         /// </summary>
@@ -42,6 +42,6 @@ namespace OSCADSharp.Scripting
         public override string ToString()
         {
             return string.Format("{0} = {1}", this.Name, this.Value.ToString());
-        }
+        }        
     }
 }

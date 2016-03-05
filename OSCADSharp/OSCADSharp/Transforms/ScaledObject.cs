@@ -56,7 +56,8 @@ namespace OSCADSharp.Transforms
         {
             return new ScaledObject(this.obj.Clone(), this.ScaleFactor)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
         

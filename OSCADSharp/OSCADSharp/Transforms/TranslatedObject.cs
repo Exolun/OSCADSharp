@@ -53,7 +53,8 @@ namespace OSCADSharp.Transforms
         {
             return new TranslatedObject(this.obj.Clone(), this.Vector)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
         

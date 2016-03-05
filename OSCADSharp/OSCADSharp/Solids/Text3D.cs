@@ -106,7 +106,8 @@ namespace OSCADSharp.Solids
                 Font = this.Font,
                 Spacing = this.Spacing,
                 TextDirection = this.TextDirection,
-                Language = this.Language                
+                Language = this.Language,
+                bindings = this.bindings.Clone()            
             };
         }        
         

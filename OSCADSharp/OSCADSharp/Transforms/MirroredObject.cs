@@ -56,7 +56,8 @@ namespace OSCADSharp.Transforms
         {
             return new MirroredObject(this.obj.Clone(), this.Normal)
             {
-                Name = this.Name
+                Name = this.Name,
+                bindings = this.bindings.Clone()
             };
         }
 

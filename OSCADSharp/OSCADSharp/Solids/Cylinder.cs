@@ -217,7 +217,8 @@ namespace OSCADSharp.Solids
                 Resolution = this.Resolution,
                 MinimumAngle = this.MinimumAngle,
                 MinimumCircumferentialLength = this.MinimumCircumferentialLength,
-                Center = this.Center
+                Center = this.Center,
+                bindings = this.bindings.Clone()
             };
         }
 
