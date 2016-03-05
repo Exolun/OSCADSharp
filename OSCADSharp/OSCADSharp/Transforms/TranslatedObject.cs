@@ -15,7 +15,7 @@ namespace OSCADSharp.Transforms
     internal class TranslatedObject : SingleStatementObject
     {
         internal Vector3 Vector { get; set; }
-
+        
         /// <summary>
         /// Creates a translated object
         /// </summary>
@@ -40,6 +40,10 @@ namespace OSCADSharp.Transforms
             this.BindIfVariableNotNull("z", z);
         }
 
+        internal TranslatedObject(OSCADObject obj) : base(obj)
+        {
+        }
+
         public override string ToString()
         {
             string translation = this.bindings.Contains("vector") ? this.bindings.Get("vector").BoundVariable.Name : this.Vector.ToString();
@@ -51,11 +55,16 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new TranslatedObject(this.obj.Clone(), this.Vector)
+            var bindableVec = this.Vector as BindableVector;
+
+            var clone = new TranslatedObject(this.obj.Clone())
             {
                 Name = this.Name,
-                bindings = this.bindings.Clone()
+                bindings = this.bindings.Clone(),
+                Vector = bindableVec != null ? bindableVec.Clone() : this.Vector.Clone()
             };
+
+            return clone;
         }
         
         public override Vector3 Position()

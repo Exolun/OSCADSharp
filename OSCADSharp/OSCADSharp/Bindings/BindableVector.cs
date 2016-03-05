@@ -56,10 +56,10 @@ namespace OSCADSharp.Bindings
 
         public new BindableVector Clone()
         {
-            return new BindableVector(base.Clone())
-            {
-                bindings = this.bindings
-            };
+            var clone = new BindableVector(base.Clone());
+            clone.bindings = this.bindings.Clone();
+
+            return clone;
         }
     }
 }

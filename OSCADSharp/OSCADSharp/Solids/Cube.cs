@@ -114,13 +114,19 @@ namespace OSCADSharp.Solids
         /// <returns></returns>
         public override OSCADObject Clone()
         {
-            return new Cube()
+            var size = this.size as BindableVector;
+            var center = this.centerBinding.Clone();
+
+            var clone = new Cube()
             {
                 Name = this.Name,
-                Size = ((BindableVector)this.Size).Clone(),
-                Center = this.Center,
+                size = size.Clone(),
+                center = this.Center,
+                centerBinding = center,
                 bindings = this.bindings.Clone()
             };
+
+            return clone;
         }
 
         /// <summary>

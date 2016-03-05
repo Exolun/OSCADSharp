@@ -42,6 +42,14 @@ namespace OSCADSharp.Bindings
             this.bindings.Add<BindableBoolean>(this, property, stringifiedVar);
         }
 
+        public BindableBoolean Clone()
+        {
+            var clone = new BindableBoolean(this.boundProperty);
+            clone.bindings = this.bindings;
+
+            return clone;
+        }
+
         public override string ToString()
         {
             return this.bindings.Get(this.boundProperty).BoundVariable.Name;

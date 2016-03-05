@@ -189,7 +189,8 @@ namespace OSCADSharp.UnitTests
 
             string script = clone.ToString();
 
-            
+            Assert.IsTrue(script.Contains("translate(v = [xOffset"));
+            Assert.IsTrue(script.Contains("size = [15, 5, myHeight]"));
         }
     }
 }
