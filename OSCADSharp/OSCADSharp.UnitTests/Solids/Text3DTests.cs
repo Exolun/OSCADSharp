@@ -97,5 +97,25 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
             Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
         }
+
+        [TestMethod]
+        public void Test_ClonedObjectHasBindings()
+        {
+            var text = new Variable("txt", "Greetings, Earthlings");
+            var size = new Variable("txtSize", 82);
+            var mirrorNormal = new Variable("xMirror", new Vector3(1, 0, 0));
+            var zResize = new Variable("zSize", 30);
+
+            var txt = new Text3D(text, size)
+                .Mirror(mirrorNormal).Resize(15, 15, zResize);
+            var clone = txt.Clone();
+
+            string script = clone.ToString();
+
+            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
+            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
+            Assert.IsTrue(script.Contains(String.Format("mirror(xMirror)", size.Name)));
+            Assert.IsTrue(script.Contains(String.Format("resize([15, 15, zSize])", size.Name)));
+        }
     }
 }

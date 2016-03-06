@@ -183,5 +183,22 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("d = width"));
             Assert.IsTrue(script.Contains("$fn = rez"));
         }
+
+        [TestMethod]
+        public void Sphere_BindingsAreClonedWithObject()
+        {
+            var diam = new Variable("width", Inches.One);
+            var resolution = new Variable("rez", 100);
+            var scale = new Variable("theScale", new Vector3(1, 2, 3));
+
+            var sphere = new Sphere(diam, resolution).Scale(scale);
+            var clone = sphere.Clone();
+
+            string script = clone.ToString();
+
+            Assert.IsTrue(script.Contains("d = width"));
+            Assert.IsTrue(script.Contains("$fn = rez"));
+            Assert.IsTrue(script.Contains("scale(v = theScale)"));
+        }
     }
 }

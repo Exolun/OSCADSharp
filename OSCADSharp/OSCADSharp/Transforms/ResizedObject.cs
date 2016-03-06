@@ -34,13 +34,17 @@ namespace OSCADSharp.Transforms
             this.Bind("size", size);
         }
 
-        internal ResizedObject(OSCADObject obj, Vector3 size, Variable x, Variable y, Variable z) :base(obj)
+        internal ResizedObject(OSCADObject obj, Vector3 size, Variable x, Variable y, Variable z) : base(obj)
         {
             this.Size = new BindableVector(size);
 
             this.BindIfVariableNotNull("x", x);
             this.BindIfVariableNotNull("y", y);
             this.BindIfVariableNotNull("z", z);
+        }
+
+        internal ResizedObject(OSCADObject obj) : base(obj)
+        {
         }
 
         public override string ToString()
@@ -54,10 +58,13 @@ namespace OSCADSharp.Transforms
 
         public override OSCADObject Clone()
         {
-            return new ResizedObject(this.obj.Clone(), this.Size)
+            var bndSize = this.Size as BindableVector;
+
+            return new ResizedObject(this.obj.Clone())
             {
                 Name = this.Name,
-                bindings = this.bindings.Clone()
+                bindings = this.bindings.Clone(),
+                Size = bndSize != null ? bndSize.Clone() : this.Size.Clone()
             };
         }
         

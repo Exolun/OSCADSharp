@@ -198,5 +198,29 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("h = overallHeight"));
 
         }
+
+        [TestMethod]
+        public void Cylinder_CloningCylinderClonesBindings()
+        {
+            var diam = new Variable("mainColumn", Inches.Half);
+            var height = new Variable("overallHeight", Inches.Quarter);
+            var center = new Variable("isCentered", true);
+            var color = new Variable("myColor", "Blue");
+            var rotation = new Variable("myRot", new Vector3(90, 90, -90));
+
+            OSCADObject cyl = new Cylinder(diam, diam, height, center);
+            cyl = cyl.Rotate(rotation).Color(color);
+
+            var clone = cyl.Clone();
+
+            string script = clone.ToString();
+
+            Assert.IsTrue(script.Contains("color(myColor"));
+            Assert.IsTrue(script.Contains("rotate(myRot)"));
+            Assert.IsTrue(script.Contains("center = isCentered"));
+            Assert.IsTrue(script.Contains("d1 = mainColumn"));
+            Assert.IsTrue(script.Contains("d2 = mainColumn"));
+            Assert.IsTrue(script.Contains("h = overallHeight"));
+        }
     }
 }
