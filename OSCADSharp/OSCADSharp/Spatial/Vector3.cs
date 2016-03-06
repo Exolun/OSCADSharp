@@ -212,6 +212,28 @@ namespace OSCADSharp
         {
             return new Vector3(left * right.X, left * right.Y, left * right.Z);
         }
+
+        /// <summary>
+        /// Divides a vector by a double
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3 operator /(Vector3 left, double right)
+        {
+            return new Vector3(left.X / right, left.Y / right, left.Z / right);
+        }
+
+        /// <summary>
+        /// Divides a vector by a double
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3 operator /(double left, Vector3 right)
+        {
+            return new Vector3(left / right.X, left / right.Y, left / right.Z);
+        }
         #endregion
 
         internal Matrix ToMatrix()

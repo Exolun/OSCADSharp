@@ -42,6 +42,52 @@ namespace OSCADSharp.Scripting
         public override string ToString()
         {
             return string.Format("{0} = {1}", this.Name, this.Value.ToString());
-        }        
+        }
+
+        #region Operators
+        /// <summary>
+        /// Adds two variables together
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator +(Variable left, Variable right)
+        {
+            return new Variable(String.Format("{0} + {1}", left.Name, right.Name), VariableCalculator.Add(left.Value, right.Value));
+        }
+
+        /// <summary>
+        /// Subtracts two variables
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator -(Variable left, Variable right)
+        {
+            return new Variable(String.Format("{0} - {1}", left.Name, right.Name), VariableCalculator.Subtract(left.Value, right.Value));
+        }
+
+        /// <summary>
+        /// Multiplies two variables
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator *(Variable left, Variable right)
+        {
+            return new Variable(String.Format("{0} * {1}", left.Name, right.Name), VariableCalculator.Multiply(left.Value, right.Value));
+        }
+
+        /// <summary>
+        /// Divides two variables
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator /(Variable left, Variable right)
+        {
+            return new Variable(String.Format("{0} / {1}", left.Name, right.Name), VariableCalculator.Divide(left.Value, right.Value));
+        }
+        #endregion
     }
 }

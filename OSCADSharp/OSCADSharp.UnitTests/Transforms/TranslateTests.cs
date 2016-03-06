@@ -47,5 +47,20 @@ namespace OSCADSharp.UnitTests.Transforms
             string script = cube.ToString();
             Assert.IsTrue(script.Contains("v = [-5, yAmt, zAmt]"));
         }
+
+        [TestMethod]
+        public void Translate_AddingTwoVariablesYieldsInlineOperation()
+        {
+            var cylinDiameter = new Variable("cylinDiam", Inches.One);
+            var wallThickness = new Variable("wallThickness", Inches.Eigth);
+
+            var cylin = new Cylinder(cylinDiameter, cylinDiameter);
+            cylin.Height = 15;
+
+            var obj = cylin.Translate(cylinDiameter + wallThickness, 0, 0);
+
+            string script = obj.ToString();
+            Assert.IsTrue(script.Contains("v = [cylinDiam + wallThickness, 0, 0]"));
+        }
     }
 }
