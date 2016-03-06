@@ -10,12 +10,12 @@ namespace OSCADSharp.Scripting
 {
     internal static class VariableCalculator
     {
-        private static bool isNumeric(object value)
+        internal static bool IsNumeric(object value)
         {
             return value is int || value is double || value is float || value is decimal;
         }
 
-        private static bool isVector(object value)
+        internal static bool IsVector(object value)
         {
             return value is Vector3 || value is BindableVector;
         }
@@ -24,9 +24,9 @@ namespace OSCADSharp.Scripting
         {
             object result = null;
 
-            if (isNumeric(left) && isNumeric(right))
+            if (IsNumeric(left) && IsNumeric(right))
                 result = Expression.Lambda<Func<double>>(expr).Compile()();
-            if (isVector(left) || isVector(right))
+            if (IsVector(left) || IsVector(right))
                 result = Expression.Lambda<Func<Vector3>>(expr).Compile()();
 
             return result;
@@ -35,9 +35,9 @@ namespace OSCADSharp.Scripting
         private static BinaryExpression makeExpression(Func<ConstantExpression, ConstantExpression, BinaryExpression> methodToUse, 
             object left, object right)
         {
-            if (isNumeric(left))
+            if (IsNumeric(left))
                 left = Convert.ToDouble(left);
-            if (isNumeric(right))
+            if (IsNumeric(right))
                 right = Convert.ToDouble(right);
 
             var leftExpr = Expression.Constant(left, left.GetType());

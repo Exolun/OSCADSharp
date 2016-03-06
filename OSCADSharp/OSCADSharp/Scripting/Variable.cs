@@ -45,6 +45,30 @@ namespace OSCADSharp.Scripting
         }
 
         #region Operators
+        private static Variable applyMixedOperatorLeft(string oprtor, Variable left, object right, Func<object, object, object> calcMethod)
+        {
+            if (VariableCalculator.IsNumeric(right))
+            {
+                return new Variable(String.Format("{0} {1} {2}", left.Name, oprtor, right.ToString()),
+                    calcMethod(left.Value, right));
+            }
+
+            throw new NotSupportedException(String.Format("Cannot use {0} operator on a variable with an object of type {1}",
+                oprtor, typeof(object).ToString()));
+        }
+
+        private static Variable applyMixedOperatorRight(string oprtor, object left, Variable right, Func<object, object, object> calcMethod)
+        {
+            if (VariableCalculator.IsNumeric(left))
+            {
+                return new Variable(String.Format("{0} {1} {2}", left.ToString(), oprtor, right.Name),
+                    calcMethod(left, right.Value));
+            }
+
+            throw new NotSupportedException(String.Format("Cannot use {0} operator on a variable with an object of type {1}",
+                oprtor, typeof(object).ToString()));
+        }
+
         /// <summary>
         /// Adds two variables together
         /// </summary>
@@ -57,6 +81,28 @@ namespace OSCADSharp.Scripting
         }
 
         /// <summary>
+        /// Adds a value to a variable
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator +(Variable left, object right)
+        {
+            return applyMixedOperatorLeft("+", left, right, VariableCalculator.Add);            
+        }
+
+        /// <summary>
+        /// Adds a value to a variable
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator +(object left, Variable right)
+        {
+            return applyMixedOperatorRight("+", left, right, VariableCalculator.Add);
+        }        
+
+        /// <summary>
         /// Subtracts two variables
         /// </summary>
         /// <param name="left"></param>
@@ -65,6 +111,28 @@ namespace OSCADSharp.Scripting
         public static Variable operator -(Variable left, Variable right)
         {
             return new Variable(String.Format("{0} - {1}", left.Name, right.Name), VariableCalculator.Subtract(left.Value, right.Value));
+        }
+
+        /// <summary>
+        /// Subtracts a value from a variable
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator -(Variable left, object right)
+        {
+            return applyMixedOperatorLeft("-", left, right, VariableCalculator.Subtract);
+        }
+
+        /// <summary>
+        /// Subtracts a value from a variable
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator -(object left, Variable right)
+        {
+            return applyMixedOperatorRight("-", left, right, VariableCalculator.Subtract);
         }
 
         /// <summary>
@@ -79,6 +147,28 @@ namespace OSCADSharp.Scripting
         }
 
         /// <summary>
+        /// Multiplies a variable by a value
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator *(Variable left, object right)
+        {
+            return applyMixedOperatorLeft("*", left, right, VariableCalculator.Multiply);
+        }
+
+        /// <summary>
+        /// Multiplies a variable by a value
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator *(object left, Variable right)
+        {
+            return applyMixedOperatorRight("*", left, right, VariableCalculator.Multiply);
+        }
+
+        /// <summary>
         /// Divides two variables
         /// </summary>
         /// <param name="left"></param>
@@ -87,6 +177,28 @@ namespace OSCADSharp.Scripting
         public static Variable operator /(Variable left, Variable right)
         {
             return new Variable(String.Format("{0} / {1}", left.Name, right.Name), VariableCalculator.Divide(left.Value, right.Value));
+        }
+
+        /// <summary>
+        /// Divides a variable by a value
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator /(Variable left, object right)
+        {
+            return applyMixedOperatorLeft("/", left, right, VariableCalculator.Divide);
+        }
+
+        /// <summary>
+        /// Divides a variable by a value
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator /(object left, Variable right)
+        {
+            return applyMixedOperatorRight("/", left, right, VariableCalculator.Divide);
         }
         #endregion
     }

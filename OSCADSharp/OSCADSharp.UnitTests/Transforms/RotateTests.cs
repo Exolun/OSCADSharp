@@ -35,5 +35,17 @@ namespace OSCADSharp.UnitTests.Transforms
             string script = cyl.ToString();
             Assert.IsTrue(script.Contains("rotate([xAngle, yAngle, 120])"));
         }
+
+        [TestMethod]
+        public void Rotate_CanMultiplyAVectorVariableInline()
+        {
+            var rotation = new Variable("cubeRot", 15);
+
+            var cube = new Cube(20, 20, 80, true).Rotate(rotation * 1.5, 30, 30);
+
+            string script = cube.ToString();
+
+            Assert.IsTrue(script.Contains("rotate([cubeRot * 1.5, 30, 30])"));
+        }
     }
 }
