@@ -222,5 +222,22 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("d2 = mainColumn"));
             Assert.IsTrue(script.Contains("h = overallHeight"));
         }
+
+        [TestMethod]
+        public void Cylinder_NegationOnConstructorVariablesProvidesExpectedOutput()
+        {
+            Variable wheelThickness = new Variable("wheelThickness", Inches.Eigth + Inches.Sixteenth);
+            Variable wheelDiameter = new Variable("wheelDiameter", Inches.ToMillimeters(1.5));
+            Variable wheelHoleDiameter = new Variable("wheelHoleDiameter", Inches.Quarter);
+
+            OSCADObject cyl = new Cylinder(wheelHoleDiameter - 1, wheelHoleDiameter - 1, wheelThickness + 2)
+                    .Translate(0, -wheelDiameter / 2 + wheelHoleDiameter / 2, 0);
+
+            string script = cyl.ToString();
+
+            Assert.IsTrue(script.Contains("translate(v = [0, -wheelDiameter / 2 + wheelHoleDiameter / 2, 0])"));
+            Assert.IsTrue(script.Contains("cylinder(center = false, d1 = wheelHoleDiameter - 1, d2 = wheelHoleDiameter - 1, h = wheelThickness + 2);"));
+
+        }
     }
 }

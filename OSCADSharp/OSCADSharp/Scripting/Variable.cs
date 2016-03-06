@@ -114,6 +114,27 @@ namespace OSCADSharp.Scripting
         }
 
         /// <summary>
+        /// Numerical negation on a variable
+        /// </summary>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Variable operator -(Variable right)
+        {
+            object value = null;
+
+            if (VariableCalculator.IsNumeric(right.Value))
+            {
+                value = -Convert.ToDouble(right.Value);
+            }            
+            else if(VariableCalculator.IsVector(right.Value))
+            {
+                value = ((Vector3)right.Value).Negate();
+            }
+
+            return new Variable(String.Format("-{0}", right.Name), value);
+        }
+
+        /// <summary>
         /// Subtracts a value from a variable
         /// </summary>
         /// <param name="left"></param>
