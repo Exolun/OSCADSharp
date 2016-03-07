@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OSCADSharp</id>
+    <version>0.6.0</version>
+    <title>OSCADSharp</title>
+    <authors>Michael Smith</authors>
+    <owners>Michael Smith</owners>
+    <licenseUrl>https://github.com/Exolun/OSCADSharp/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/Exolun/OSCADSharp</projectUrl>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A C# library for generating OpenSCAD Code</description>
+    <releaseNotes>Initial release of OSCADSharp</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>OpenSCAD OSCADSharp</tags>
+  </metadata>
+</package>
