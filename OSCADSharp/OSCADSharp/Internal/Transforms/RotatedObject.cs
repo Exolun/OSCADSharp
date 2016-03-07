@@ -45,7 +45,7 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string angle = this.bindings.Contains("angle") ? this.bindings.Get("angle").BoundVariable.Name : this.Angle.ToString();
+            string angle = this.bindings.Contains("angle") ? this.bindings.Get("angle").BoundVariable.Text : this.Angle.ToString();
 
             string rotateCommand = String.Format("rotate({0})", angle.ToString());
             var formatter = new SingleBlockFormatter(rotateCommand, this.obj.ToString());

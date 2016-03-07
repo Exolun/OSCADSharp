@@ -115,8 +115,8 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(Convert.ToDouble(radius1.Value), obj.Radius1);
             Assert.AreEqual(Convert.ToDouble(radius2.Value), obj.Radius2);
-            Assert.IsTrue(script.Contains(String.Format("r1 = {0}", radius1.Name)));
-            Assert.IsTrue(script.Contains(String.Format("r2 = {0}", radius2.Name)));
+            Assert.IsTrue(script.Contains(String.Format("r1 = {0}", radius1.Text)));
+            Assert.IsTrue(script.Contains(String.Format("r2 = {0}", radius2.Text)));
         }
 
         [TestMethod]
@@ -133,8 +133,8 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(Convert.ToDouble(d1.Value), obj.Diameter1);
             Assert.AreEqual(Convert.ToDouble(d2.Value), obj.Diameter2);
-            Assert.IsTrue(script.Contains(String.Format("d1 = {0}", d1.Name)));
-            Assert.IsTrue(script.Contains(String.Format("d2 = {0}", d2.Name)));
+            Assert.IsTrue(script.Contains(String.Format("d1 = {0}", d1.Text)));
+            Assert.IsTrue(script.Contains(String.Format("d2 = {0}", d2.Text)));
         }
 
         [TestMethod]
@@ -149,16 +149,16 @@ namespace OSCADSharp.UnitTests
             string script = obj.ToString();
 
             Assert.AreEqual(Convert.ToDouble(radius.Value), obj.Radius);
-            Assert.IsTrue(script.Contains(String.Format("r = {0}", radius.Name)));
-            Assert.IsFalse(script.Contains(String.Format("d = {0}", diameter.Name)));
+            Assert.IsTrue(script.Contains(String.Format("r = {0}", radius.Text)));
+            Assert.IsFalse(script.Contains(String.Format("d = {0}", diameter.Text)));
 
             obj.Bind("Diameter", diameter);
 
             script = obj.ToString();
 
             Assert.AreEqual(Convert.ToDouble(diameter.Value), obj.Diameter);
-            Assert.IsTrue(script.Contains(String.Format("d = {0}", diameter.Name)));
-            Assert.IsFalse(script.Contains(String.Format("r = {0}", radius.Name)));
+            Assert.IsTrue(script.Contains(String.Format("d = {0}", diameter.Text)));
+            Assert.IsFalse(script.Contains(String.Format("r = {0}", radius.Text)));
         }
 
         [TestMethod]

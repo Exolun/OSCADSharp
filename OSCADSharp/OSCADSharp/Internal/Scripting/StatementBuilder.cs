@@ -47,7 +47,7 @@ namespace OSCADSharp.Scripting
 
                 if(useBinding)
                 {
-                    SB.Append(this.bindings.Get(name).BoundVariable.Name);
+                    SB.Append(this.bindings.Get(name).BoundVariable.Text);
                 }
                 else
                 {

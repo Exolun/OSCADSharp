@@ -35,7 +35,7 @@ namespace OSCADSharp
         /// <param name="variable"></param>
         public void Add(Variable variable)
         {
-            this.variables[variable.Name] = variable;
+            this.variables[variable.Text] = variable;
         }
 
         /// <summary>

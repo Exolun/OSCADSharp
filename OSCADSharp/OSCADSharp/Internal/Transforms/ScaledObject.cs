@@ -45,7 +45,7 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string scale = this.bindings.Contains("scalefactor") ? this.bindings.Get("scalefactor").BoundVariable.Name : this.ScaleFactor.ToString();
+            string scale = this.bindings.Contains("scalefactor") ? this.bindings.Get("scalefactor").BoundVariable.Text : this.ScaleFactor.ToString();
 
             string scaleCommand = String.Format("scale(v = {0})", scale);
             var formatter = new SingleBlockFormatter(scaleCommand, this.obj.ToString());

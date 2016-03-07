@@ -45,7 +45,7 @@ namespace OSCADSharp.Transforms
         
         public override string ToString()
         {
-            string normal = this.bindings.Contains("normal") ? this.bindings.Get("normal").BoundVariable.Name : this.Normal.ToString();
+            string normal = this.bindings.Contains("normal") ? this.bindings.Get("normal").BoundVariable.Text : this.Normal.ToString();
 
             string mirrorCommand = String.Format("mirror({0})", normal);
             var formatter = new SingleBlockFormatter(mirrorCommand, this.obj.ToString());

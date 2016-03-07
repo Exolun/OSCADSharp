@@ -41,8 +41,8 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(text.Value, obj.Text);
             Assert.IsTrue(size.Value.ToString() == obj.Size.ToString());
 
-            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
-            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
+            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Text)));
+            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Text)));
         }
 
         [TestMethod]
@@ -60,8 +60,8 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(font.Value, obj.Font);
             Assert.IsTrue(spacing.Value.ToString() == obj.Spacing.ToString());
 
-            Assert.IsTrue(script.Contains(String.Format("font = {0}", font.Name)));
-            Assert.IsTrue(script.Contains(String.Format("spacing = {0}", spacing.Name)));
+            Assert.IsTrue(script.Contains(String.Format("font = {0}", font.Text)));
+            Assert.IsTrue(script.Contains(String.Format("spacing = {0}", spacing.Text)));
         }
 
         [TestMethod]
@@ -79,8 +79,8 @@ namespace OSCADSharp.UnitTests
             Assert.AreEqual(direction.Value, obj.TextDirection);
             Assert.AreEqual(language.Value, obj.Language);
 
-            Assert.IsTrue(script.Contains(String.Format("direction = {0}", direction.Name)));
-            Assert.IsTrue(script.Contains(String.Format("language = {0}", language.Name)));
+            Assert.IsTrue(script.Contains(String.Format("direction = {0}", direction.Text)));
+            Assert.IsTrue(script.Contains(String.Format("language = {0}", language.Text)));
         }
 
         [TestMethod]
@@ -93,8 +93,8 @@ namespace OSCADSharp.UnitTests
 
             string script = txt.ToString();
 
-            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
-            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
+            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Text)));
+            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Text)));
         }
 
         [TestMethod]
@@ -111,10 +111,10 @@ namespace OSCADSharp.UnitTests
 
             string script = clone.ToString();
 
-            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Name)));
-            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Name)));
-            Assert.IsTrue(script.Contains(String.Format("mirror(xMirror)", size.Name)));
-            Assert.IsTrue(script.Contains(String.Format("resize([15, 15, zSize])", size.Name)));
+            Assert.IsTrue(script.Contains(String.Format("text(\"{0}\"", text.Text)));
+            Assert.IsTrue(script.Contains(String.Format("size = {0}", size.Text)));
+            Assert.IsTrue(script.Contains(String.Format("mirror(xMirror)", size.Text)));
+            Assert.IsTrue(script.Contains(String.Format("resize([15, 15, zSize])", size.Text)));
         }
     }
 }

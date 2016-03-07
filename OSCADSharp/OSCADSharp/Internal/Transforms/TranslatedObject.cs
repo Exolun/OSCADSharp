@@ -46,7 +46,7 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string translation = this.bindings.Contains("vector") ? this.bindings.Get("vector").BoundVariable.Name : this.Vector.ToString();
+            string translation = this.bindings.Contains("vector") ? this.bindings.Get("vector").BoundVariable.Text : this.Vector.ToString();
 
             string translateCommmand = String.Format("translate(v = {0})", translation);
             var formatter = new SingleBlockFormatter(translateCommmand, this.obj.ToString());

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSCADSharp.Scripting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,20 +14,26 @@ namespace OSCADSharp
     public class Variable
     {
         /// <summary>
-        /// Creates a new Variable with the specified name/value
+        /// Creates a new Variable with the specified text/value
         /// </summary>
-        /// <param name="name">Name of the variable.  This is the name that will appear in script output</param>
+        /// <param name="text">Text of the variable.  This is the text that will appear in script output for this variable</param>
         /// <param name="value">The variable's value</param>
-        public Variable(string name, object value)
+        /// <param name="addGlobal">A flag indicating whether to add this variable to Variables.Global</param>
+        public Variable(string text, object value, bool addGlobal = false)
         {
-            this.Name = name;
+            this.Text = text;
             this.Value = value;
+
+            if (addGlobal)
+            {
+                Variables.Global.Add(this);
+            }
         }
 
         /// <summary>
-        /// Name of the variable
+        /// Text of the variable
         /// </summary>
-        public string Name { get; set; }
+        public string Text { get; set; }
 
         /// <summary>
         /// Value of the variable.
@@ -36,12 +43,12 @@ namespace OSCADSharp
         public object Value { get; set; }
              
         /// <summary>
-        /// Gets this variable as a name = value string
+        /// Gets this variable as a text = value string
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} = {1}", this.Name, this.Value.ToString());
+            return string.Format("{0} = {1}", this.Text, this.Value.ToString());
         }
 
         #region Operators
@@ -49,7 +56,7 @@ namespace OSCADSharp
         {
             if (VariableCalculator.IsNumeric(right))
             {
-                return new Variable(String.Format("{0} {1} {2}", left.Name, oprtor, right.ToString()),
+                return new CompoundVariable(String.Format("{0} {1} {2}", left.Text, oprtor, right.ToString()),
                     calcMethod(left.Value, right));
             }
 
@@ -61,7 +68,7 @@ namespace OSCADSharp
         {
             if (VariableCalculator.IsNumeric(left))
             {
-                return new Variable(String.Format("{0} {1} {2}", left.ToString(), oprtor, right.Name),
+                return new CompoundVariable(String.Format("{0} {1} {2}", left.ToString(), oprtor, right.Text),
                     calcMethod(left, right.Value));
             }
 
@@ -77,7 +84,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public static Variable operator +(Variable left, Variable right)
         {
-            return new Variable(String.Format("{0} + {1}", left.Name, right.Name), VariableCalculator.Add(left.Value, right.Value));
+            return new CompoundVariable(String.Format("{0} + {1}", left.Text, right.Text), VariableCalculator.Add(left.Value, right.Value));
         }
 
         /// <summary>
@@ -110,7 +117,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public static Variable operator -(Variable left, Variable right)
         {
-            return new Variable(String.Format("{0} - {1}", left.Name, right.Name), VariableCalculator.Subtract(left.Value, right.Value));
+            return new CompoundVariable(String.Format("{0} - {1}", left.Text, right.Text), VariableCalculator.Subtract(left.Value, right.Value));
         }
 
         /// <summary>
@@ -131,7 +138,7 @@ namespace OSCADSharp
                 value = ((Vector3)right.Value).Negate();
             }
 
-            return new Variable(String.Format("-{0}", right.Name), value);
+            return new CompoundVariable(String.Format("-{0}", right.Text), value);
         }
 
         /// <summary>
@@ -164,7 +171,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public static Variable operator *(Variable left, Variable right)
         {
-            return new Variable(String.Format("{0} * {1}", left.Name, right.Name), VariableCalculator.Multiply(left.Value, right.Value));
+            return new CompoundVariable(String.Format("{0} * {1}", left.Text, right.Text), VariableCalculator.Multiply(left.Value, right.Value));
         }
 
         /// <summary>
@@ -197,7 +204,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public static Variable operator /(Variable left, Variable right)
         {
-            return new Variable(String.Format("{0} / {1}", left.Name, right.Name), VariableCalculator.Divide(left.Value, right.Value));
+            return new CompoundVariable(String.Format("{0} / {1}", left.Text, right.Text), VariableCalculator.Divide(left.Value, right.Value));
         }
 
         /// <summary>

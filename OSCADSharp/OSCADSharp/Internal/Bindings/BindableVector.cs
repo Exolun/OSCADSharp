@@ -47,9 +47,9 @@ namespace OSCADSharp.Bindings
 
         public override string ToString()
         {
-            string x = this.bindings.Contains("x") ? this.bindings.Get("x").BoundVariable.Name : this.X.ToString();
-            string y = this.bindings.Contains("y") ? this.bindings.Get("y").BoundVariable.Name : this.Y.ToString();
-            string z = this.bindings.Contains("z") ? this.bindings.Get("z").BoundVariable.Name : this.Z.ToString();
+            string x = this.bindings.Contains("x") ? this.bindings.Get("x").BoundVariable.Text : this.X.ToString();
+            string y = this.bindings.Contains("y") ? this.bindings.Get("y").BoundVariable.Text : this.Y.ToString();
+            string z = this.bindings.Contains("z") ? this.bindings.Get("z").BoundVariable.Text : this.Z.ToString();
 
             return String.Format("[{0}, {1}, {2}]", x, y, z);
         }

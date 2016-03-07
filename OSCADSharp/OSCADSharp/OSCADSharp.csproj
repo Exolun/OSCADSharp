@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Internal\Bindings\BindableBoolean.cs" />
     <Compile Include="Internal\Scripting\VariableCalculator.cs" />
+    <Compile Include="Internal\Scripting\CompoundVariable.cs" />
     <Compile Include="Public\Settings\Dependencies.cs" />
     <Compile Include="Internal\Files\DefaultFileInvoker.cs" />
     <Compile Include="Internal\Files\DefaultFileWriter.cs" />

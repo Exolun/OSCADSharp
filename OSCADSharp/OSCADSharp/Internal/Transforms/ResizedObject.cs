@@ -49,7 +49,7 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string size = this.bindings.Contains("size") ? this.bindings.Get("size").BoundVariable.Name : this.Size.ToString();
+            string size = this.bindings.Contains("size") ? this.bindings.Get("size").BoundVariable.Text : this.Size.ToString();
 
             string resizeCommand = String.Format("resize({0})", size);
             var formatter = new SingleBlockFormatter(resizeCommand, this.obj.ToString());

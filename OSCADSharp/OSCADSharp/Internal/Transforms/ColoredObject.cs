@@ -44,9 +44,9 @@ namespace OSCADSharp.Transforms
 
         public override string ToString()
         {
-            string colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Name :
+            string colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Text :
                 "\""+this.ColorName+"\"";
-            string opacity = this.bindings.Contains("opacity") ? this.bindings.Get("opacity").BoundVariable.Name
+            string opacity = this.bindings.Contains("opacity") ? this.bindings.Get("opacity").BoundVariable.Text
                 : this.Opacity.ToString();
 
             string colorCommand = String.Format("color({0}, {1})", colorName, opacity);

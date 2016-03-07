@@ -38,7 +38,7 @@ namespace OSCADSharp.Bindings
         public void Bind(string property, Variable variable)
         {
             this.IsBound = true;
-            var stringifiedVar = new Variable(variable.Name, variable.Value.ToString().ToLower());
+            var stringifiedVar = new Variable(variable.Text, variable.Value.ToString().ToLower());
             this.bindings.Add<BindableBoolean>(this, property, stringifiedVar);
         }
 
@@ -52,7 +52,7 @@ namespace OSCADSharp.Bindings
 
         public override string ToString()
         {
-            return this.bindings.Get(this.boundProperty).BoundVariable.Name;
+            return this.bindings.Get(this.boundProperty).BoundVariable.Text;
         }
     }
 }

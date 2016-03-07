@@ -122,7 +122,7 @@ namespace OSCADSharp
             sb.Append("\"");
             if (this.bindings.Contains("text"))
             {
-                sb.Append(this.bindings.Get("text").BoundVariable.Name);
+                sb.Append(this.bindings.Get("text").BoundVariable.Text);
             }
             else
             { 
