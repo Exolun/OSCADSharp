@@ -66,30 +66,30 @@ namespace OSCADSharp.Scripting
             foreach (var child in this.children)
             {
                 var bounds = child.Bounds();
-                if (bounds.X_Min < newBottomLeft.X)
+                if (bounds.XMin < newBottomLeft.X)
                 {
-                    newBottomLeft.X = bounds.X_Min;
+                    newBottomLeft.X = bounds.XMin;
                 }
-                if (bounds.Y_Min < newBottomLeft.Y)
+                if (bounds.YMin < newBottomLeft.Y)
                 {
-                    newBottomLeft.Y = bounds.Y_Min;
+                    newBottomLeft.Y = bounds.YMin;
                 }
-                if (bounds.Z_Min < newBottomLeft.Z)
+                if (bounds.ZMin < newBottomLeft.Z)
                 {
-                    newBottomLeft.Z = bounds.Z_Min;
+                    newBottomLeft.Z = bounds.ZMin;
                 }
 
-                if (bounds.X_Max > newTopRight.X)
+                if (bounds.XMax > newTopRight.X)
                 {
-                    newTopRight.X = bounds.X_Max;
+                    newTopRight.X = bounds.XMax;
                 }
-                if (bounds.Y_Max> newTopRight.Y)
+                if (bounds.YMax> newTopRight.Y)
                 {
-                    newTopRight.Y = bounds.Y_Max;
+                    newTopRight.Y = bounds.YMax;
                 }
-                if (bounds.Z_Max > newTopRight.Z)
+                if (bounds.ZMax > newTopRight.Z)
                 {
-                    newTopRight.Z = bounds.Z_Max;
+                    newTopRight.Z = bounds.ZMax;
                 }
             }
 

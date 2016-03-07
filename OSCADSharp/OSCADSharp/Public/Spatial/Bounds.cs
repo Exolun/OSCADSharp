@@ -37,47 +37,47 @@ namespace OSCADSharp
         /// <summary>
         /// X position with the greatest value
         /// </summary>
-        public double X_Max { get { return TopRight.X > BottomLeft.X ? TopRight.X : BottomLeft.X; } }
+        public double XMax { get { return TopRight.X > BottomLeft.X ? TopRight.X : BottomLeft.X; } }
 
         /// <summary>
         /// X position with the smallest value
         /// </summary>
-        public double X_Min { get { return TopRight.X < BottomLeft.X ? TopRight.X : BottomLeft.X; } }
+        public double XMin { get { return TopRight.X < BottomLeft.X ? TopRight.X : BottomLeft.X; } }
 
         /// <summary>
         /// Y position with the greatest value
         /// </summary>
-        public double Y_Max { get { return TopRight.Y > BottomLeft.Y ? TopRight.Y : BottomLeft.Y; } }
+        public double YMax { get { return TopRight.Y > BottomLeft.Y ? TopRight.Y : BottomLeft.Y; } }
 
         /// <summary>
         /// Y position with the smallest value
         /// </summary>
-        public double Y_Min { get { return TopRight.Y < BottomLeft.Y ? TopRight.Y : BottomLeft.Y; } }
+        public double YMin { get { return TopRight.Y < BottomLeft.Y ? TopRight.Y : BottomLeft.Y; } }
 
         /// <summary>
         /// Z position with the greatest value
         /// </summary>
-        public double Z_Max { get { return TopRight.Z > BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
+        public double ZMax { get { return TopRight.Z > BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
 
         /// <summary>
         /// Z position with the smallest value
         /// </summary>
-        public double Z_Min { get { return TopRight.Z < BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
+        public double ZMin { get { return TopRight.Z < BottomLeft.Z ? TopRight.Z : BottomLeft.Z; } }
 
         /// <summary>
         /// Size on the X axis
         /// </summary>
-        public double Length { get { return this.X_Max - this.X_Min; } }
+        public double Length { get { return this.XMax - this.XMin; } }
 
         /// <summary>
         /// Size on the Y axis
         /// </summary>
-        public double Width { get { return this.Y_Max - this.Y_Min; } }
+        public double Width { get { return this.YMax - this.YMin; } }
 
         /// <summary>
         /// Size on the Z axis
         /// </summary>
-        public double Height { get { return this.Z_Max - this.Z_Min; } }
+        public double Height { get { return this.ZMax - this.ZMin; } }
         #endregion
 
         #region Overrides

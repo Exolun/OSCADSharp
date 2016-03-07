@@ -75,13 +75,13 @@ namespace OSCADSharp.UnitTests
 
             var bounds = obj.Bounds();
 
-            Assert.AreEqual(20, bounds.Z_Max);
-            Assert.AreEqual(10, bounds.Y_Max);
-            Assert.AreEqual(5, bounds.X_Max);
+            Assert.AreEqual(20, bounds.ZMax);
+            Assert.AreEqual(10, bounds.YMax);
+            Assert.AreEqual(5, bounds.XMax);
 
-            Assert.AreEqual(-5, bounds.Z_Min);
-            Assert.AreEqual(0, bounds.Y_Min);
-            Assert.AreEqual(-15, bounds.X_Min);
+            Assert.AreEqual(-5, bounds.ZMin);
+            Assert.AreEqual(0, bounds.YMin);
+            Assert.AreEqual(-15, bounds.XMin);
         }
     }
 }

@@ -60,7 +60,7 @@
     <Compile Include="Public\Settings\Settings.cs" />
     <Compile Include="Public\Inches.cs" />
     <Compile Include="Internal\Bindings\BindableVector.cs" />
-    <Compile Include="Internal\Spatial\Bounds.cs" />
+    <Compile Include="Public\Spatial\Bounds.cs" />
     <Compile Include="Internal\Spatial\Matrix.cs" />
     <Compile Include="Internal\Transforms\HulledObject.cs" />
     <Compile Include="Internal\Transforms\LinearExtrudedObject.cs" />

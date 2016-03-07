@@ -26,13 +26,13 @@ namespace OSCADSharp.UnitTests.Transforms
             var obj = new Cube(5, 5, 5).Scale(2, 2, 3);
 
             var bounds = obj.Bounds();
-            Assert.AreEqual(bounds.X_Max, 10);
-            Assert.AreEqual(bounds.Y_Max, 10);
-            Assert.AreEqual(bounds.Z_Max, 15);
+            Assert.AreEqual(bounds.XMax, 10);
+            Assert.AreEqual(bounds.YMax, 10);
+            Assert.AreEqual(bounds.ZMax, 15);
 
-            Assert.AreEqual(bounds.X_Min, 0);
-            Assert.AreEqual(bounds.Y_Min, 0);
-            Assert.AreEqual(bounds.Z_Min, 0);
+            Assert.AreEqual(bounds.XMin, 0);
+            Assert.AreEqual(bounds.YMin, 0);
+            Assert.AreEqual(bounds.ZMin, 0);
         }
 
         [TestMethod]

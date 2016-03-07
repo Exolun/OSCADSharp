@@ -48,7 +48,7 @@ namespace OSCADSharp.UnitTests
             var boundsBefore = cube.Bounds();
             cube = cube.Mirror(0, 1, 0);
 
-            Assert.AreEqual(cube.Bounds().Y_Max, boundsBefore.Y_Min);
+            Assert.AreEqual(cube.Bounds().YMax, boundsBefore.YMin);
         }
 
         [TestMethod]
