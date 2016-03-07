@@ -7,7 +7,7 @@ using OSCADSharp.Spatial;
 using OSCADSharp.Scripting;
 using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp
 {
     /// <summary>
     /// A Cylinder geometry

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.Solids;
 using System.Linq;
 
 namespace OSCADSharp.UnitTests
@@ -60,7 +59,7 @@ namespace OSCADSharp.UnitTests
         {
             var diff = new Cube() - new Sphere();
 
-            diff.Bind("SomeProperty", new Scripting.Variable("test", 5));
+            diff.Bind("SomeProperty", new Variable("test", 5));
         }
     }
 }

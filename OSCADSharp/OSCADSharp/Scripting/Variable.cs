@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp
 {
     /// <summary>
     /// A value for setting object properties in script output to

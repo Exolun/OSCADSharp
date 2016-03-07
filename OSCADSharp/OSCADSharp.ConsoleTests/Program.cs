@@ -1,13 +1,4 @@
-﻿using OSCADSharp.Scripting;
-using OSCADSharp.Solids;
-using OSCADSharp.Transforms;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace OSCADSharp.ConsoleTests
 {
     class Program

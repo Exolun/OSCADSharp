@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Scripting;
-using OSCADSharp.Solids;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +64,7 @@ namespace OSCADSharp.UnitTests
         public void Mirror_CanBindNormal()
         {
             var cube = new Cube(5, 20, 15).Mirror(1, 0, 0);
-            cube.Bind("normal", new Scripting.Variable("myVar", new Vector3(1, 0, 0)));
+            cube.Bind("normal", new Variable("myVar", new Vector3(1, 0, 0)));
 
             string script = cube.ToString();
             Assert.IsTrue(script.Contains("mirror(myVar)"));
@@ -74,7 +73,7 @@ namespace OSCADSharp.UnitTests
         [TestMethod]
         public void Mirror_CanBindNormalWithParameter()
         {
-            var cube = new Cube(5, 20, 15).Mirror(new Scripting.Variable("myVar", new Vector3(1, 0, 0)));
+            var cube = new Cube(5, 20, 15).Mirror(new Variable("myVar", new Vector3(1, 0, 0)));
 
             string script = cube.ToString();
             Assert.IsTrue(script.Contains("mirror(myVar)"));

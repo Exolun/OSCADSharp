@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp
 {
     /// <summary>
     /// A collection of names/values for variables

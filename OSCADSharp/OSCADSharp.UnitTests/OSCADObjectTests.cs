@@ -2,7 +2,6 @@
 using Moq;
 using OSCADSharp.Files;
 using OSCADSharp.Scripting;
-using OSCADSharp.Solids;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

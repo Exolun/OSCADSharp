@@ -2,7 +2,6 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.Solids;
 using OSCADSharp.Scripting;
 
 namespace OSCADSharp.UnitTests

@@ -7,7 +7,7 @@ using OSCADSharp.Spatial;
 using OSCADSharp.Bindings;
 using OSCADSharp.Scripting;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp
 {
     /// <summary>
     /// A Cube geometry

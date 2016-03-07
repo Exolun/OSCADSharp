@@ -58,7 +58,7 @@
     <Compile Include="Scripting\StatementBuilder.cs" />
     <Compile Include="Scripting\Variable.cs" />
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Sizes.cs" />
+    <Compile Include="Inches.cs" />
     <Compile Include="Bindings\BindableVector.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />

@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp
 {
     /// <summary>
     /// A Sphere geometry

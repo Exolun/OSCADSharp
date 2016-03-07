@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using OSCADSharp.Spatial;
 using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp
 {
     /// <summary>
     /// Create text using fonts installed on the local system or provided as separate font file.
