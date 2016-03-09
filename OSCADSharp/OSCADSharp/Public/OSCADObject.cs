@@ -847,7 +847,7 @@ namespace OSCADSharp
                 this.ToString()
             });
 
-            return Dependencies.FileInvokerFactory(filePath);
+            return Dependencies.FileInvokerFactory(path);
         }
 
         /// <summary>
