@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using OSCADSharp.Bindings;
 using OSCADSharp.Bindings.Solids;
+using OSCADSharp.Scripting.Solids;
 
 namespace OSCADSharp
 {
@@ -90,25 +91,8 @@ namespace OSCADSharp
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder(this.bindings);
-            sb.Append("sphere(");
-
-            if (this.bindings.Contains("d"))
-            {
-                sb.AppendValuePairIfExists("d", this.Diameter);
-            }
-            else
-            {
-                sb.AppendValuePairIfExists("r", this.Radius);
-            }
-
-            sb.AppendValuePairIfExists("$fn", this.Resolution, true);
-            sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
-            sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
-            sb.Append(");");
-            sb.Append(Environment.NewLine);
-
-            return sb.ToString();
+            var scriptBuilder = new SphereScriptBuilder(this.bindings, this);
+            return scriptBuilder.GetScript();
         }
 
         /// <summary>
