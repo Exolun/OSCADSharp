@@ -8,6 +8,7 @@ using OSCADSharp.Scripting;
 using System.Collections.Concurrent;
 using System.Reflection;
 using OSCADSharp.Bindings;
+using OSCADSharp.Bindings.Solids;
 
 namespace OSCADSharp
 {
@@ -147,15 +148,7 @@ namespace OSCADSharp
                               new Vector3(this.Radius, this.Radius, this.Radius));
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
-        {
-            { "radius", "r" },
-            { "minimumangle", "$fa" },
-            { "minimumfragmentsize", "$fs" },
-            { "resolution", "$fn" },
-            { "diameter", "d" }
-        });
-
+        private SphereBindings bindings = new SphereBindings();
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
@@ -164,7 +157,7 @@ namespace OSCADSharp
         /// literal value of the property</param>
         public override void Bind(string property, Variable variable)
         {
-            this.bindings.Add<Sphere>(this, property, variable);
+            this.bindings.Bind<Sphere>(this, property, variable);
         }
         #endregion
     }

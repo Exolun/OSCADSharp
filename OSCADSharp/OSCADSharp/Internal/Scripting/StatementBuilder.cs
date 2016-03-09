@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSCADSharp.Bindings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace OSCADSharp.Scripting
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
         private Bindings.Bindings bindings = null;
+        private IBindings ibindings = null;
 
         internal StatementBuilder()
         {
@@ -24,6 +26,10 @@ namespace OSCADSharp.Scripting
             this.bindings = bindings;
         }
 
+        internal StatementBuilder(IBindings ibindings)
+        {
+            this.ibindings = ibindings;
+        }
 
         /// <summary>
         /// Special append method for conditionally adding value-pairs
@@ -47,7 +53,8 @@ namespace OSCADSharp.Scripting
 
                 if(useBinding)
                 {
-                    SB.Append(this.bindings.Get(name).BoundVariable.Text);
+                    SB.Append(this.bindings?.Get(name).BoundVariable.Text);
+                    SB.Append(this.ibindings?.Get(name).BoundVariable.Text);
                 }
                 else
                 {
@@ -58,7 +65,8 @@ namespace OSCADSharp.Scripting
 
         private bool shouldUseBinding(string name)
         {
-            return this.bindings != null && this.bindings.Contains(name);
+            return (this.bindings != null && this.bindings.Contains(name))
+                || (this.ibindings != null && this.ibindings.Contains(name));
         }
 
         /// <summary>

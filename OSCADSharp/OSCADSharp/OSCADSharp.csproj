@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Bindings\BindableBoolean.cs" />
+    <Compile Include="Internal\Bindings\IBindings.cs" />
+    <Compile Include="Internal\Bindings\Solids\SphereBindings.cs" />
+    <Compile Include="Internal\ICloneable.cs" />
     <Compile Include="Internal\Scripting\VariableCalculator.cs" />
     <Compile Include="Internal\Scripting\CompoundVariable.cs" />
     <Compile Include="Public\Settings\Dependencies.cs" />
