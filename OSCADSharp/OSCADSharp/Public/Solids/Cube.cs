@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using OSCADSharp.Spatial;
 using OSCADSharp.Bindings;
 using OSCADSharp.Scripting;
+using OSCADSharp.Bindings.Solids;
+using OSCADSharp.Scripting.Solids;
 
 namespace OSCADSharp
 {
@@ -15,33 +17,17 @@ namespace OSCADSharp
     public class Cube : OSCADObject
     {
         #region Attributes
-        private Vector3 size = new BindableVector(1, 1, 1, sizeSynonyms);
-        private bool center = false;
-        private BindableBoolean centerBinding = new BindableBoolean("center");
-
         /// <summary>
         /// The Size of the cube in terms of X/Y/Z units
         /// </summary>
-        public Vector3 Size
-        {
-            get { return this.size; }
-            set { this.size = new BindableVector(value, sizeSynonyms); }
-        }
+        public Vector3 Size { get; set; } = new Vector3(1, 1, 1);
 
         /// <summary>
         /// If True, the center of the cube will be at 0, 0, 0
         /// 
         /// If False (default) one corner will be centered at 0,0, 0, with the cube extending into the positive octant (positive X/Y/Z)
         /// </summary>
-        public bool Center
-        {
-            get { return this.center; }
-            set
-            {
-                this.center = value;
-                this.centerBinding.InnerValue = this.center.ToString().ToLower();
-            }
-        }
+        public bool Center { get; set; } = false;
         #endregion
 
         #region Constructors
@@ -59,8 +45,14 @@ namespace OSCADSharp
         /// <param name="center">Indicates whether the cube should be centered on the origin</param>
         public Cube(Vector3 size = null, bool center = false)
         {
-            this.Size = new BindableVector(size, sizeSynonyms) ?? new BindableVector(1, 1, 1, sizeSynonyms);
+            this.Size = size;
             this.Center = center;
+
+            this.bindings.SizeBinding.X = size.X;
+            this.bindings.SizeBinding.Y = size.Y;
+            this.bindings.SizeBinding.Z = size.Z;
+
+            this.bindings.CenterBinding.InnerValue = this.Center.ToString().ToLower();
         }
 
         /// <summary>
@@ -102,10 +94,8 @@ namespace OSCADSharp
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            return String.Format("cube(size = {0}, center = {1}); {2}",
-                this.Size.ToString(), 
-                this.centerBinding.IsBound ? this.centerBinding.ToString() : this.center.ToString().ToLower(), 
-                Environment.NewLine); ;
+            var scriptBuilder = new CubeScriptBuilder(this.bindings, this);
+            return scriptBuilder.GetScript();
         }
 
         /// <summary>
@@ -114,15 +104,11 @@ namespace OSCADSharp
         /// <returns></returns>
         public override OSCADObject Clone()
         {
-            var size = this.size as BindableVector;
-            var center = this.centerBinding.Clone();
-
             var clone = new Cube()
             {
                 Name = this.Name,
-                size = size.Clone(),
-                center = this.Center,
-                centerBinding = center,
+                Size = this.Size.Clone(),
+                Center = this.Center,
                 bindings = this.bindings.Clone()
             };
 
@@ -166,17 +152,7 @@ namespace OSCADSharp
             }
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings();
-        private static readonly Dictionary<string, string> sizeSynonyms = new Dictionary<string, string>()
-        {
-            {"size.x", "x" },
-            {"size.y", "y" },
-            {"size.z", "z" },
-            {"length", "x" },
-            {"width", "y" },
-            {"height", "z" }
-        };
-
+        private CubeBindings bindings = new CubeBindings();
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
@@ -185,25 +161,7 @@ namespace OSCADSharp
         /// literal value of the property</param>
         public override void Bind(string property, Variable variable)
         {
-            if (sizeSynonyms.ContainsKey(property.ToLower()))
-            {
-                BindableVector vec;
-                if (this.size is BindableVector)
-                    vec = this.Size as BindableVector;
-                else
-                    vec = new BindableVector(this.size);
-
-                vec.Bind(property, variable);
-            }
-            else if(property.ToLower() == "center")
-            {
-                this.centerBinding.Bind(property, variable);
-                this.center = Convert.ToBoolean(variable.Value);
-            }
-            else
-            {
-                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found", property));
-            }
+            bindings.Bind<Cube>(this, property, variable);
         }
         #endregion
     }

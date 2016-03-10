@@ -44,8 +44,10 @@
   <ItemGroup>
     <Compile Include="Internal\Bindings\BindableBoolean.cs" />
     <Compile Include="Internal\Bindings\IBindings.cs" />
+    <Compile Include="Internal\Bindings\Solids\CubeBindings.cs" />
     <Compile Include="Internal\Bindings\Solids\SphereBindings.cs" />
     <Compile Include="Internal\ICloneable.cs" />
+    <Compile Include="Internal\Scripting\Solids\CubeScriptBuilder.cs" />
     <Compile Include="Internal\Scripting\Solids\SphereScriptBuilder.cs" />
     <Compile Include="Internal\Scripting\VariableCalculator.cs" />
     <Compile Include="Internal\Scripting\CompoundVariable.cs" />

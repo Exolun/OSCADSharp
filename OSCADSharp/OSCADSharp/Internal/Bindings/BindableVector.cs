@@ -18,6 +18,11 @@ namespace OSCADSharp.Bindings
 
         public BindableVector(Vector3 vector, Dictionary<string, string> synonyms = null) : this(vector.X, vector.Y, vector.Z)
         {
+            this.X = vector.X;
+            this.Y = vector.Y;
+            this.Z = vector.Z;
+
+            this.setSynonyms(synonyms);
         }
 
         public BindableVector(double x = 0, double y = 0, double z = 0, Dictionary<string, string> synonyms = null)
