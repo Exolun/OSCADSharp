@@ -70,7 +70,6 @@
     <Compile Include="Public\Spatial\Bounds.cs" />
     <Compile Include="Internal\Spatial\Matrix.cs" />
     <Compile Include="Internal\Transforms\HulledObject.cs" />
-    <Compile Include="Internal\Transforms\LinearExtrudedObject.cs" />
     <Compile Include="Internal\Scripting\SingleBlockFormatter.cs" />
     <Compile Include="Internal\Scripting\MultiStatementObject.cs" />
     <Compile Include="Internal\Booleans\Difference.cs" />
