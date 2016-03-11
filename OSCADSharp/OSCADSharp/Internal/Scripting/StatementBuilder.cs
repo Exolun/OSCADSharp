@@ -17,10 +17,6 @@ namespace OSCADSharp.Scripting
         private Bindings.Bindings bindings = null;
         private IBindings ibindings = null;
 
-        internal StatementBuilder()
-        {
-        }
-
         internal StatementBuilder(Bindings.Bindings bindings)
         {
             this.bindings = bindings;
@@ -77,16 +73,7 @@ namespace OSCADSharp.Scripting
         {
             SB.Append(text);
         }
-
-        /// <summary>
-        /// Pass-through for StringBuilder.AppendLine
-        /// </summary>
-        /// <param name="text"></param>
-        public void AppendLine(string text)
-        {
-            SB.AppendLine(text);
-        }
-
+        
         /// <summary>
         /// Gets this builder's full string
         /// </summary>
