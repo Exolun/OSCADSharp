@@ -21,7 +21,7 @@ namespace OSCADSharp.UnitTests
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { output = contents; });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("myFile");
 
@@ -39,7 +39,7 @@ namespace OSCADSharp.UnitTests
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("test").Open();
         }
