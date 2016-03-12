@@ -18,7 +18,7 @@ namespace OSCADSharp
         internal MultiStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
         {
             this.outerStatement = outerStatement;
-            this.children = children.ToList();
+            this.m_children = children.ToList();
             foreach (var child in children)
             {
                 child.Parent = this;
@@ -28,7 +28,7 @@ namespace OSCADSharp
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var child in this.children)
+            foreach (var child in this.m_children)
             {
                 sb.Append(child.ToString());
             }
@@ -40,7 +40,7 @@ namespace OSCADSharp
         public override OSCADObject Clone()
         {
             List<OSCADObject> childClones = new List<OSCADObject>();
-            foreach (var child in this.children)
+            foreach (var child in this.m_children)
             {
                 childClones.Add(child.Clone());
             }
@@ -53,7 +53,7 @@ namespace OSCADSharp
 
         public override Vector3 Position()
         {
-            var positions = this.children.Select(child => child.Position());
+            var positions = this.m_children.Select(child => child.Position());
             return Vector3.Average(positions.ToArray());
         }
 
@@ -62,7 +62,7 @@ namespace OSCADSharp
             var newBottomLeft = new Vector3();
             var newTopRight = new Vector3();
 
-            foreach (var child in this.children)
+            foreach (var child in this.m_children)
             {
                 var bounds = child.Bounds();
                 if (bounds.XMin < newBottomLeft.X)

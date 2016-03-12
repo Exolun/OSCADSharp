@@ -11,14 +11,14 @@ namespace OSCADSharp
     /// </summary>
     internal static class Ids
     {
-        private static uint globalId = 0;
+        private static int globalId = 0;
         private static object idLockObject = new object();
 
         /// <summary>
         /// Gets a unique auto-incrementing integer id
         /// </summary>
         /// <returns></returns>
-        internal static uint Get()
+        internal static int Get()
         {
             lock (idLockObject)
             {

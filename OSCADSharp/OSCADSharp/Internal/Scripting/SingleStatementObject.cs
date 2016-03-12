@@ -17,7 +17,7 @@ namespace OSCADSharp
         {
             this.obj = obj;
 
-            this.children.Add(obj);
+            this.m_children.Add(obj);
             obj.Parent = this;
         }        
     }

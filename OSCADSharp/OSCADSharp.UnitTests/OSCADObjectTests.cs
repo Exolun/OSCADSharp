@@ -78,7 +78,7 @@ namespace OSCADSharp.UnitTests
                 .Translate(0, 5, 10).Rotate(0, 90, 0)
                 .Translate(0, 0, 10).Scale(1, 1, 2);
 
-            List<uint> ids = obj.Children().Select(child => child.Id).ToList();
+            List<int> ids = obj.Children().Select(child => child.Id).ToList();
             ids.Add(obj.Id);
 
             Assert.AreEqual(ids.Count, ids.Distinct().Count());

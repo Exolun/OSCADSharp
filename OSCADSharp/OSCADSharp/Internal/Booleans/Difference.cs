@@ -21,12 +21,12 @@ namespace OSCADSharp
 
         public override Vector3 Position()
         {
-            return children[0].Position();
+            return m_children[0].Position();
         }
 
         public override Bounds Bounds()
         {
-            return children[0].Bounds();
+            return m_children[0].Bounds();
         }
     }
 }

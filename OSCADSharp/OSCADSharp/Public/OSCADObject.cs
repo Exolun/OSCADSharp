@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: CLSCompliant(true)]
+
 namespace OSCADSharp
 {
     /// <summary>
@@ -14,13 +16,13 @@ namespace OSCADSharp
     public abstract class OSCADObject : IBindable
     {
         #region Attributes
-        private uint id = Ids.Get();
+        private int id = Ids.Get();
 
         /// <summary>
         /// The unique Id of the object
         /// these values auto-increment
         /// </summary>
-        public uint Id { get { return this.id; } }
+        public int Id { get { return this.id; } }
 
         /// <summary>
         /// Name of this OSCADObject
@@ -775,7 +777,7 @@ namespace OSCADSharp
         /// <summary>
         /// Internal collection of children for this object
         /// </summary>
-        protected List<OSCADObject> children = new List<OSCADObject>();
+        protected List<OSCADObject> m_children = new List<OSCADObject>();
         
         /// <summary>
         /// Returns all chidren of this OSCADObject
@@ -786,12 +788,12 @@ namespace OSCADSharp
         {
             if(recursive == false)
             {
-                return new List<OSCADObject>(this.children);
+                return new List<OSCADObject>(this.m_children);
             }
 
             // Initial children are reversed here because for objects with multiple children (such as boolean operations)
             // the natural collection order would yield opposite the expected order in a stack (first child would be the last popped)
-            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.children.Reverse<OSCADObject>());
+            Stack<OSCADObject> toTraverse = new Stack<OSCADObject>(this.m_children.Reverse<OSCADObject>());
             List<OSCADObject> allChildren = new List<OSCADObject>();
             OSCADObject child = null;
 
@@ -800,7 +802,7 @@ namespace OSCADSharp
                 child = toTraverse.Pop();
                 allChildren.Add(child);
 
-                foreach (var subChild in child.children)
+                foreach (var subChild in child.m_children)
                 {
                     toTraverse.Push(subChild);
                 }
@@ -864,12 +866,12 @@ namespace OSCADSharp
         {
             if(left.GetType() == typeof(Union))
             {
-                left.children.Add(right);
+                left.m_children.Add(right);
                 return left;
             }
             else if(right.GetType() == typeof(Union))
             {
-                right.children.Add(left);
+                right.m_children.Add(left);
                 return right;
             }
             else
@@ -888,12 +890,12 @@ namespace OSCADSharp
         {
             if (left.GetType() == typeof(Difference))
             {
-                left.children.Add(right);
+                left.m_children.Add(right);
                 return left;
             }
             else if (right.GetType() == typeof(Difference))
             {
-                right.children.Add(left);
+                right.m_children.Add(left);
                 return right;
             }
             else
