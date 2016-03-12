@@ -1,11 +1,8 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Bindings;
 
 namespace OSCADSharp
 {
@@ -170,7 +167,7 @@ namespace OSCADSharp
             throw new NotSupportedException("Bounds are not supported for objects using Text3D");
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        private Bindings bindings = new Bindings(new Dictionary<string, string>()
         {
             { "text", "text" },
             { "size", "size" },

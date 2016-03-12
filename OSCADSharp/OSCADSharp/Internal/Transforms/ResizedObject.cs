@@ -1,13 +1,7 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Transforms
+namespace OSCADSharp
 {
     /// <summary>
     /// An object that's been resized to a specified set of X/Y/Z dimensions
@@ -87,7 +81,7 @@ namespace OSCADSharp.Transforms
         }
 
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+        private Bindings bindings = new Bindings(new Dictionary<string, string>() {
             { "size", "size" }
         });
         public override void Bind(string property, Variable variable)

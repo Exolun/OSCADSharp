@@ -1,11 +1,10 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Booleans
+namespace OSCADSharp
 {
     /// <summary>
     /// A union of child nodes. This is the sum of all children (logical or).    

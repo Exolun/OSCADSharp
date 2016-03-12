@@ -1,12 +1,10 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Spatial;
 
-namespace OSCADSharp.Booleans
+namespace OSCADSharp
 {
     /// <summary>
     /// Subtracts the 2nd (and all further) child nodes from the first one (logical and not).    

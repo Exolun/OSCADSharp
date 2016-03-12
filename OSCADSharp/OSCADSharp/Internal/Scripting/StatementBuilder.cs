@@ -1,11 +1,10 @@
-﻿using OSCADSharp.Bindings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp
 {
     /// <summary>
     /// Extends the capabilities of StringBuilder with domain-specific behavior
@@ -14,10 +13,10 @@ namespace OSCADSharp.Scripting
     internal class StatementBuilder
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
-        private Bindings.Bindings bindings = null;
+        private Bindings bindings = null;
         private IBindings ibindings = null;
 
-        internal StatementBuilder(Bindings.Bindings bindings)
+        internal StatementBuilder(Bindings bindings)
         {
             this.bindings = bindings;
         }

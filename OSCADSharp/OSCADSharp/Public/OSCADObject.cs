@@ -1,10 +1,4 @@
-﻿using OSCADSharp.Bindings;
-using OSCADSharp.Booleans;
-using OSCADSharp.Files;
-using OSCADSharp.Scripting;
-using OSCADSharp.Spatial;
-using OSCADSharp.Transforms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

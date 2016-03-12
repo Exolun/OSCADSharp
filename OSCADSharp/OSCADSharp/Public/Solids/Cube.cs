@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Bindings;
-using OSCADSharp.Scripting;
-using OSCADSharp.Bindings.Solids;
-using OSCADSharp.Scripting.Solids;
 
 namespace OSCADSharp
 {

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Spatial;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp
 {
     /// <summary>
     /// A statement with just one nested child node
