@@ -1,13 +1,10 @@
-﻿using OSCADSharp.Bindings;
-using OSCADSharp.Scripting;
-using OSCADSharp.Spatial;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Transforms
+namespace OSCADSharp
 {
     /// <summary>
     /// An object that's mirrored on a plane
@@ -106,7 +103,7 @@ namespace OSCADSharp.Transforms
             return new Bounds(newBottomLeft, newTopRight);
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+        private Bindings bindings = new Bindings(new Dictionary<string, string>() {
             {"normal", "normal"}
         });
         public override void Bind(string property, Variable variable)

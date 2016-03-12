@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Scripting;
 
-namespace OSCADSharp.Bindings
+namespace OSCADSharp
 {
     internal class BindableBoolean : IBindable
     {

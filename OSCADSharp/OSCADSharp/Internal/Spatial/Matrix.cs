@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Spatial
+namespace OSCADSharp
 {
     /// <summary>
     /// A Matrix for performing operations on doubles that

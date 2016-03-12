@@ -1,12 +1,10 @@
-﻿using OSCADSharp.Bindings;
-using OSCADSharp.Bindings.Solids;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting.Solids
+namespace OSCADSharp
 {
     internal class CubeScriptBuilder
     {

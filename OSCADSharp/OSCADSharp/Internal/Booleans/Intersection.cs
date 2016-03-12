@@ -1,12 +1,10 @@
-﻿using OSCADSharp.Scripting;
-using OSCADSharp.Spatial;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Booleans
+namespace OSCADSharp
 {
     /// <summary>
     /// Creates the intersection of all child nodes

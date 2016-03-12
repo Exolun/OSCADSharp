@@ -1,13 +1,7 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Transforms
+namespace OSCADSharp
 {
     /// <summary>
     /// An object or objects that have been moved along the specified vector
@@ -78,7 +72,7 @@ namespace OSCADSharp.Transforms
             return new Bounds(oldBounds.BottomLeft + this.Vector, oldBounds.TopRight + this.Vector);
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+        private Bindings bindings = new Bindings(new Dictionary<string, string>() {
             { "vector", "vector" }
         });
         public override void Bind(string property, Variable variable)

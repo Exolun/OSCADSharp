@@ -1,13 +1,7 @@
-﻿using OSCADSharp.Scripting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Bindings;
 
-namespace OSCADSharp.Transforms
+namespace OSCADSharp
 {
     /// <summary>
     /// An object that's been rescaled
@@ -72,7 +66,7 @@ namespace OSCADSharp.Transforms
             return new Bounds(oldBounds.BottomLeft * this.ScaleFactor, oldBounds.TopRight * this.ScaleFactor);
         }
 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>() {
+        private Bindings bindings = new Bindings(new Dictionary<string, string>() {
             { "scalefactor", "scalefactor" }
         });
         public override void Bind(string property, Variable variable)

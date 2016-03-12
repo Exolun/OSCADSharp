@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OSCADSharp.Files;
-using OSCADSharp.Scripting;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

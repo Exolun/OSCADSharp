@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Scripting
+namespace OSCADSharp
 {
     /// <summary>
     /// A class that creates blocks of curly-braced script with the

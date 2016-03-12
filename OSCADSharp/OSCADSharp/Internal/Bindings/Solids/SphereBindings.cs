@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Bindings.Solids
+namespace OSCADSharp
 {
     internal class SphereBindings : ICloneable<SphereBindings>, IBindings
     {

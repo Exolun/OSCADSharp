@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.Spatial;
-using OSCADSharp.Scripting;
-using OSCADSharp.Bindings;
 
 namespace OSCADSharp
 {
@@ -261,7 +258,7 @@ namespace OSCADSharp
             }
         }
                 
-        private Bindings.Bindings bindings = new Bindings.Bindings(new Dictionary<string, string>()
+        private Bindings bindings = new Bindings(new Dictionary<string, string>()
         {
             {"radius", "r" },
             {"radius1", "r1" },
