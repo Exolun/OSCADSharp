@@ -14,7 +14,7 @@ namespace OSCADSharp.Scripting
     {
         protected OSCADObject obj;
 
-        public SingleStatementObject(OSCADObject obj)
+        protected SingleStatementObject(OSCADObject obj)
         {
             this.obj = obj;
 
