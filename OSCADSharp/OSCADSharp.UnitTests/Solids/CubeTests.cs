@@ -190,5 +190,15 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("translate(v = [xOffset"));
             Assert.IsTrue(script.Contains("size = [15, 5, myHeight]"));
         }
+
+        [TestMethod]
+        public void Cube_LengthWidthHeightAppearsInScriptOutput()
+        {
+            var cube = new Cube(15, 5, 12);
+
+            string script = cube.ToString();
+
+            Assert.IsTrue(script.Contains("size = [15, 5, 12]"));
+        }
     }
 }
