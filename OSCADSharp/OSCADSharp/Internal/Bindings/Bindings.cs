@@ -16,7 +16,7 @@ namespace OSCADSharp
         #endregion
 
         #region Constructors
-        public Bindings()
+        internal Bindings()
         {
             this.propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
         }

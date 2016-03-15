@@ -12,7 +12,7 @@ namespace OSCADSharp
     internal class MinkowskiedObject : MultiStatementObject
     {
         
-        public MinkowskiedObject(IEnumerable<OSCADObject> children) : base("minkowski()", children)
+        internal MinkowskiedObject(IEnumerable<OSCADObject> children) : base("minkowski()", children)
         {
         }
 

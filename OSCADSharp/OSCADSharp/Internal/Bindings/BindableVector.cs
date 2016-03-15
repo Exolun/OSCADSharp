@@ -15,7 +15,7 @@ namespace OSCADSharp
             { "z", "z" }
         });
 
-        public BindableVector(Vector3 vector, Dictionary<string, string> synonyms = null) : this(vector.X, vector.Y, vector.Z)
+        internal BindableVector(Vector3 vector, Dictionary<string, string> synonyms = null) : this(vector.X, vector.Y, vector.Z)
         {
             this.X = vector.X;
             this.Y = vector.Y;
@@ -24,7 +24,7 @@ namespace OSCADSharp
             this.setSynonyms(synonyms);
         }
 
-        public BindableVector(double x = 0, double y = 0, double z = 0, Dictionary<string, string> synonyms = null)
+        internal BindableVector(double x = 0, double y = 0, double z = 0, Dictionary<string, string> synonyms = null)
         {
             this.X = x;
             this.Y = y;
@@ -58,7 +58,7 @@ namespace OSCADSharp
             return String.Format("[{0}, {1}, {2}]", x, y, z);
         }
 
-        public new BindableVector Clone()
+        internal new BindableVector Clone()
         {
             var clone = new BindableVector(base.Clone());
             clone.bindings = this.bindings.Clone();

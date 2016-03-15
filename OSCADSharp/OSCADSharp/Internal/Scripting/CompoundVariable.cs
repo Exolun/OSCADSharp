@@ -8,7 +8,7 @@ namespace OSCADSharp
 {
     internal class CompoundVariable : Variable
     {
-        public CompoundVariable(string name, object value) : base(name, value, false)
+        internal CompoundVariable(string name, object value) : base(name, value, false)
         {
         }
     }

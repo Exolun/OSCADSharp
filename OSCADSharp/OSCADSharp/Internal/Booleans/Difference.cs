@@ -15,7 +15,7 @@ namespace OSCADSharp
         /// Creates a subtraction of child nodes
         /// </summary>
         /// <param name="children"></param>
-        public Difference(IEnumerable<OSCADObject> children) : base("difference()", children)
+        internal Difference(IEnumerable<OSCADObject> children) : base("difference()", children)
         {
         }
 

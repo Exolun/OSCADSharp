@@ -11,7 +11,7 @@ namespace OSCADSharp
         private IBindings bindings;
         private Sphere sphere;
 
-        public SphereScriptBuilder(IBindings bindings, Sphere sphere)
+        internal SphereScriptBuilder(IBindings bindings, Sphere sphere)
         {
             this.bindings = bindings;
             this.sphere = sphere;

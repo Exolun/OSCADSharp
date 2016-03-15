@@ -9,7 +9,7 @@ namespace OSCADSharp
     /// <summary>
     /// Constants and conversions for units for us imperial-minded folks.
     /// </summary>
-    public class Inches
+    public static class Inches
     {
         /// <summary>
         /// One imperial inch

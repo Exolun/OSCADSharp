@@ -15,7 +15,7 @@ namespace OSCADSharp
         /// Creates the intersection of all child nodes
         /// </summary>
         /// <param name="children"></param>
-        public Intersection(IEnumerable<OSCADObject> children) : base("intersection()", children)
+        internal Intersection(IEnumerable<OSCADObject> children) : base("intersection()", children)
         {
         }
 

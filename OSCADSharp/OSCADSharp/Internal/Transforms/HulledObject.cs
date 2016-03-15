@@ -11,7 +11,7 @@ namespace OSCADSharp
     /// </summary>
     internal class HulledObject : MultiStatementObject
     {
-        public HulledObject(IEnumerable<OSCADObject> children) : base("hull()", children)
+        internal HulledObject(IEnumerable<OSCADObject> children) : base("hull()", children)
         {
         }
     }
