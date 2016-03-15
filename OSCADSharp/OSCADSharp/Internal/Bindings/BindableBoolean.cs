@@ -8,7 +8,7 @@ namespace OSCADSharp
 {
     internal class BindableBoolean : IBindable
     {
-        public string InnerValue
+        internal string InnerValue
         {
             get;
             set;
@@ -33,7 +33,7 @@ namespace OSCADSharp
 
         private string boundProperty = null;
 
-        public bool IsBound { get; set; } = false;
+        internal bool IsBound { get; set; } = false;
         public void Bind(string property, Variable variable)
         {
             this.IsBound = true;

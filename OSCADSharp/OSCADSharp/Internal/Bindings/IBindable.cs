@@ -9,7 +9,7 @@ namespace OSCADSharp
     /// <summary>
     /// An object whose properties can be bound to variables
     /// </summary>
-    public interface IBindable
+    internal interface IBindable
     {
         /// <summary>
         /// Binds a variable to property of this object

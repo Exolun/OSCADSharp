@@ -9,7 +9,7 @@ namespace OSCADSharp
 {
     internal class DefaultFileInvoker : IFileInvoker
     {
-        private string filePath;
+        private readonly string filePath;
         public DefaultFileInvoker(string filePath)
         {
             this.filePath = filePath;

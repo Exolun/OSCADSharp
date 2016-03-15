@@ -11,7 +11,7 @@ namespace OSCADSharp
         private CubeBindings bindings;
         private Cube cube;
 
-        public CubeScriptBuilder(CubeBindings bindings, Cube cube)
+        internal CubeScriptBuilder(CubeBindings bindings, Cube cube)
         {
             this.bindings = bindings;
             this.cube = cube;
