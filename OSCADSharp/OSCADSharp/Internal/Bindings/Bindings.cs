@@ -21,7 +21,7 @@ namespace OSCADSharp
             this.propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
         }
 
-        public Bindings(Dictionary<string, string> mappings)
+        internal Bindings(Dictionary<string, string> mappings)
         {
             this.propertyNametoOpenSCADFieldMappings = mappings;
         }

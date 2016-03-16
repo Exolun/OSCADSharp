@@ -777,7 +777,7 @@ namespace OSCADSharp
         /// <summary>
         /// Internal collection of children for this object
         /// </summary>
-        protected List<OSCADObject> m_children = new List<OSCADObject>();
+        protected List<OSCADObject> m_children { get; set; } = new List<OSCADObject>();
         
         /// <summary>
         /// Returns all chidren of this OSCADObject
