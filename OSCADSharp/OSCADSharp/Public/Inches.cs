@@ -14,27 +14,27 @@ namespace OSCADSharp
         /// <summary>
         /// One imperial inch
         /// </summary>
-        public const double One = 25.4;
+        public static double One { get; private set; } = 25.4;
 
         /// <summary>
         /// Half of an imperial inch
         /// </summary>
-        public const double Half = One / 2;
+        public static double Half { get; private set; } = One / 2;
 
         /// <summary>
         /// Quarter of an imperial inch
         /// </summary>
-        public const double Quarter = Half / 2;
+        public static double Quarter { get; private set; } = Half / 2;
 
         /// <summary>
         /// Eigth of an imperial inch
         /// </summary>
-        public const double Eigth = Quarter / 2;
+        public static double Eigth { get; private set; } = Quarter / 2;
 
         /// <summary>
         /// Sixteenth of an imperial inch
         /// </summary>
-        public const double Sixteenth = Eigth / 2;
+        public static double Sixteenth { get; private set; } = Eigth / 2;
 
         /// <summary>
         /// Converts inches to millimeters

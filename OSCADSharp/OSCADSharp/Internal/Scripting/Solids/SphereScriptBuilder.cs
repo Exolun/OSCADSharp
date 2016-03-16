@@ -8,8 +8,8 @@ namespace OSCADSharp
 {
     internal class SphereScriptBuilder
     {
-        private IBindings bindings;
-        private Sphere sphere;
+        private readonly IBindings bindings;
+        private readonly Sphere sphere;
 
         internal SphereScriptBuilder(IBindings bindings, Sphere sphere)
         {
