@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Utility;
+using OSCADSharp.Spatial;
 
 namespace OSCADSharp.UnitTests
 {

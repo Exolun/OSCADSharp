@@ -1,4 +1,5 @@
 ﻿using OSCADSharp.IO;
+using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;

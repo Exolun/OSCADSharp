@@ -61,8 +61,8 @@
     <Compile Include="IO\OutputSettings.cs" />
     <Compile Include="Utility\Inches.cs" />
     <Compile Include="BindableVector.cs" />
-    <Compile Include="Bounds.cs" />
-    <Compile Include="Matrix.cs" />
+    <Compile Include="Spatial\Bounds.cs" />
+    <Compile Include="Spatial\Matrix.cs" />
     <Compile Include="HulledObject.cs" />
     <Compile Include="SingleBlockFormatter.cs" />
     <Compile Include="MultiStatementObject.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="RotatedObject.cs" />
     <Compile Include="ScaledObject.cs" />
     <Compile Include="TranslatedObject.cs" />
-    <Compile Include="Vector3.cs" />
+    <Compile Include="Spatial\Vector3.cs" />
     <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
 ﻿
+using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 
 namespace OSCADSharp.ConsoleTests

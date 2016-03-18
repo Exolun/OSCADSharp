@@ -16,7 +16,7 @@ namespace OSCADSharp.IO
         /// <summary>
         /// Code-gen header
         /// </summary>
-        internal static readonly string OSCADSharpHeader = String.Format("/*Code Generated using OSCADSharp on {0}. {1}{2}For more information, please visit https://github.com/Exolun/OSCADSharp */{3}", 
+        public static string OSCADSharpHeader { get; private set; } = String.Format("/*Code Generated using OSCADSharp on {0}. {1}{2}For more information, please visit https://github.com/Exolun/OSCADSharp */{3}",
             DateTime.Now.ToString(), Environment.NewLine, Environment.NewLine, Environment.NewLine);
 
         /// <summary>
