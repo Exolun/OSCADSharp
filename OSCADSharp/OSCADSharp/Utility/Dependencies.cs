@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.Utility
 {
     /// <summary>
     /// Contains definitions for external APIs used by OSCADSharp

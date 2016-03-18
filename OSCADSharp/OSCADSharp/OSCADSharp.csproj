@@ -45,7 +45,7 @@
     <Compile Include="DataBinding\BindableBoolean.cs" />
     <Compile Include="DataBinding\VariableCalculator.cs" />
     <Compile Include="DataBinding\CompoundVariable.cs" />
-    <Compile Include="Dependencies.cs" />
+    <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />
     <Compile Include="IO\IFileInvoker.cs" />
