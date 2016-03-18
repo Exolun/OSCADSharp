@@ -1,4 +1,6 @@
 ﻿
+using OSCADSharp.Utility;
+
 namespace OSCADSharp.ConsoleTests
 {
     class Program
