@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.DataBinding
 {
     /// <summary>
     /// An object whose properties can be bound to variables

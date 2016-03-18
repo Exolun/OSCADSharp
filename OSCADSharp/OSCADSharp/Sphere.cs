@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Reflection;
 using OSCADSharp.Spatial;
+using OSCADSharp.DataBinding;
 
 namespace OSCADSharp
 {

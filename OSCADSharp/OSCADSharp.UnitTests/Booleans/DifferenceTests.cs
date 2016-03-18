@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using OSCADSharp.DataBinding;
 
 namespace OSCADSharp.UnitTests
 {

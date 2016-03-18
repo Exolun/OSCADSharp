@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Utility;
 using OSCADSharp.Spatial;
+using OSCADSharp.DataBinding;
 
 namespace OSCADSharp.UnitTests
 {

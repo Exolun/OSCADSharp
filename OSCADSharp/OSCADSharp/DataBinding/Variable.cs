@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.DataBinding
 {
     /// <summary>
     /// A value for setting object properties in script output to

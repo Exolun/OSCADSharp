@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.DataBinding
 {
     internal class BindableBoolean : IBindable
     {
@@ -46,7 +46,7 @@ namespace OSCADSharp
             return this.bindings.Get(this.boundProperty).BoundVariable.Text;
         }
 
-        public BindableBoolean Clone()
+        internal BindableBoolean Clone()
         {
             var clone = new BindableBoolean(this.boundProperty);
             clone.bindings = this.bindings;

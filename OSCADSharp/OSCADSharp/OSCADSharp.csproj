@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindableBoolean.cs" />
-    <Compile Include="VariableCalculator.cs" />
-    <Compile Include="CompoundVariable.cs" />
+    <Compile Include="DataBinding\BindableBoolean.cs" />
+    <Compile Include="DataBinding\VariableCalculator.cs" />
+    <Compile Include="DataBinding\CompoundVariable.cs" />
     <Compile Include="Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />
@@ -52,15 +52,15 @@
     <Compile Include="IO\IFileWriter.cs" />
     <Compile Include="Utility\Ids.cs" />
     <Compile Include="IO\OpenSCADPathFinder.cs" />
-    <Compile Include="Binding.cs" />
-    <Compile Include="Bindings.cs" />
-    <Compile Include="IBindable.cs" />
+    <Compile Include="DataBinding\Binding.cs" />
+    <Compile Include="DataBinding\Bindings.cs" />
+    <Compile Include="DataBinding\IBindable.cs" />
     <Compile Include="SingleStatementObject.cs" />
     <Compile Include="StatementBuilder.cs" />
-    <Compile Include="Variable.cs" />
+    <Compile Include="DataBinding\Variable.cs" />
     <Compile Include="IO\OutputSettings.cs" />
     <Compile Include="Utility\Inches.cs" />
-    <Compile Include="BindableVector.cs" />
+    <Compile Include="DataBinding\BindableVector.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
     <Compile Include="HulledObject.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="ScaledObject.cs" />
     <Compile Include="TranslatedObject.cs" />
     <Compile Include="Spatial\Vector3.cs" />
-    <Compile Include="Variables.cs" />
+    <Compile Include="DataBinding\Variables.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

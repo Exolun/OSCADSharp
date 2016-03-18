@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OSCADSharp.DataBinding;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace OSCADSharp
         /// <param name="name">The Name of the value-pair</param>
         /// <param name="value">The value - if null this method does nothing</param>
         /// <param name="prefixWithComma">(optional) Flag indicating whether a comma should be added before the value-pair</param>
-        public void AppendValuePairIfExists(string name, object value, bool prefixWithComma = false)
+        internal void AppendValuePairIfExists(string name, object value, bool prefixWithComma = false)
         {
             bool useBinding = this.shouldUseBinding(name);
 
@@ -60,7 +61,7 @@ namespace OSCADSharp
         /// Pass-through for StringBuilder.Append
         /// </summary>
         /// <param name="text"></param>
-        public void Append(string text)
+        internal void Append(string text)
         {
             SB.Append(text);
         }
