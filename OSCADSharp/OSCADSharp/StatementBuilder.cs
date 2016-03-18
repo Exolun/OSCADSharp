@@ -14,16 +14,10 @@ namespace OSCADSharp
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
         private Bindings bindings = null;
-        private IBindings ibindings = null;
-
+        
         internal StatementBuilder(Bindings bindings)
         {
             this.bindings = bindings;
-        }
-
-        internal StatementBuilder(IBindings ibindings)
-        {
-            this.ibindings = ibindings;
         }
 
         /// <summary>
@@ -32,7 +26,7 @@ namespace OSCADSharp
         /// <param name="name">The Name of the value-pair</param>
         /// <param name="value">The value - if null this method does nothing</param>
         /// <param name="prefixWithComma">(optional) Flag indicating whether a comma should be added before the value-pair</param>
-        internal void AppendValuePairIfExists(string name, object value, bool prefixWithComma = false)
+        public void AppendValuePairIfExists(string name, object value, bool prefixWithComma = false)
         {
             bool useBinding = this.shouldUseBinding(name);
 
@@ -46,10 +40,9 @@ namespace OSCADSharp
                 SB.Append(name);
                 SB.Append(" = ");
 
-                if(useBinding)
+                if (useBinding)
                 {
-                    SB.Append(this.bindings?.Get(name).BoundVariable.Text);
-                    SB.Append(this.ibindings?.Get(name).BoundVariable.Text);
+                    SB.Append(this.bindings.Get(name).BoundVariable.Text);
                 }
                 else
                 {
@@ -60,19 +53,18 @@ namespace OSCADSharp
 
         private bool shouldUseBinding(string name)
         {
-            return (this.bindings != null && this.bindings.Contains(name))
-                || (this.ibindings != null && this.ibindings.Contains(name));
+            return this.bindings != null && this.bindings.Contains(name);
         }
 
         /// <summary>
         /// Pass-through for StringBuilder.Append
         /// </summary>
         /// <param name="text"></param>
-        internal void Append(string text)
+        public void Append(string text)
         {
             SB.Append(text);
         }
-        
+
         /// <summary>
         /// Gets this builder's full string
         /// </summary>

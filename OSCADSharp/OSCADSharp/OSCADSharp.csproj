@@ -43,8 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindableBoolean.cs" />
-    <Compile Include="IBindings.cs" />
-    <Compile Include="ICloneable.cs" />
     <Compile Include="VariableCalculator.cs" />
     <Compile Include="CompoundVariable.cs" />
     <Compile Include="Dependencies.cs" />
