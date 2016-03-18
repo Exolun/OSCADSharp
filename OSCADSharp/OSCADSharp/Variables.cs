@@ -16,7 +16,7 @@ namespace OSCADSharp
         /// Global variables that can be assigned for output at the 
         /// top of OpenSCAD scripts
         /// </summary>
-        public static Variables Global = new Variables();
+        public static Variables Global { get; set; } = new Variables();
         private ConcurrentDictionary<string, Variable> variables = new ConcurrentDictionary<string, Variable>();
 
         /// <summary>

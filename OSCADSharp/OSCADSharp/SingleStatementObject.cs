@@ -11,7 +11,7 @@ namespace OSCADSharp
     /// </summary>
     internal abstract class SingleStatementObject : OSCADObject
     {
-        protected OSCADObject obj;
+        protected OSCADObject obj { get; set; }
 
         protected SingleStatementObject(OSCADObject obj)
         {

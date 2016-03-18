@@ -78,13 +78,14 @@ namespace OSCADSharp
             return piOver180 * degrees;
         }
 
-        private static readonly Matrix identity = new Matrix(new double[] {
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        }, 4, 4);
-        internal static Matrix Identity { get { return identity; } }
+        internal static Matrix Identity()
+        {
+            return new Matrix(new double[] {
+                                1, 0, 0, 0,
+                                0, 1, 0, 0,
+                                0, 0, 1, 0,
+                                0, 0, 0, 1}, 4, 4); ;
+        }
 
         /// <summary>
         /// Gets a transformation matrix for performing rotations on the X-Axis
@@ -95,7 +96,7 @@ namespace OSCADSharp
         internal static Matrix XRotation(double angle)
         {
             if (angle == 0)
-                return Identity;
+                return Identity();
 
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {
@@ -117,7 +118,7 @@ namespace OSCADSharp
         internal static Matrix YRotation(double angle)
         {
             if (angle == 0)
-                return Identity;
+                return Identity();
 
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {
@@ -139,7 +140,7 @@ namespace OSCADSharp
         internal static Matrix ZRotation(double angle)
         {
             if (angle == 0)
-                return Identity;
+                return Identity();
 
             double radAngle = toRadians(angle);
             double[] rotationArr = new double[] {

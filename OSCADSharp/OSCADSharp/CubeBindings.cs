@@ -19,8 +19,8 @@ namespace OSCADSharp
             {"height", "z" }
         };
 
-        public BindableVector SizeBinding = new BindableVector(new Vector3(), sizeSynonyms);
-        public BindableBoolean CenterBinding = new BindableBoolean("center");
+        public BindableVector SizeBinding { get; set; } = new BindableVector(new Vector3(), sizeSynonyms);
+        public BindableBoolean CenterBinding { get; set; } = new BindableBoolean("center");
 
         public void Bind<T>(T obj, string property, Variable variable)
         {

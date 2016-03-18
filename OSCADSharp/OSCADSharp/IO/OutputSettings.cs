@@ -23,6 +23,6 @@ namespace OSCADSharp.IO
         /// Path to the OpenSCAD executable for file invocation
         /// (Default value is set the default install directory on Windows)
         /// </summary>
-        public static string OpenSCADPath = new OpenSCADPathFinder().GetPath();   
+        public static string OpenSCADPath { get; set; } = new OpenSCADPathFinder().GetPath();   
     }
 }
