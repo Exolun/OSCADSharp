@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.Utility
 {
     /// <summary>
     /// Responsible for creating identifiers for objects

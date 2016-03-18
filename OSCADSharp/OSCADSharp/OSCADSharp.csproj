@@ -56,7 +56,7 @@
     <Compile Include="DefaultFileWriter.cs" />
     <Compile Include="IFileInvoker.cs" />
     <Compile Include="IFileWriter.cs" />
-    <Compile Include="Ids.cs" />
+    <Compile Include="Utility\Ids.cs" />
     <Compile Include="OpenSCADPathFinder.cs" />
     <Compile Include="Binding.cs" />
     <Compile Include="Bindings.cs" />
