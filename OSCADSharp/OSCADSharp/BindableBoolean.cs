@@ -45,5 +45,13 @@ namespace OSCADSharp
         {
             return this.bindings.Get(this.boundProperty).BoundVariable.Text;
         }
+
+        public BindableBoolean Clone()
+        {
+            var clone = new BindableBoolean(this.boundProperty);
+            clone.bindings = this.bindings;
+
+            return clone;
+        }
     }
 }

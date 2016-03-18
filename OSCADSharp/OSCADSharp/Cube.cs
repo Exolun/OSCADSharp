@@ -12,17 +12,33 @@ namespace OSCADSharp
     public class Cube : OSCADObject
     {
         #region Attributes
+        private Vector3 size = new BindableVector(1, 1, 1, sizeSynonyms);
+        private bool center = false;
+        private BindableBoolean centerBinding = new BindableBoolean("center");
+
         /// <summary>
         /// The Size of the cube in terms of X/Y/Z units
         /// </summary>
-        public Vector3 Size { get; set; } = new Vector3(1, 1, 1);
+        public Vector3 Size
+        {
+            get { return this.size; }
+            set { this.size = new BindableVector(value, sizeSynonyms); }
+        }
 
         /// <summary>
         /// If True, the center of the cube will be at 0, 0, 0
         /// 
         /// If False (default) one corner will be centered at 0,0, 0, with the cube extending into the positive octant (positive X/Y/Z)
         /// </summary>
-        public bool Center { get; set; } = false;
+        public bool Center
+        {
+            get { return this.center; }
+            set
+            {
+                this.center = value;
+                this.centerBinding.InnerValue = this.center.ToString().ToLower();
+            }
+        }
         #endregion
 
         #region Constructors
@@ -40,14 +56,8 @@ namespace OSCADSharp
         /// <param name="center">Indicates whether the cube should be centered on the origin</param>
         public Cube(Vector3 size = null, bool center = false)
         {
-            this.Size = size;
+            this.Size = new BindableVector(size, sizeSynonyms) ?? new BindableVector(1, 1, 1, sizeSynonyms);
             this.Center = center;
-
-            this.bindings.SizeBinding.X = size.X;
-            this.bindings.SizeBinding.Y = size.Y;
-            this.bindings.SizeBinding.Z = size.Z;
-
-            this.bindings.CenterBinding.InnerValue = this.Center.ToString().ToLower();
         }
 
         /// <summary>
@@ -89,8 +99,10 @@ namespace OSCADSharp
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            var scriptBuilder = new CubeScriptBuilder(this.bindings, this);
-            return scriptBuilder.GetScript();
+            return String.Format("cube(size = {0}, center = {1}); {2}",
+                this.Size.ToString(),
+                this.centerBinding.IsBound ? this.centerBinding.ToString() : this.center.ToString().ToLower(),
+                Environment.NewLine); ;
         }
 
         /// <summary>
@@ -99,11 +111,15 @@ namespace OSCADSharp
         /// <returns></returns>
         public override OSCADObject Clone()
         {
+            var size = this.size as BindableVector;
+            var center = this.centerBinding.Clone();
+
             var clone = new Cube()
             {
                 Name = this.Name,
-                Size = this.Size.Clone(),
-                Center = this.Center,
+                size = size.Clone(),
+                center = this.Center,
+                centerBinding = center,
                 bindings = this.bindings.Clone()
             };
 
@@ -118,7 +134,7 @@ namespace OSCADSharp
         public override Vector3 Position()
         {
             Vector3 position;
-            if(this.Center == false)
+            if (this.Center == false)
             {
                 position = new Vector3(this.Size.X / 2, this.Size.Y / 2, this.Size.Z / 2);
             }
@@ -136,18 +152,28 @@ namespace OSCADSharp
         /// <returns></returns>
         public override Bounds Bounds()
         {
-            if(Center == false)
+            if (Center == false)
             {
                 return new Bounds(new Vector3(), new Vector3(this.Size.X, this.Size.Y, this.Size.Z));
             }
             else
             {
-                return new Bounds(new Vector3(-this.Size.X / 2, -this.Size.Y / 2, -this.Size.Z / 2), 
+                return new Bounds(new Vector3(-this.Size.X / 2, -this.Size.Y / 2, -this.Size.Z / 2),
                                   new Vector3(this.Size.X / 2, this.Size.Y / 2, this.Size.Z / 2));
             }
         }
 
-        private CubeBindings bindings = new CubeBindings();
+        private Bindings bindings = new Bindings();
+        private static readonly Dictionary<string, string> sizeSynonyms = new Dictionary<string, string>()
+        {
+            {"size.x", "x" },
+            {"size.y", "y" },
+            {"size.z", "z" },
+            {"length", "x" },
+            {"width", "y" },
+            {"height", "z" }
+        };
+
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
@@ -156,7 +182,25 @@ namespace OSCADSharp
         /// literal value of the property</param>
         public override void Bind(string property, Variable variable)
         {
-            bindings.Bind<Cube>(this, property, variable);
+            if (sizeSynonyms.ContainsKey(property.ToLower()))
+            {
+                BindableVector vec;
+                if (this.size is BindableVector)
+                    vec = this.Size as BindableVector;
+                else
+                    vec = new BindableVector(this.size);
+
+                vec.Bind(property, variable);
+            }
+            else if (property.ToLower() == "center")
+            {
+                this.centerBinding.Bind(property, variable);
+                this.center = Convert.ToBoolean(variable.Value);
+            }
+            else
+            {
+                throw new KeyNotFoundException(String.Format("No bindable property matching the name {0} was found", property));
+            }
         }
         #endregion
     }
