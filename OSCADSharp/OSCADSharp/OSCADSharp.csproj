@@ -56,7 +56,7 @@
     <Compile Include="DataBinding\Bindings.cs" />
     <Compile Include="DataBinding\IBindable.cs" />
     <Compile Include="SingleStatementObject.cs" />
-    <Compile Include="StatementBuilder.cs" />
+    <Compile Include="Utility\StatementBuilder.cs" />
     <Compile Include="DataBinding\Variable.cs" />
     <Compile Include="IO\OutputSettings.cs" />
     <Compile Include="Utility\Inches.cs" />

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.Utility
 {
     /// <summary>
     /// Extends the capabilities of StringBuilder with domain-specific behavior
