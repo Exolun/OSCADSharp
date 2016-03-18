@@ -1,5 +1,6 @@
 ﻿
 using OSCADSharp.DataBinding;
+using OSCADSharp.Solids;
 using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 

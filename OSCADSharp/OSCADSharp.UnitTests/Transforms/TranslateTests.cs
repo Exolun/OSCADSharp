@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.DataBinding;
+using OSCADSharp.Solids;
 using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 using System;

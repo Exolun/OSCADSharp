@@ -71,10 +71,10 @@
     <Compile Include="Union.cs" />
     <Compile Include="OSCADObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Cube.cs" />
-    <Compile Include="Cylinder.cs" />
-    <Compile Include="Sphere.cs" />
-    <Compile Include="Text3D.cs" />
+    <Compile Include="Solids\Cube.cs" />
+    <Compile Include="Solids\Cylinder.cs" />
+    <Compile Include="Solids\Sphere.cs" />
+    <Compile Include="Solids\Text3D.cs" />
     <Compile Include="ColoredObject.cs" />
     <Compile Include="MinkowskiedObject.cs" />
     <Compile Include="MirroredObject.cs" />

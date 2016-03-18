@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.Solids
 {
     /// <summary>
     /// A Cylinder geometry

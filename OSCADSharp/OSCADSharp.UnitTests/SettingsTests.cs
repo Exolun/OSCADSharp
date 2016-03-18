@@ -2,6 +2,7 @@
 using Moq;
 using OSCADSharp.DataBinding;
 using OSCADSharp.IO;
+using OSCADSharp.Solids;
 using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;

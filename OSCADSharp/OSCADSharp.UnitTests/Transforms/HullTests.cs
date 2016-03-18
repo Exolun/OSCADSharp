@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OSCADSharp.Solids;
 using System;
 using System.Collections.Generic;
 using System.Linq;

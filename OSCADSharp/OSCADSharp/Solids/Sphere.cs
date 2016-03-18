@@ -9,7 +9,7 @@ using OSCADSharp.Spatial;
 using OSCADSharp.DataBinding;
 using OSCADSharp.Utility;
 
-namespace OSCADSharp
+namespace OSCADSharp.Solids
 {
     /// <summary>
     /// A Sphere geometry
