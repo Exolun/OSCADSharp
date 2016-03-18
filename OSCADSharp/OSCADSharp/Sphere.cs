@@ -22,11 +22,12 @@ namespace OSCADSharp
         /// <summary>
         /// This is the diameter of the sphere
         /// </summary>
-        public double Diameter {
+        public double Diameter
+        {
             get { return this.Radius * 2; }
             set { this.Radius = value / 2; }
         }
-        
+
         /// <summary>
         /// Minimum angle (in degrees) of each cylinder fragment.
         /// ($fa in OpenSCAD)
@@ -86,8 +87,25 @@ namespace OSCADSharp
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            var scriptBuilder = new SphereScriptBuilder(this.bindings, this);
-            return scriptBuilder.GetScript();
+            StatementBuilder sb = new StatementBuilder(this.bindings);
+            sb.Append("sphere(");
+
+            if (this.bindings.Contains("d"))
+            {
+                sb.AppendValuePairIfExists("d", this.Diameter);
+            }
+            else
+            {
+                sb.AppendValuePairIfExists("r", this.Radius);
+            }
+
+            sb.AppendValuePairIfExists("$fn", this.Resolution, true);
+            sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
+            sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
+            sb.Append(");");
+            sb.Append(Environment.NewLine);
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -123,11 +141,19 @@ namespace OSCADSharp
         /// <returns></returns>
         public override Bounds Bounds()
         {
-            return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Radius), 
+            return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Radius),
                               new Vector3(this.Radius, this.Radius, this.Radius));
         }
 
-        private SphereBindings bindings = new SphereBindings();
+        private Bindings bindings = new Bindings(new Dictionary<string, string>()
+        {
+            { "radius", "r" },
+            { "minimumangle", "$fa" },
+            { "minimumfragmentsize", "$fs" },
+            { "resolution", "$fn" },
+            { "diameter", "d" }
+        });
+
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
@@ -136,7 +162,7 @@ namespace OSCADSharp
         /// literal value of the property</param>
         public override void Bind(string property, Variable variable)
         {
-            this.bindings.Bind<Sphere>(this, property, variable);
+            this.bindings.Add<Sphere>(this, property, variable);
         }
         #endregion
     }
