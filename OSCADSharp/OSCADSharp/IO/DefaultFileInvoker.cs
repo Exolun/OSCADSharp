@@ -1,11 +1,12 @@
-﻿using System;
+﻿using OSCADSharp.Utility;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.IO
 {
     internal class DefaultFileInvoker : IFileInvoker
     {
@@ -19,7 +20,7 @@ namespace OSCADSharp
         {
             try
             {
-                Process.Start(Settings.OpenSCADPath, String.Format("-o {0} {1}", outputFile, this.filePath));
+                Process.Start(OutputSettings.OpenSCADPath, String.Format("-o {0} {1}", outputFile, this.filePath));
             }
             catch (InvalidOperationException)
             {
@@ -31,7 +32,7 @@ namespace OSCADSharp
         {
             try
             {
-                Process.Start(Settings.OpenSCADPath, String.Format("{0}", this.filePath));
+                Process.Start(OutputSettings.OpenSCADPath, String.Format("{0}", this.filePath));
             }
             catch (InvalidOperationException)
             {

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using OSCADSharp.Utility;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp
+namespace OSCADSharp.IO
 {
     /// <summary>
     /// Settings for OpenSCAD scripts
     /// </summary>
-    public static class Settings
+    public static class OutputSettings
     {
         /// <summary>
         /// Code-gen header

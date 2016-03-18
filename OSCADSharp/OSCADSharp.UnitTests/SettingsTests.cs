@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using OSCADSharp.IO;
+using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace OSCADSharp.UnitTests
         [ExpectedException(typeof(InvalidOperationException))]
         public void Settings_NullOpenSCADPathThrowsError()
         {
-            Settings.OpenSCADPath = null;
+            OutputSettings.OpenSCADPath = null;
 
             var cube = new Cube();
 

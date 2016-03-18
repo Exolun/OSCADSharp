@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Utility;
+﻿using OSCADSharp.IO;
+using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -839,7 +840,7 @@ namespace OSCADSharp
             
             Dependencies.FileWriter.WriteAllLines(path, new string[] 
             {
-                Settings.OSCADSharpHeader,
+                OutputSettings.OSCADSharpHeader,
                 Variables.Global.ToString(),
                 this.ToString()
             });

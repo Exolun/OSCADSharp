@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using OSCADSharp.IO;
+using OSCADSharp.Utility;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -149,7 +151,7 @@ namespace OSCADSharp.UnitTests
 
             cube.ToFile("myFile");
 
-            Assert.AreEqual(Settings.OSCADSharpHeader, output[0]);
+            Assert.AreEqual(OutputSettings.OSCADSharpHeader, output[0]);
        }
 
         [TestMethod]
