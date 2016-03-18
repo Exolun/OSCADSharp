@@ -64,7 +64,7 @@
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
     <Compile Include="HulledObject.cs" />
-    <Compile Include="SingleBlockFormatter.cs" />
+    <Compile Include="Utility\SingleBlockFormatter.cs" />
     <Compile Include="MultiStatementObject.cs" />
     <Compile Include="Difference.cs" />
     <Compile Include="Intersection.cs" />
