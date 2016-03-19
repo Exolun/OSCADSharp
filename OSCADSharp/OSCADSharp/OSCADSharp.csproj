@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColoredObject.cs" />
     <Compile Include="DataBinding\BindableBoolean.cs" />
     <Compile Include="DataBinding\VariableCalculator.cs" />
     <Compile Include="DataBinding\CompoundVariable.cs" />
@@ -51,7 +52,6 @@
     <Compile Include="IO\IFileInvoker.cs" />
     <Compile Include="IO\IFileWriter.cs" />
     <Compile Include="Utility\Ids.cs" />
-    <Compile Include="IO\OpenSCADPathFinder.cs" />
     <Compile Include="DataBinding\Binding.cs" />
     <Compile Include="DataBinding\Bindings.cs" />
     <Compile Include="DataBinding\IBindable.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="Solids\Cylinder.cs" />
     <Compile Include="Solids\Sphere.cs" />
     <Compile Include="Solids\Text3D.cs" />
-    <Compile Include="ColoredObject.cs" />
     <Compile Include="MinkowskiedObject.cs" />
     <Compile Include="MirroredObject.cs" />
     <Compile Include="ResizedObject.cs" />
@@ -85,7 +84,9 @@
     <Compile Include="Spatial\Vector3.cs" />
     <Compile Include="DataBinding\Variables.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Transforms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
