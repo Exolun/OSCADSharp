@@ -46,6 +46,7 @@
     <Compile Include="DataBinding\VariableCalculator.cs" />
     <Compile Include="DataBinding\CompoundVariable.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
+    <Compile Include="OSCADObject.Booleans.cs" />
     <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />
@@ -66,9 +67,6 @@
     <Compile Include="HulledObject.cs" />
     <Compile Include="Utility\SingleBlockFormatter.cs" />
     <Compile Include="MultiStatementObject.cs" />
-    <Compile Include="Difference.cs" />
-    <Compile Include="Intersection.cs" />
-    <Compile Include="Union.cs" />
     <Compile Include="OSCADObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solids\Cube.cs" />

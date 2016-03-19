@@ -685,7 +685,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Union(params OSCADObject[] objects)
         {
-            return doBlockStatement("Union", objects, (children) => { return new Union(children); });
+            return doBlockStatement("Union", objects, (children) => { return new UnionedObject(children); });
         }
 
         /// <summary>
@@ -696,7 +696,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Difference(params OSCADObject[] objects)
         {
-            return doBlockStatement("Difference", objects, (children) => { return new Difference(children); });
+            return doBlockStatement("Difference", objects, (children) => { return new DifferencedObject(children); });
         }
 
         /// <summary>
@@ -708,7 +708,7 @@ namespace OSCADSharp
         /// <returns></returns>
         public OSCADObject Intersection(params OSCADObject[] objects)
         {
-            return doBlockStatement("Intersection", objects, (children) => { return new Intersection(children); });
+            return doBlockStatement("Intersection", objects, (children) => { return new IntersectedObject(children); });
         }
 
         private OSCADObject doBlockStatement(string name, OSCADObject[] objects, Func<IEnumerable<OSCADObject>, OSCADObject> factory)
@@ -868,19 +868,19 @@ namespace OSCADSharp
         /// <returns></returns>
         public static OSCADObject operator +(OSCADObject left, OSCADObject right)
         {
-            if(left.GetType() == typeof(Union))
+            if(left.GetType() == typeof(UnionedObject))
             {
                 left.m_children.Add(right);
                 return left;
             }
-            else if(right.GetType() == typeof(Union))
+            else if(right.GetType() == typeof(UnionedObject))
             {
                 right.m_children.Add(left);
                 return right;
             }
             else
             {
-                return new Union(new OSCADObject[] {left, right });
+                return new UnionedObject(new OSCADObject[] {left, right });
             }
         }
 
@@ -892,19 +892,19 @@ namespace OSCADSharp
         /// <returns></returns>
         public static OSCADObject operator -(OSCADObject left, OSCADObject right)
         {
-            if (left.GetType() == typeof(Difference))
+            if (left.GetType() == typeof(DifferencedObject))
             {
                 left.m_children.Add(right);
                 return left;
             }
-            else if (right.GetType() == typeof(Difference))
+            else if (right.GetType() == typeof(DifferencedObject))
             {
                 right.m_children.Add(left);
                 return right;
             }
             else
             {
-                return new Difference(new OSCADObject[] {left, right });
+                return new DifferencedObject(new OSCADObject[] {left, right });
             }
         }
         #endregion
