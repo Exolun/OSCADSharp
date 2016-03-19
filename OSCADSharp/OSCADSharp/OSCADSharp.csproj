@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColoredObject.cs" />
     <Compile Include="DataBinding\BindableBoolean.cs" />
     <Compile Include="DataBinding\VariableCalculator.cs" />
     <Compile Include="DataBinding\CompoundVariable.cs" />
+    <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />
@@ -77,16 +77,10 @@
     <Compile Include="Solids\Text3D.cs" />
     <Compile Include="MinkowskiedObject.cs" />
     <Compile Include="MirroredObject.cs" />
-    <Compile Include="ResizedObject.cs" />
-    <Compile Include="RotatedObject.cs" />
-    <Compile Include="ScaledObject.cs" />
-    <Compile Include="TranslatedObject.cs" />
     <Compile Include="Spatial\Vector3.cs" />
     <Compile Include="DataBinding\Variables.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Transforms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

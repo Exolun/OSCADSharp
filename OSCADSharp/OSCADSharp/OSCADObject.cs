@@ -17,7 +17,7 @@ namespace OSCADSharp
     /// Represents any Object or collection of objects that becomes am
     /// an OpenSCAD script when converted to a string.
     /// </summary>
-    public abstract class OSCADObject : IBindable
+    public abstract partial class OSCADObject : IBindable
     {
         #region Attributes
         private int id = Ids.Get();
