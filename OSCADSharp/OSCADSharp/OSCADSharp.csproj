@@ -45,6 +45,8 @@
     <Compile Include="DataBinding\BindableBoolean.cs" />
     <Compile Include="DataBinding\VariableCalculator.cs" />
     <Compile Include="DataBinding\CompoundVariable.cs" />
+    <Compile Include="OSCADObject.AbstractTransforms.cs" />
+    <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
     <Compile Include="Utility\Dependencies.cs" />
@@ -56,7 +58,6 @@
     <Compile Include="DataBinding\Binding.cs" />
     <Compile Include="DataBinding\Bindings.cs" />
     <Compile Include="DataBinding\IBindable.cs" />
-    <Compile Include="SingleStatementObject.cs" />
     <Compile Include="Utility\StatementBuilder.cs" />
     <Compile Include="DataBinding\Variable.cs" />
     <Compile Include="IO\OutputSettings.cs" />
@@ -64,17 +65,13 @@
     <Compile Include="DataBinding\BindableVector.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
-    <Compile Include="HulledObject.cs" />
     <Compile Include="Utility\SingleBlockFormatter.cs" />
-    <Compile Include="MultiStatementObject.cs" />
     <Compile Include="OSCADObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solids\Cube.cs" />
     <Compile Include="Solids\Cylinder.cs" />
     <Compile Include="Solids\Sphere.cs" />
     <Compile Include="Solids\Text3D.cs" />
-    <Compile Include="MinkowskiedObject.cs" />
-    <Compile Include="MirroredObject.cs" />
     <Compile Include="Spatial\Vector3.cs" />
     <Compile Include="DataBinding\Variables.cs" />
   </ItemGroup>
