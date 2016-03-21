@@ -20,7 +20,7 @@ namespace OSCADSharp
     public abstract partial class OSCADObject : IBindable
     {
         #region Attributes
-        private int id = Ids.Get();
+        private readonly int id = Ids.Get();
 
         /// <summary>
         /// The unique Id of the object

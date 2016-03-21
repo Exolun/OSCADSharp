@@ -14,7 +14,7 @@ namespace OSCADSharp.Utility
     internal class StatementBuilder
     {
         private StringBuilder SB { get; set; } = new StringBuilder();
-        private Bindings bindings = null;
+        private readonly Bindings bindings = null;
         
         internal StatementBuilder(Bindings bindings)
         {

@@ -14,7 +14,7 @@ namespace OSCADSharp.Spatial
     internal class Matrix
     {
         #region Fields/Properties
-        private double[] values;
+        private readonly double[] values;
 
         internal int ColumnCount { get; private set; }
         internal int RowCount { get; private set; }

@@ -11,7 +11,7 @@ namespace OSCADSharp.DataBinding
     {
         #region Fields
         private Dictionary<string, Binding> bindings = new Dictionary<string, Binding>();
-        private Dictionary<string, string> propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> propertyNametoOpenSCADFieldMappings = new Dictionary<string, string>();
         private Dictionary<string, string> synonyms = new Dictionary<string, string>();
         #endregion
 

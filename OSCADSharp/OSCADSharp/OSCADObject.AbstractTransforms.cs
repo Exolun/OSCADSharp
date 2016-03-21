@@ -15,7 +15,7 @@ namespace OSCADSharp
         /// <summary>
         /// An object that's mirrored on a plane
         /// </summary>
-        internal class MirroredObject : SingleStatementObject
+        private class MirroredObject : SingleStatementObject
         {
             /// <summary>
             /// The normal vector of a plane intersecting the origin of the object,
@@ -133,7 +133,7 @@ namespace OSCADSharp
         /// <summary>
         /// Creates an object that's the convex hull of child objects
         /// </summary>
-        internal class HulledObject : MultiStatementObject
+        private class HulledObject : MultiStatementObject
         {
             internal HulledObject(IEnumerable<OSCADObject> children) : base("hull()", children)
             {
@@ -145,7 +145,7 @@ namespace OSCADSharp
         /// <summary>
         /// Creates an object that's the minkowski sum of child objects
         /// </summary>
-        internal class MinkowskiedObject : MultiStatementObject
+        private class MinkowskiedObject : MultiStatementObject
         {
 
             internal MinkowskiedObject(IEnumerable<OSCADObject> children) : base("minkowski()", children)

@@ -31,7 +31,7 @@ namespace OSCADSharp.IO
         /// </summary>
         private class OpenSCADPathFinder
         {
-            private string[] possibleFilePaths = new string[]
+            private readonly string[] possibleFilePaths = new string[]
             {
             @"C:\Program Files (x86)\OpenSCAD\openscad.exe",
             @"C:\Program Files\OpenSCAD\openscad.exe"

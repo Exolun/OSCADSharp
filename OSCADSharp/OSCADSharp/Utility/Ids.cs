@@ -12,7 +12,7 @@ namespace OSCADSharp.Utility
     internal static class Ids
     {
         private static int globalId = 0;
-        private static object idLockObject = new object();
+        private readonly static object idLockObject = new object();
 
         /// <summary>
         /// Gets a unique auto-incrementing integer id

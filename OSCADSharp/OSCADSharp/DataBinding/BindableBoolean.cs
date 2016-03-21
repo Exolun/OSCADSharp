@@ -31,7 +31,7 @@ namespace OSCADSharp.DataBinding
             this.bindings.Synonym("innervalue", propertyName);
         }
 
-        private string boundProperty = null;
+        private readonly string boundProperty = null;
 
         internal bool IsBound { get; set; } = false;
         public void Bind(string property, Variable variable)

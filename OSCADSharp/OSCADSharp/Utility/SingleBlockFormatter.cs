@@ -13,9 +13,9 @@ namespace OSCADSharp.Utility
     /// </summary>
     internal class SingleBlockFormatter
     {
-        private string outerCode;
-        private string innerCode;
-        private string indentationAmount = "    ";
+        private readonly string outerCode;
+        private readonly string innerCode;
+        private readonly string indentationAmount = "    ";
 
         internal SingleBlockFormatter(string outerCode, string innerCode)
         {

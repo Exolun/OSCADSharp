@@ -17,7 +17,7 @@ namespace OSCADSharp.DataBinding
         /// top of OpenSCAD scripts
         /// </summary>
         public static Variables Global { get; set; } = new Variables();
-        private ConcurrentDictionary<string, Variable> variables = new ConcurrentDictionary<string, Variable>();
+        private readonly ConcurrentDictionary<string, Variable> variables = new ConcurrentDictionary<string, Variable>();
 
         /// <summary>
         /// Adds a variable to the collection

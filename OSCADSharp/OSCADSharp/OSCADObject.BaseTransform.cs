@@ -18,7 +18,7 @@ namespace OSCADSharp
         /// </summary>
         internal class MultiStatementObject : OSCADObject
         {
-            private string outerStatement;
+            private readonly string outerStatement;
 
             internal MultiStatementObject(string outerStatement, IEnumerable<OSCADObject> children)
             {
