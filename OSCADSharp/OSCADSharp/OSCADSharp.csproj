@@ -43,8 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBinding\BindableBoolean.cs" />
-    <Compile Include="DataBinding\VariableCalculator.cs" />
-    <Compile Include="DataBinding\CompoundVariable.cs" />
     <Compile Include="OSCADObject.AbstractTransforms.cs" />
     <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
