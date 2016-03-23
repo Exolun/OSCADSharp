@@ -26,7 +26,7 @@ namespace OSCADSharp.UnitTests.Scripting
             var compound = new Variable("x", 5) / 12;
 
             string type = compound.GetType().ToString();
-            Assert.AreEqual("OSCADSharp.DataBinding.CompoundVariable", type);
+            Assert.AreEqual("OSCADSharp.DataBinding.Variable+CompoundVariable", type);
         }
     }
 }

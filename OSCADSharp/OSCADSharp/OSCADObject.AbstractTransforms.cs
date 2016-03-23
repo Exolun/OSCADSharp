@@ -35,7 +35,7 @@ namespace OSCADSharp
 
             internal MirroredObject(OSCADObject obj, Variable normal) : base(obj)
             {
-                this.Bind("normal", normal);
+                this.BindIfVariableNotNull("normal", normal);
             }
 
             internal MirroredObject(OSCADObject obj, Vector3 normal, Variable x, Variable y, Variable z) : base(obj)

@@ -42,7 +42,7 @@ namespace OSCADSharp
             /// <param name="opacity"></param>
             internal ColoredObject(OSCADObject obj, Variable colorName, Variable opacity) : base(obj)
             {
-                this.Bind("color", colorName);
+                this.BindIfVariableNotNull("color", colorName);
                 this.BindIfVariableNotNull("opacity", opacity);
             }
 
@@ -112,7 +112,7 @@ namespace OSCADSharp
 
             internal ResizedObject(OSCADObject obj, Variable size) : base(obj)
             {
-                this.Bind("size", size);
+                this.BindIfVariableNotNull("size", size);
             }
 
             internal ResizedObject(OSCADObject obj, Vector3 size, Variable x, Variable y, Variable z) : base(obj)
@@ -211,7 +211,7 @@ namespace OSCADSharp
 
             internal RotatedObject(OSCADObject obj, Variable normal) : base(obj)
             {
-                this.Bind("angle", normal);
+                this.BindIfVariableNotNull("angle", normal);
             }
 
             internal RotatedObject(OSCADObject obj, Vector3 angle, Variable x, Variable y, Variable z) : base(obj)
@@ -297,7 +297,7 @@ namespace OSCADSharp
 
             internal ScaledObject(OSCADObject obj, Variable normal) : base(obj)
             {
-                this.Bind("scalefactor", normal);
+                this.BindIfVariableNotNull("scalefactor", normal);
             }
 
             internal ScaledObject(OSCADObject obj, Vector3 scale, Variable x, Variable y, Variable z) : base(obj)
@@ -380,7 +380,7 @@ namespace OSCADSharp
 
             internal TranslatedObject(OSCADObject obj, Variable normal) : base(obj)
             {
-                this.Bind("vector", normal);
+                this.BindIfVariableNotNull("vector", normal);
             }
 
             internal TranslatedObject(OSCADObject obj, Vector3 vector, Variable x, Variable y, Variable z) : base(obj)
