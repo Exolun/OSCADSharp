@@ -2,7 +2,10 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.Scripting;
+using OSCADSharp.Utility;
+using OSCADSharp.Spatial;
+using OSCADSharp.DataBinding;
+using OSCADSharp.Solids;
 
 namespace OSCADSharp.UnitTests
 {
@@ -190,6 +193,16 @@ namespace OSCADSharp.UnitTests
 
             Assert.IsTrue(script.Contains("translate(v = [xOffset"));
             Assert.IsTrue(script.Contains("size = [15, 5, myHeight]"));
+        }
+
+        [TestMethod]
+        public void Cube_LengthWidthHeightAppearsInScriptOutput()
+        {
+            var cube = new Cube(15, 5, 12);
+
+            string script = cube.ToString();
+
+            Assert.IsTrue(script.Contains("size = [15, 5, 12]"));
         }
     }
 }

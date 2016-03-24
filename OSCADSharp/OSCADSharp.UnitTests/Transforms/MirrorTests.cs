@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.Scripting;
+using OSCADSharp.DataBinding;
+using OSCADSharp.Solids;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;

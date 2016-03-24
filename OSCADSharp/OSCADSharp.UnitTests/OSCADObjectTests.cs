@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OSCADSharp.Files;
-using OSCADSharp.Scripting;
+using OSCADSharp.DataBinding;
+using OSCADSharp.IO;
+using OSCADSharp.Solids;
+using OSCADSharp.Utility;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -80,7 +82,7 @@ namespace OSCADSharp.UnitTests
                 .Translate(0, 5, 10).Rotate(0, 90, 0)
                 .Translate(0, 0, 10).Scale(1, 1, 2);
 
-            List<uint> ids = obj.Children().Select(child => child.Id).ToList();
+            List<int> ids = obj.Children().Select(child => child.Id).ToList();
             ids.Add(obj.Id);
 
             Assert.AreEqual(ids.Count, ids.Distinct().Count());
@@ -147,11 +149,11 @@ namespace OSCADSharp.UnitTests
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { output = contents; });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("myFile");
 
-            Assert.AreEqual(Settings.OSCADSharpHeader, output[0]);
+            Assert.AreEqual(OutputSettings.OSCADSharpHeader, output[0]);
        }
 
         [TestMethod]
@@ -164,7 +166,7 @@ namespace OSCADSharp.UnitTests
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { output = contents; });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("myFile");
 

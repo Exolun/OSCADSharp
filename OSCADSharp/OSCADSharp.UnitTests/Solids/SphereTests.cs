@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.Scripting;
+using OSCADSharp.Utility;
+using OSCADSharp.Spatial;
+using OSCADSharp.DataBinding;
+using OSCADSharp.Solids;
 
 namespace OSCADSharp.UnitTests
 {

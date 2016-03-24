@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OSCADSharp.Files;
-using OSCADSharp.Scripting;
+using OSCADSharp.DataBinding;
+using OSCADSharp.IO;
+using OSCADSharp.Solids;
+using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace OSCADSharp.UnitTests
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { output = contents; });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("myFile");
 
@@ -34,14 +36,14 @@ namespace OSCADSharp.UnitTests
         [ExpectedException(typeof(InvalidOperationException))]
         public void Settings_NullOpenSCADPathThrowsError()
         {
-            Settings.OpenSCADPath = null;
+            OutputSettings.OpenSCADPath = null;
 
             var cube = new Cube();
 
             var mock = new Mock<IFileWriter>();
             mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
                 .Callback<string, string[]>((path, contents) => { });
-            Dependencies.FileWriter = mock.Object;
+            Dependencies.SetFileWriter(mock.Object);
 
             cube.ToFile("test").Open();
         }
