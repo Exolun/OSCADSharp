@@ -48,12 +48,15 @@ namespace OSCADSharp.Solids
 
         private void correctPath()
         {
-            string currentDir = Directory.GetCurrentDirectory();
-
-            if (!this.filePath.Contains(currentDir))
+            if (!File.Exists(this.filePath))
             {
-                this.filePath = currentDir + "\\" + this.filePath;
-            }
+                string currentDir = Directory.GetCurrentDirectory();
+
+                if (!this.filePath.Contains(currentDir))
+                {
+                    this.filePath = currentDir + "\\" + this.filePath;
+                }
+            }            
         }
         #endregion
 
