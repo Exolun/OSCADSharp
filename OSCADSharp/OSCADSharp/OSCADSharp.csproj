@@ -47,6 +47,7 @@
     <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
+    <Compile Include="Solids\ImportedModel.cs" />
     <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />

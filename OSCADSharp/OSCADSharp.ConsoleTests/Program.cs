@@ -56,7 +56,9 @@ namespace OSCADSharp.ConsoleTests
 
         static void Main(string[] args)
         {
-            makePeg();
+            var model = new ImportedModel("seahawkImport.stl", new Bounds(new Vector3(1, 1, 1), new Vector3(-1, -1, -1)));
+            model.ToFile("modelTest").Open();
+            //makePeg();
 
             //var diam = new Variable("mainColumn", Inches.Half);
             //var height = new Variable("overallHeight", Inches.Quarter);
