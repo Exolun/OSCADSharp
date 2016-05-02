@@ -29,7 +29,6 @@ namespace OSCADSharp.Solids
         public ImportedModel(string filePath)
         {
             this.filePath = filePath;
-            this.correctPath();
             //TODO: Attempt to compute bounds
         }
 
@@ -41,22 +40,7 @@ namespace OSCADSharp.Solids
         public ImportedModel(string filePath, Bounds bounds)
         {
             this.filePath = filePath;
-            this.correctPath();
-
             this.objectBounds = bounds;         
-        }
-
-        private void correctPath()
-        {
-            if (!File.Exists(this.filePath))
-            {
-                string currentDir = Directory.GetCurrentDirectory();
-
-                if (!this.filePath.Contains(currentDir))
-                {
-                    this.filePath = currentDir + "\\" + this.filePath;
-                }
-            }            
         }
         #endregion
 
