@@ -29,6 +29,7 @@ namespace OSCADSharp.Solids
         public ImportedModel(string filePath)
         {
             this.filePath = filePath;
+            this.errorIfFileNotFound();
             //TODO: Attempt to compute bounds
         }
 
@@ -40,7 +41,17 @@ namespace OSCADSharp.Solids
         public ImportedModel(string filePath, Bounds bounds)
         {
             this.filePath = filePath;
+            this.errorIfFileNotFound();
+
             this.objectBounds = bounds;         
+        }
+
+        private void errorIfFileNotFound()
+        {
+            if (!File.Exists(this.filePath))
+            {
+                throw new FileNotFoundException("No model file was found at location: " + this.filePath);
+            }
         }
         #endregion
 
