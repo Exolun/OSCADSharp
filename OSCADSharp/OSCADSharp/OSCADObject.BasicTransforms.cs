@@ -48,8 +48,18 @@ namespace OSCADSharp
 
             public override string ToString()
             {
-                string colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Text :
-                    "\"" + this.ColorName + "\"";
+                string colorName;
+                if (!this.ColorName.StartsWith("["))
+                {
+                    colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Text :
+                        "\"" + this.ColorName + "\"";
+                }
+                else {
+                    colorName = this.bindings.Contains("color") ? this.bindings.Get("color").BoundVariable.Text :
+                        this.ColorName;
+                }
+
+                
                 string opacity = this.bindings.Contains("opacity") ? this.bindings.Get("opacity").BoundVariable.Text
                     : this.Opacity.ToString();
 
