@@ -7,7 +7,7 @@ using OSCADSharp.DataBinding;
 using OSCADSharp.Spatial;
 using System.Drawing;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp.Solids.Imported
 {
     /// <summary>
     /// An image file imported and processed into a 3D object

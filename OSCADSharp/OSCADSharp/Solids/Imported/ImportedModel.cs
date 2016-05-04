@@ -7,7 +7,7 @@ using OSCADSharp.DataBinding;
 using OSCADSharp.Spatial;
 using System.IO;
 
-namespace OSCADSharp.Solids
+namespace OSCADSharp.Solids.Imported
 {
     /// <summary>
     /// An imported 3D model, supported types are limited.    
