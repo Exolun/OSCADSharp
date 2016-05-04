@@ -30,11 +30,8 @@ namespace OSCADSharp.Solids.Imported
         public OSCADObject ProcessImage()
         {
             this.cubes = this.processImage();
-            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);
-            obj = obj.Rotate(0, 0, 180);
-            obj = obj.Translate(ImageBounds.Length, ImageBounds.Width, 0);
-
-            return obj;
+            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);            
+            return obj.Scale(1, -1, 1).Translate(0, ImageBounds.Width, 0);
         }
 
 

@@ -58,16 +58,14 @@ namespace OSCADSharp.ConsoleTests
         static void Main(string[] args)
         {
             var img = ImportedImage.FromFile("seahawks coaster.png").Scale(1, 1, Inches.Quarter + Inches.Eigth);
-            img.ToFile("testImg").Open();
+            var imgPos = img.Position();
+            var _base = new Cylinder(img.Bounds().Width + Inches.Quarter, Inches.Quarter);
 
-            //var imgPos = img.Position();
-            //var _base = new Cylinder(img.Bounds().Width + Inches.Quarter, Inches.Quarter);
-
-            //var rim = _base.Clone().Scale(1, 1, 1.25) - _base.Clone().Scale(.9, .9, 3.5).Translate(0, 0, -Inches.Eigth);
-            //var coaster = img + _base.Translate(imgPos.X, imgPos.Y, 0) + rim.Translate(imgPos.X, imgPos.Y, Inches.Quarter); ;
+            var rim = _base.Clone().Scale(1, 1, 1.25) - _base.Clone().Scale(.9, .9, 3.5).Translate(0, 0, -Inches.Eigth);
+            var coaster = img + _base.Translate(imgPos.X, imgPos.Y, 0) + rim.Translate(imgPos.X, imgPos.Y, Inches.Quarter); ;
 
 
-            //coaster.ToFile("seaImg").Open();
+            coaster.ToFile("seaImg").Open();
 
             //makePeg();
 
