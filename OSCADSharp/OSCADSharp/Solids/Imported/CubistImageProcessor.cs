@@ -47,7 +47,7 @@ namespace OSCADSharp.Solids.Imported
                 throw new InvalidOperationException("Cannot process images larger greater than 200x200 pixels");
             }
 
-            this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 0));
+            this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));
 
             List<OSCADObject> cubes = new List<OSCADObject>();
             bool[,] visited = new bool[img.Width, img.Height];

@@ -20,6 +20,11 @@ namespace OSCADSharp.Solids.Imported
         #endregion
 
         #region Constructors / Initialization
+        /// <summary>
+        /// Creates an imported image from the specified file
+        /// </summary>
+        /// <param name="imagePath"></param>
+        /// <returns></returns>
         public static ImportedImage FromFile(string imagePath)
         {
 
