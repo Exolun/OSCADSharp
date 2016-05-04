@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,7 @@
     <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
+    <Compile Include="Solids\ImportedImage.cs" />
     <Compile Include="Solids\ImportedModel.cs" />
     <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />

@@ -56,8 +56,9 @@ namespace OSCADSharp.ConsoleTests
 
         static void Main(string[] args)
         {
-            var model = new ImportedModel("seahawkImport.stl", new Bounds(new Vector3(1, 1, 1), new Vector3(-1, -1, -1)));
-            model.ToFile("modelTest").Open();
+            var img = new ImportedImage("seahawks coaster.png");
+            img.ToFile("seaImg").Open();
+
             //makePeg();
 
             //var diam = new Variable("mainColumn", Inches.Half);
