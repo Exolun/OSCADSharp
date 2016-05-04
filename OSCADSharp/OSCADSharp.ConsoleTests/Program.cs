@@ -57,7 +57,7 @@ namespace OSCADSharp.ConsoleTests
 
         static void Main(string[] args)
         {
-            var img = new ImportedImage("seahawks coaster.png");
+            var img = ImportedImage.FromFile("seahawks coaster.png");
             img.ToFile("seaImg").Open();
 
             //makePeg();
