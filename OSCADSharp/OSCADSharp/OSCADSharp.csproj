@@ -49,8 +49,11 @@
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
     <Compile Include="Solids\Imported\CubistImageProcessor.cs" />
+    <Compile Include="Solids\Imported\IImageProcessor.cs" />
+    <Compile Include="Solids\Imported\ImageImportMode.cs" />
     <Compile Include="Solids\Imported\ImportedImage.cs" />
     <Compile Include="Solids\Imported\ImportedModel.cs" />
+    <Compile Include="Solids\Imported\PolygonalImageProcessor.cs" />
     <Compile Include="Utility\Dependencies.cs" />
     <Compile Include="IO\DefaultFileInvoker.cs" />
     <Compile Include="IO\DefaultFileWriter.cs" />

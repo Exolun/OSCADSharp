@@ -11,7 +11,7 @@ namespace OSCADSharp.Solids.Imported
     /// <summary>
     /// Processes a bitmap image by treating contiguous same-color regions as cubes
     /// </summary>
-    internal class CubistImageProcessor
+    internal class CubistImageProcessor : IImageProcessor
     {
         #region Private Fields
         private string imagePath;
@@ -19,15 +19,15 @@ namespace OSCADSharp.Solids.Imported
         #endregion
 
         #region Internal Fields
-        internal Bounds ImageBounds { get; set; }
+        public Bounds ImageBounds { get; set; }
         #endregion
 
-        public CubistImageProcessor(string imagePath)
+        internal CubistImageProcessor(string imagePath)
         {
             this.imagePath = imagePath;
         }
 
-        internal OSCADObject ProcessImage()
+        public OSCADObject ProcessImage()
         {
             this.cubes = this.processImage();
             OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);
@@ -36,8 +36,9 @@ namespace OSCADSharp.Solids.Imported
 
             return obj;
         }
-        
 
+
+        #region Private Methods
         private List<OSCADObject> processImage()
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));            
@@ -174,5 +175,8 @@ namespace OSCADSharp.Solids.Imported
 
             return null;
         }
+
+  
+        #endregion
     }
 }
