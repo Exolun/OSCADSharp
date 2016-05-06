@@ -62,27 +62,37 @@ namespace OSCADSharp.Solids.Imported
 
         private List<List<KeyValuePair<Point, Color>>> getContiguousSections(List<KeyValuePair<Point, Color>> colorGrouping)
         {
-            KeyValuePair<Point, Color>[,] grid = createGrid(colorGrouping);
+            Point topLeft;
+            Point bottomRight;
+            KeyValuePair<Point, Color>?[,] grid = createGrid(colorGrouping, out topLeft, out bottomRight);
             var sections = new List<List<KeyValuePair<Point, Color>>>();
 
             while (colorGrouping.Count > 0)
             {
                 var origin = colorGrouping[0];
                 colorGrouping.RemoveAt(0);
-                sections.Add(this.getNeighbors(origin, grid, colorGrouping));
+                sections.Add(this.getNeighbors(origin, grid, colorGrouping, topLeft, bottomRight));
             }
 
             return sections;
         }
 
-        private List<KeyValuePair<Point, Color>> getNeighbors(KeyValuePair<Point, Color> origin, KeyValuePair<Point, Color>[,] grid, List<KeyValuePair<Point, Color>> colorGrouping)
+        private List<KeyValuePair<Point, Color>> getNeighbors(KeyValuePair<Point, Color> origin, KeyValuePair<Point, Color>?[,] grid, 
+            List<KeyValuePair<Point, Color>> colorGrouping, Point topLeft, Point bottomRight)
         {
+
             List<KeyValuePair<Point, Color>> neighbors = new List<KeyValuePair<Point, Color>>();
+            HashSet<KeyValuePair<Point, Color>> traversed = new HashSet<KeyValuePair<Point, Color>>();
             Queue<KeyValuePair<Point, Color>> nextOrigins = new Queue<KeyValuePair<Point, Color>>();
             nextOrigins.Enqueue(origin);
+            traversed.Add(origin);
+            neighbors.Add(origin);
 
-            while(nextOrigins.Count > 0)
+            while (nextOrigins.Count > 0)
             {
+                origin = nextOrigins.Dequeue();
+                colorGrouping.Remove(origin);
+
                 List<Point> neighboringPoints = new List<Point>() {
                     new Point(origin.Key.X, origin.Key.Y + 1),      //Above
                     new Point(origin.Key.X, origin.Key.Y - 1),      //Below
@@ -96,17 +106,36 @@ namespace OSCADSharp.Solids.Imported
 
                 foreach (var pt in neighboringPoints)
                 {
-                    //Todo:  Find neighboring points
+                    //Ignore if out of bounds
+                    if(pt.X < topLeft.X || pt.X > bottomRight.X || pt.Y < topLeft.Y || pt.Y > bottomRight.Y)
+                    {
+                        continue;
+                    }
+
+                    int x = pt.X - topLeft.X;
+                    int y = pt.Y - topLeft.Y;
+
+                    if(grid[x, y] != null)
+                    {
+                        var nbr = (KeyValuePair<Point, Color>)grid[x, y];
+                        if (!traversed.Contains(nbr) && nbr.Value.Equals(origin.Value))
+                        {
+                            colorGrouping.Remove(nbr);
+                            nextOrigins.Enqueue(nbr);
+                            neighbors.Add(nbr);
+                            traversed.Add(nbr);
+                        }
+                    }
                 }
             }
 
             return neighbors;
         }
 
-        private static KeyValuePair<Point, Color>[,] createGrid(List<KeyValuePair<Point, Color>> colorGrouping)
+        private static KeyValuePair<Point, Color>?[,] createGrid(List<KeyValuePair<Point, Color>> colorGrouping, out Point topLeft, out Point bottomRight)
         {
-            Point topLeft = new Point(int.MaxValue, int.MaxValue);
-            Point bottomRight = new Point(int.MinValue, int.MinValue);
+            topLeft = new Point(int.MaxValue, int.MaxValue);
+            bottomRight = new Point(int.MinValue, int.MinValue);
 
 
             foreach (var pair in colorGrouping)
@@ -124,9 +153,17 @@ namespace OSCADSharp.Solids.Imported
                     bottomRight.Y = pair.Key.Y;
             }
 
-            int width = bottomRight.X - topLeft.X;
-            int height = bottomRight.Y - topLeft.Y;
-            return new KeyValuePair<Point, Color>[width, height];
+            int width = bottomRight.X - topLeft.X + 1;
+            int height = bottomRight.Y - topLeft.Y + 1;
+            var grid = new KeyValuePair<Point, Color>?[width, height];
+
+            foreach (var pair in colorGrouping)
+            {
+                var pt = pair.Key;
+                grid[pt.X - topLeft.X, pt.Y - topLeft.Y] = pair;
+            }
+
+            return grid;
         }
 
         private Dictionary<string, List<KeyValuePair<Point, Color>>> separateColors(Bitmap img)
