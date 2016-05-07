@@ -5,14 +5,89 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSCADSharp.DataBinding;
 
 namespace OSCADSharp.Solids.Imported
 {
+    
+
     /// <summary>
     /// Processes a bitmap image by treating contiguous same-color regions as cubes
     /// </summary>
     internal class PolygonalImageProcessor : IImageProcessor
     {
+        #region Private Classes
+        private class Polygon : OSCADObject
+        {
+            private List<Point> points;
+
+            public Polygon(List<Point> points)
+            {
+                this.points = points;
+            }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("polygon(points=[");
+
+                Point pt;
+                for (int i = 0; i < this.points.Count; i++)                
+                {
+                    pt = this.points[i];
+                    if(i == 0)
+                        sb.Append(String.Format("[{0}, {1}]", pt.X, pt.Y));
+                    else
+                        sb.Append(String.Format(", [{0}, {1}]", pt.X, pt.Y));
+                }
+
+                sb.Append("]);");
+
+                return sb.ToString();
+            }
+
+            public override void Bind(string property, Variable variable)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override Bounds Bounds()
+            {
+                var bottomLeft = new Vector3(int.MaxValue, int.MaxValue, 0);
+                var topRight = new Vector3(int.MinValue, int.MinValue, 1);
+
+
+                foreach (var point in this.points)
+                {
+                    if (point.X < bottomLeft.X)
+                        bottomLeft.X = point.X;
+
+                    if (point.Y < bottomLeft.Y)
+                        bottomLeft.Y = point.Y;
+
+                    if (point.X > topRight.X)
+                        topRight.X = point.X;
+
+                    if (point.Y > topRight.Y)
+                        topRight.Y = point.Y;
+                }
+
+                return new Spatial.Bounds(bottomLeft, topRight);
+            }
+
+            public override OSCADObject Clone()
+            {
+                return new Polygon(this.points);
+            }
+
+            public override Vector3 Position()
+            {
+                var bounds = this.Bounds();
+                return Vector3.Average(bounds.TopRight, bounds.BottomLeft);
+            }
+        }
+        #endregion
+
         #region Private Fields
         private string imagePath;
         #endregion
@@ -31,9 +106,8 @@ namespace OSCADSharp.Solids.Imported
         public OSCADObject ProcessImage()
         {
             var polygons = this.processImage();
-            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", polygons);
-            obj = obj.Rotate(0, 0, 180);
-            obj = obj.Translate(ImageBounds.Length, ImageBounds.Width, 0);
+            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", polygons);            
+            obj = obj.Scale(1, -1, 1).Translate(0, ImageBounds.Width, 0);
 
             return obj;
         }
@@ -52,12 +126,43 @@ namespace OSCADSharp.Solids.Imported
             var separatedColors = this.separateColors(img);
             IEnumerable<List<KeyValuePair<Point, Color>>> contiguousSections = new List<List<KeyValuePair<Point, Color>>>();
 
-            foreach (var colorGroup in separatedColors.Values)
+            //Parallel.ForEach(separatedColors.Values, (colorGroup) =>
+            foreach (var colorGroup in separatedColors.Values)            
             {
                 var sections = this.getContiguousSections(colorGroup);
                 contiguousSections = contiguousSections.Concat(sections);
+            }//);
+
+            return this.convertToPolygons(contiguousSections);
+        }
+
+        private List<OSCADObject> convertToPolygons(IEnumerable<List<KeyValuePair<Point, Color>>> contiguousSections)
+        {
+            List<OSCADObject> objects = new List<OSCADObject>();
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var section in contiguousSections)
+            {
+                //TODO: Reorder sections for correct polygon winding
+
+                var color = section[0].Value;
+                OSCADObject pgon = new Polygon(section.Select(sec => sec.Key).ToList());
+                pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                objects.Add(pgon);
+
+                //foreach (var pair in section)
+                //{
+                //    var position = pair.Key;
+                //    var color = pair.Value;
+                    
+
+                //    //var cube = new Cube().Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                //    //cube = cube.Translate(position.X, position.Y, 0);
+                //    //objects.Add(cube);
+                //}
             }
-            throw new NotImplementedException();
+
+            return objects;
         }
 
         private List<List<KeyValuePair<Point, Color>>> getContiguousSections(List<KeyValuePair<Point, Color>> colorGrouping)
@@ -71,13 +176,73 @@ namespace OSCADSharp.Solids.Imported
             {
                 var origin = colorGrouping[0];
                 colorGrouping.RemoveAt(0);
-                sections.Add(this.getNeighbors(origin, grid, colorGrouping, topLeft, bottomRight));
+                sections.Add(this.getConnectedPixelsOfSameColor(origin, grid, colorGrouping, topLeft, bottomRight));
+            }
+
+            foreach (var section in sections)
+            {
+                this.removeCenterPixels(section, grid, topLeft, bottomRight);
             }
 
             return sections;
         }
 
-        private List<KeyValuePair<Point, Color>> getNeighbors(KeyValuePair<Point, Color> origin, KeyValuePair<Point, Color>?[,] grid, 
+        private void removeCenterPixels(List<KeyValuePair<Point, Color>> section, KeyValuePair<Point, Color>?[,] grid, Point topLeft, Point bottomRight)
+        {
+
+            for (int i = section.Count - 1; i >= 0; i--)        
+            {
+                var origin = section[i].Key;
+                var color = section[i].Value;
+
+                // We only care about cardinal directions for the purpose of removing pixels
+                // that lie in the center of a grouping (to avoid redundant vertexes
+                List<Point> neighboringPoints = new List<Point>() {
+                    new Point(origin.X, origin.Y + 1),      //Above
+                    new Point(origin.X, origin.Y - 1),      //Below
+                    new Point(origin.X - 1, origin.Y),      //Left
+                    new Point(origin.X + 1, origin.Y),      //Right
+                };
+
+                bool isOnanEdge = false;
+                foreach (var pt in neighboringPoints)
+                {
+                    //If out of bounds, we found an edge
+                    if (pt.X < topLeft.X || pt.X > bottomRight.X || pt.Y < topLeft.Y || pt.Y > bottomRight.Y)
+                    {
+                        isOnanEdge = true;
+                        break;
+                    }
+
+                    int x = pt.X - topLeft.X;
+                    int y = pt.Y - topLeft.Y;
+
+                    if(grid[x, y] == null)
+                    {
+                        isOnanEdge = true;
+                        break;
+                    }
+
+                    if (grid[x, y] != null)
+                    {
+                        var nbr = (KeyValuePair<Point, Color>)grid[x, y];
+                        if(!nbr.Value.Equals(color))
+                        {
+                            isOnanEdge = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!isOnanEdge)
+                {
+                    section.RemoveAt(i);
+                }
+
+            }
+        }
+
+        private List<KeyValuePair<Point, Color>> getConnectedPixelsOfSameColor(KeyValuePair<Point, Color> origin, KeyValuePair<Point, Color>?[,] grid, 
             List<KeyValuePair<Point, Color>> colorGrouping, Point topLeft, Point bottomRight)
         {
 
