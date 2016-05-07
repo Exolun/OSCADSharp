@@ -145,21 +145,21 @@ namespace OSCADSharp.Solids.Imported
             {
                 //TODO: Reorder sections for correct polygon winding
 
-                var color = section[0].Value;
-                OSCADObject pgon = new Polygon(section.Select(sec => sec.Key).ToList());
-                pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
-                objects.Add(pgon);
+                //var color = section[0].Value;
+                //OSCADObject pgon = new Polygon(section.Select(sec => sec.Key).ToList());
+                //pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                //objects.Add(pgon);
 
-                //foreach (var pair in section)
-                //{
-                //    var position = pair.Key;
-                //    var color = pair.Value;
-                    
+                foreach (var pair in section)
+                {
+                    var position = pair.Key;
+                    var color = pair.Value;
 
-                //    //var cube = new Cube().Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
-                //    //cube = cube.Translate(position.X, position.Y, 0);
-                //    //objects.Add(cube);
-                //}
+
+                    var cube = new Cube().Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                    cube = cube.Translate(position.X, position.Y, 0);
+                    objects.Add(cube);
+                }
             }
 
             return objects;
@@ -255,8 +255,7 @@ namespace OSCADSharp.Solids.Imported
 
             while (nextOrigins.Count > 0)
             {
-                origin = nextOrigins.Dequeue();
-                colorGrouping.Remove(origin);
+                origin = nextOrigins.Dequeue();                
 
                 List<Point> neighboringPoints = new List<Point>() {
                     new Point(origin.Key.X, origin.Key.Y + 1),      //Above
@@ -285,7 +284,6 @@ namespace OSCADSharp.Solids.Imported
                         var nbr = (KeyValuePair<Point, Color>)grid[x, y];
                         if (!traversed.Contains(nbr) && nbr.Value.Equals(origin.Value))
                         {
-                            colorGrouping.Remove(nbr);
                             nextOrigins.Enqueue(nbr);
                             neighbors.Add(nbr);
                             traversed.Add(nbr);
@@ -293,6 +291,8 @@ namespace OSCADSharp.Solids.Imported
                     }
                 }
             }
+
+            colorGrouping.RemoveAll(elem => traversed.Contains(elem));
 
             return neighbors;
         }
