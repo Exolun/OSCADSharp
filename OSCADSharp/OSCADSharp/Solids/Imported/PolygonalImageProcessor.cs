@@ -146,6 +146,7 @@ namespace OSCADSharp.Solids.Imported
                 //TODO: Reorder sections for correct polygon winding
 
                 //var color = section[0].Value;
+                //var orderedSection = this.getOrderedPoints(section);
                 //OSCADObject pgon = new Polygon(section.Select(sec => sec.Key).ToList());
                 //pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
                 //objects.Add(pgon);
@@ -165,30 +166,54 @@ namespace OSCADSharp.Solids.Imported
             return objects;
         }
 
+        private List<Point> getOrderedPoints(List<KeyValuePair<Point, Color>> section)
+        {
+            List<Point> orderedPoints = new List<Point>(section.Count);
+            var grid = new AdjacentPixelMatrix(section);
+            var traversed = new HashSet<Point>();
+            var neighborFinder = new NeighboringPointFinder(true);
+            Stack<Point> toTraverse = new Stack<Point>();
+            toTraverse.Push(section[0].Key);
+            
+            while(toTraverse.Count > 0)
+            {
+                var origin = toTraverse.Pop();
+                traversed.Add(origin);
+                orderedPoints.Add(origin);
+
+                var below = neighborFinder.Below(origin);
+                if (!grid.IsOutOfBounds(below) && grid.At(below.X, below.Y) != null)
+                {
+                    continue;
+                }
+            }
+                        
+            return orderedPoints;
+        }
+
         private List<List<KeyValuePair<Point, Color>>> getContiguousSections(List<KeyValuePair<Point, Color>> colorGrouping)
         {
-            Point topLeft;
-            Point bottomRight;
-            KeyValuePair<Point, Color>?[,] grid = createGrid(colorGrouping, out topLeft, out bottomRight);
+            var grid =  new AdjacentPixelMatrix(colorGrouping);
             var sections = new List<List<KeyValuePair<Point, Color>>>();
 
             while (colorGrouping.Count > 0)
             {
                 var origin = colorGrouping[0];
                 colorGrouping.RemoveAt(0);
-                sections.Add(this.getConnectedPixelsOfSameColor(origin, grid, colorGrouping, topLeft, bottomRight));
+                sections.Add(this.getConnectedPixelsOfSameColor(origin, grid, colorGrouping));
             }
 
             foreach (var section in sections)
             {
-                this.removeCenterPixels(section, grid, topLeft, bottomRight);
+                this.removeCenterPixels(section, grid);
             }
 
             return sections;
         }
 
-        private void removeCenterPixels(List<KeyValuePair<Point, Color>> section, KeyValuePair<Point, Color>?[,] grid, Point topLeft, Point bottomRight)
+        private void removeCenterPixels(List<KeyValuePair<Point, Color>> section, AdjacentPixelMatrix grid)
         {
+            var neighborFinder = new NeighboringPointFinder(true);
 
             for (int i = section.Count - 1; i >= 0; i--)        
             {
@@ -197,35 +222,30 @@ namespace OSCADSharp.Solids.Imported
 
                 // We only care about cardinal directions for the purpose of removing pixels
                 // that lie in the center of a grouping (to avoid redundant vertexes
-                List<Point> neighboringPoints = new List<Point>() {
-                    new Point(origin.X, origin.Y + 1),      //Above
-                    new Point(origin.X, origin.Y - 1),      //Below
-                    new Point(origin.X - 1, origin.Y),      //Left
-                    new Point(origin.X + 1, origin.Y),      //Right
-                };
+                List<Point> neighboringPoints = neighborFinder.GetNeighbors(origin);
 
                 bool isOnanEdge = false;
                 foreach (var pt in neighboringPoints)
                 {
                     //If out of bounds, we found an edge
-                    if (pt.X < topLeft.X || pt.X > bottomRight.X || pt.Y < topLeft.Y || pt.Y > bottomRight.Y)
+                    if (grid.IsOutOfBounds(pt))
                     {
                         isOnanEdge = true;
                         break;
                     }
 
-                    int x = pt.X - topLeft.X;
-                    int y = pt.Y - topLeft.Y;
+                    int x = pt.X - grid.TopLeft.X;
+                    int y = pt.Y - grid.TopLeft.Y;
 
-                    if(grid[x, y] == null)
+                    if(grid.At(x, y) == null)
                     {
                         isOnanEdge = true;
                         break;
                     }
 
-                    if (grid[x, y] != null)
+                    if (grid.At(x, y) != null)
                     {
-                        var nbr = (KeyValuePair<Point, Color>)grid[x, y];
+                        var nbr = (KeyValuePair<Point, Color>)grid.At(x, y);
                         if(!nbr.Value.Equals(color))
                         {
                             isOnanEdge = true;
@@ -238,13 +258,13 @@ namespace OSCADSharp.Solids.Imported
                 {
                     section.RemoveAt(i);
                 }
-
             }
         }
 
-        private List<KeyValuePair<Point, Color>> getConnectedPixelsOfSameColor(KeyValuePair<Point, Color> origin, KeyValuePair<Point, Color>?[,] grid, 
-            List<KeyValuePair<Point, Color>> colorGrouping, Point topLeft, Point bottomRight)
+        private List<KeyValuePair<Point, Color>> getConnectedPixelsOfSameColor(KeyValuePair<Point, Color> origin, AdjacentPixelMatrix grid, List<KeyValuePair<Point, Color>> colorGrouping)
         {
+
+            var neighborFinder = new NeighboringPointFinder();
 
             List<KeyValuePair<Point, Color>> neighbors = new List<KeyValuePair<Point, Color>>();
             HashSet<KeyValuePair<Point, Color>> traversed = new HashSet<KeyValuePair<Point, Color>>();
@@ -255,33 +275,23 @@ namespace OSCADSharp.Solids.Imported
 
             while (nextOrigins.Count > 0)
             {
-                origin = nextOrigins.Dequeue();                
-
-                List<Point> neighboringPoints = new List<Point>() {
-                    new Point(origin.Key.X, origin.Key.Y + 1),      //Above
-                    new Point(origin.Key.X, origin.Key.Y - 1),      //Below
-                    new Point(origin.Key.X - 1, origin.Key.Y),      //Left
-                    new Point(origin.Key.X + 1, origin.Key.Y),      //Right
-                    new Point(origin.Key.X - 1, origin.Key.Y+1),    //UpperLeft
-                    new Point(origin.Key.X + 1, origin.Key.Y + 1),  //UpperRight
-                    new Point(origin.Key.X - 1, origin.Key.Y - 1),  //LowerLeft
-                    new Point(origin.Key.X + 1, origin.Key.Y - 1),  //LowerRight
-                };
+                origin = nextOrigins.Dequeue();
+                List<Point> neighboringPoints = neighborFinder.GetNeighbors(origin.Key);
 
                 foreach (var pt in neighboringPoints)
                 {
                     //Ignore if out of bounds
-                    if(pt.X < topLeft.X || pt.X > bottomRight.X || pt.Y < topLeft.Y || pt.Y > bottomRight.Y)
+                    if(grid.IsOutOfBounds(pt))
                     {
                         continue;
                     }
 
-                    int x = pt.X - topLeft.X;
-                    int y = pt.Y - topLeft.Y;
+                    int x = pt.X - grid.TopLeft.X;
+                    int y = pt.Y - grid.TopLeft.Y;
 
-                    if(grid[x, y] != null)
+                    if(grid.At(x, y) != null)
                     {
-                        var nbr = (KeyValuePair<Point, Color>)grid[x, y];
+                        var nbr = (KeyValuePair<Point, Color>)grid.At(x, y);
                         if (!traversed.Contains(nbr) && nbr.Value.Equals(origin.Value))
                         {
                             nextOrigins.Enqueue(nbr);
@@ -297,39 +307,7 @@ namespace OSCADSharp.Solids.Imported
             return neighbors;
         }
 
-        private static KeyValuePair<Point, Color>?[,] createGrid(List<KeyValuePair<Point, Color>> colorGrouping, out Point topLeft, out Point bottomRight)
-        {
-            topLeft = new Point(int.MaxValue, int.MaxValue);
-            bottomRight = new Point(int.MinValue, int.MinValue);
-
-
-            foreach (var pair in colorGrouping)
-            {
-                if (pair.Key.X < topLeft.X)
-                    topLeft.X = pair.Key.X;
-
-                if (pair.Key.Y < topLeft.Y)
-                    topLeft.Y = pair.Key.Y;
-
-                if (pair.Key.X > bottomRight.X)
-                    bottomRight.X = pair.Key.X;
-
-                if (pair.Key.Y > bottomRight.Y)
-                    bottomRight.Y = pair.Key.Y;
-            }
-
-            int width = bottomRight.X - topLeft.X + 1;
-            int height = bottomRight.Y - topLeft.Y + 1;
-            var grid = new KeyValuePair<Point, Color>?[width, height];
-
-            foreach (var pair in colorGrouping)
-            {
-                var pt = pair.Key;
-                grid[pt.X - topLeft.X, pt.Y - topLeft.Y] = pair;
-            }
-
-            return grid;
-        }
+        
 
         private Dictionary<string, List<KeyValuePair<Point, Color>>> separateColors(Bitmap img)
         {
