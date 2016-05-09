@@ -140,27 +140,28 @@ namespace OSCADSharp.Solids.Imported
         {
             List<OSCADObject> objects = new List<OSCADObject>();
             StringBuilder sb = new StringBuilder();
-
-            foreach (var section in contiguousSections)
+            var orderedSections = contiguousSections.OrderBy(sec => sec.Count);
+            var largest = orderedSections.Last().Count;
+            
+            foreach (var section in orderedSections)
             {
-                //TODO: Reorder sections for correct polygon winding
+                var color = section[0].Value;
+                var orderedSection = this.getOrderedPoints(section);
+                OSCADObject pgon = new Polygon(orderedSection);
+                pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                //pgon = pgon.Scale(1, 1, (1.0 / section.Count/ largest) * 100);
+                objects.Add(pgon);
 
-                //var color = section[0].Value;
-                //var orderedSection = this.getOrderedPoints(section);
-                //OSCADObject pgon = new Polygon(section.Select(sec => sec.Key).ToList());
-                //pgon = pgon.Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
-                //objects.Add(pgon);
-
-                foreach (var pair in section)
-                {
-                    var position = pair.Key;
-                    var color = pair.Value;
+                //foreach (var pair in section)
+                //{
+                //    var position = pair.Key;
+                //    var color = pair.Value;
 
 
-                    var cube = new Cube().Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
-                    cube = cube.Translate(position.X, position.Y, 0);
-                    objects.Add(cube);
-                }
+                //    var cube = new Cube().Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A);
+                //    cube = cube.Translate(position.X, position.Y, 0);
+                //    objects.Add(cube);
+                //}
             }
 
             return objects;
@@ -173,18 +174,40 @@ namespace OSCADSharp.Solids.Imported
             var traversed = new HashSet<Point>();
             var neighborFinder = new NeighboringPointFinder(true);
             Stack<Point> toTraverse = new Stack<Point>();
-            toTraverse.Push(section[0].Key);
+            Point? origin = section[0].Key;            
             
-            while(toTraverse.Count > 0)
+            while(origin != null)
             {
-                var origin = toTraverse.Pop();
-                traversed.Add(origin);
-                orderedPoints.Add(origin);
+                var orig = (Point)origin;
+                traversed.Add(orig);
+                orderedPoints.Add(orig);
 
-                var below = neighborFinder.Below(origin);
-                if (!grid.IsOutOfBounds(below) && grid.At(below.X, below.Y) != null)
+                var below = neighborFinder.Below(orig);
+                var right = neighborFinder.Right(orig);
+                var above = neighborFinder.Above(orig);
+                var left = neighborFinder.Left(orig);                
+
+                
+                if (grid.IsInBoundsAndNotNull(above, true) && !traversed.Contains(above))
                 {
-                    continue;
+                    origin = above;
+                }
+                else if (grid.IsInBoundsAndNotNull(right, true) && !traversed.Contains(right))
+                {
+                    origin = right;
+                }
+                else if (grid.IsInBoundsAndNotNull(below, true) && !traversed.Contains(below))
+                {
+                    origin = below;
+                }                
+                else if (grid.IsInBoundsAndNotNull(left, true) && !traversed.Contains(left))
+                {
+                    origin = left;
+                }
+                else
+                {
+                    //TODO: Handle additional paths
+                    origin = null;
                 }
             }
                         
@@ -213,7 +236,7 @@ namespace OSCADSharp.Solids.Imported
 
         private void removeCenterPixels(List<KeyValuePair<Point, Color>> section, AdjacentPixelMatrix grid)
         {
-            var neighborFinder = new NeighboringPointFinder(true);
+            var neighborFinder = new NeighboringPointFinder();
 
             for (int i = section.Count - 1; i >= 0; i--)        
             {
@@ -234,24 +257,24 @@ namespace OSCADSharp.Solids.Imported
                         break;
                     }
 
-                    int x = pt.X - grid.TopLeft.X;
-                    int y = pt.Y - grid.TopLeft.Y;
+                    //int x = pt.X - grid.TopLeft.X;
+                    //int y = pt.Y - grid.TopLeft.Y;
 
-                    if(grid.At(x, y) == null)
-                    {
-                        isOnanEdge = true;
-                        break;
-                    }
+                    //if(grid.At(x, y) == null)
+                    //{
+                    //    isOnanEdge = true;
+                    //    break;
+                    //}
 
-                    if (grid.At(x, y) != null)
-                    {
-                        var nbr = (KeyValuePair<Point, Color>)grid.At(x, y);
-                        if(!nbr.Value.Equals(color))
-                        {
-                            isOnanEdge = true;
-                            break;
-                        }
-                    }
+                    //if (grid.At(x, y) != null)
+                    //{
+                    //    var nbr = (KeyValuePair<Point, Color>)grid.At(x, y);
+                    //    if(!nbr.Value.Equals(color))
+                    //    {
+                    //        isOnanEdge = true;
+                    //        break;
+                    //    }
+                    //}
                 }
 
                 if (!isOnanEdge)

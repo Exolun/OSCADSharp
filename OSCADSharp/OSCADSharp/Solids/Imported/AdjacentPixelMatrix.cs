@@ -15,6 +15,8 @@ namespace OSCADSharp.Solids.Imported
         private Point topLeft;
         private Point bottomRight;
         private KeyValuePair<Point, Color>?[,] grid;
+        private int height;
+        private int width;
 
         public Point TopLeft { get { return this.topLeft; }  }
         public Point BottomRight { get { return this.bottomRight; } }
@@ -22,8 +24,10 @@ namespace OSCADSharp.Solids.Imported
         internal AdjacentPixelMatrix(List<KeyValuePair<Point, Color>> pixelGrouping)
         {
             this.createGrid(pixelGrouping);
+            this.height = bottomRight.Y - topLeft.Y+1;
+            this.width = bottomRight.X - topLeft.X+1;
         }
-
+        
         public bool IsOutOfBounds(Point pt)
         {
             if (pt.X < topLeft.X || pt.X > bottomRight.X || pt.Y < topLeft.Y || pt.Y > bottomRight.Y)
@@ -32,6 +36,19 @@ namespace OSCADSharp.Solids.Imported
             }
 
             return false;
+        }
+
+        public bool IsInBoundsAndNotNull(Point pt, bool useRelativePtForNullCheck = false)
+        {
+            if (useRelativePtForNullCheck)
+            {
+                var relativePt = new Point(pt.X - this.topLeft.X, pt.Y - this.topLeft.Y);
+                return !IsOutOfBounds(pt) && this.At(relativePt.X, relativePt.Y) != null;
+            }
+            else
+            {
+                return !IsOutOfBounds(pt) && !(pt.X > this.width) && !(pt.Y > this.height) && this.At(pt.X, pt.Y) != null;
+            }
         }
 
         public KeyValuePair<Point, Color>? At(int x, int y)
