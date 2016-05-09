@@ -14,6 +14,7 @@ namespace OSCADSharp.Solids.Imported
     internal class CubistImageProcessor : IImageProcessor
     {
         #region Private Fields
+        private int scannedRows = 0;
         private string imagePath;
         List<OSCADObject> cubes = new List<OSCADObject>();
         #endregion
@@ -34,17 +35,10 @@ namespace OSCADSharp.Solids.Imported
             return obj.Scale(1, -1, 1).Translate(0, ImageBounds.Width, 0);
         }
 
-
         #region Private Methods
         private List<OSCADObject> processImage()
         {
-            Bitmap img = new Bitmap(Image.FromFile(this.imagePath));            
-
-            if (img.Width > 200 || img.Height > 200)
-            {
-                throw new InvalidOperationException("Cannot process images larger greater than 200x200 pixels");
-            }
-
+            Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));
 
             List<OSCADObject> cubes = new List<OSCADObject>();
@@ -157,17 +151,21 @@ namespace OSCADSharp.Solids.Imported
 
         }
 
+
+        
         private Point? getNextPoint(Bitmap img, ref bool[,] visited, int width, int height)
         {
-            for (int column = 0; column < width; column++)
+            int rowStart = this.scannedRows;
+            for (int row = rowStart; row < height; row++)
             {
-                for (int row = 0; row < height; row++)
+                for (int column = 0; column < width; column++)
                 {
                     if (visited[column, row] == false)
                     {
                         return new Point(column, row);
                     }
                 }
+                this.scannedRows++;
             }
 
             return null;
