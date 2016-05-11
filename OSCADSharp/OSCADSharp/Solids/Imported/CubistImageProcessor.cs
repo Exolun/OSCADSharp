@@ -16,6 +16,8 @@ namespace OSCADSharp.Solids.Imported
         #region Private Fields
         private int scannedRows = 0;
         private string imagePath;
+        private bool includeHeight;
+        private Dictionary<Color, int> heightMappings;
         List<OSCADObject> cubes = new List<OSCADObject>();
         #endregion
 
@@ -23,15 +25,16 @@ namespace OSCADSharp.Solids.Imported
         public Bounds ImageBounds { get; set; }
         #endregion
 
-        internal CubistImageProcessor(string imagePath)
+        internal CubistImageProcessor(string imagePath, bool includeHeight = true)
         {
+            this.includeHeight = includeHeight;
             this.imagePath = imagePath;
         }
 
         public OSCADObject ProcessImage()
         {
             this.cubes = this.processImage();
-            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);            
+            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);
             return obj.Scale(1, -1, 1).Translate(0, ImageBounds.Width, 0);
         }
 
@@ -39,6 +42,7 @@ namespace OSCADSharp.Solids.Imported
         private List<OSCADObject> processImage()
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
+            this.setHeightMappings(img);
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));
 
             List<OSCADObject> cubes = new List<OSCADObject>();
@@ -55,8 +59,15 @@ namespace OSCADSharp.Solids.Imported
                     this.markVisited(ref visited, cube, (Point)start, img);
                     if (color.A != 0)
                     {
+
+                        if (this.includeHeight)
+                        {
+                            cube.Size.Z = heightMappings[color];
+                        }
+
+                        string cubeColor = String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255.0, color.G == 0 ? 0 : color.G / 255.0, color.B == 0 ? 0 : color.B / 255.0);
                         cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, 0)
-                        .Color(String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255, color.G == 0 ? 0 : color.G / 255, color.B == 0 ? 0 : color.B / 255), color.A));
+                        .Color(cubeColor, color.A));
                     }
                 }
 
@@ -64,6 +75,25 @@ namespace OSCADSharp.Solids.Imported
             } while (start != null);
 
             return cubes;
+        }
+
+        private void setHeightMappings(Bitmap img)
+        {
+            if (this.includeHeight)
+            {
+                this.heightMappings = new Dictionary<Color, int>();
+                double max = 4 * 256;
+
+                for (int x = 0; x < img.Width; x++)
+                {
+                    for (int y = 0; y < img.Height; y++)
+                    {
+                        var color = img.GetPixel(x, y);
+                        double csum = (double)(color.R + color.G + color.B + color.A);
+                        heightMappings[color] = Convert.ToInt32(csum != 0 ? (csum / max)  * 10: .25);
+                    }
+                }
+            }
         }
 
         private void markVisited(ref bool[,] visited, Cube cube, Point start, Bitmap img)
@@ -151,8 +181,6 @@ namespace OSCADSharp.Solids.Imported
 
         }
 
-
-        
         private Point? getNextPoint(Bitmap img, ref bool[,] visited, int width, int height)
         {
             int rowStart = this.scannedRows;
@@ -171,7 +199,7 @@ namespace OSCADSharp.Solids.Imported
             return null;
         }
 
-  
+
         #endregion
     }
 }

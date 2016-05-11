@@ -24,19 +24,18 @@ namespace OSCADSharp.Solids.Imported
         /// Creates an imported image from the specified file
         /// </summary>
         /// <param name="imagePath"></param>
-        /// <param name="mode"></param>
         /// <returns></returns>
-        public static ImportedImage FromFile(string imagePath, ImageImportMode mode = ImageImportMode.Cubist)
+        public static ImportedImage FromFile(string imagePath)
         {
             IImageProcessor processor;
-            if(mode == ImageImportMode.Cubist)
-            {
-                processor = new CubistImageProcessor(imagePath);
-            }
-            else
-            {
-                processor = new PolygonalImageProcessor(imagePath);
-            }
+            //if(mode == ImageImportMode.Cubist)
+            //{
+            processor = new CubistImageProcessor(imagePath);
+            //}
+            //else
+            //{
+            //    processor = new PolygonalImageProcessor(imagePath);
+            //}
 
             var obj = processor.ProcessImage();
 
