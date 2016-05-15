@@ -19,6 +19,7 @@ namespace OSCADSharp.Solids.Imported
         private bool includeHeight;
         private Dictionary<Color, int> heightMappings;
         List<OSCADObject> cubes = new List<OSCADObject>();
+        private Color[,] pixels;
         #endregion
 
         #region Internal Fields
@@ -42,6 +43,7 @@ namespace OSCADSharp.Solids.Imported
         private List<OSCADObject> processImage()
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
+            this.setPixelArray(img);
             this.setHeightMappings(img);
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));
 
@@ -51,7 +53,7 @@ namespace OSCADSharp.Solids.Imported
             Point? start = this.getNextPoint(img, ref visited, img.Width - 1, img.Height - 1);
             do
             {
-                System.Drawing.Color color = img.GetPixel(((Point)start).X, ((Point)start).Y);
+                System.Drawing.Color color = pixels[((Point)start).X, ((Point)start).Y];
 
                 var cube = this.traverseNext(img, (Point)start, ref visited, color);
                 if (cube != null)
@@ -77,6 +79,18 @@ namespace OSCADSharp.Solids.Imported
             return cubes;
         }
 
+        private void setPixelArray(Bitmap img)
+        {
+            this.pixels = new Color[img.Width, img.Height];
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    pixels[x, y] = img.GetPixel(x, y);
+                }
+            }
+        }
+
         private void setHeightMappings(Bitmap img)
         {
             if (this.includeHeight)
@@ -88,7 +102,7 @@ namespace OSCADSharp.Solids.Imported
                 {
                     for (int y = 0; y < img.Height; y++)
                     {
-                        var color = img.GetPixel(x, y);
+                        var color = pixels[x, y];
                         double csum = (double)(color.R + color.G + color.B + color.A);
                         heightMappings[color] = Convert.ToInt32(csum != 0 ? (csum / max)  * 10: .25);
                     }
@@ -177,7 +191,7 @@ namespace OSCADSharp.Solids.Imported
         private bool pixelCanBeTraversed(Bitmap img, ref bool[,] visited, Point pixel, Color colorToMatch)
         {
             return pixel.X < img.Width && pixel.Y < img.Height &&
-                    visited[pixel.X, pixel.Y] == false && img.GetPixel(pixel.X, pixel.Y) == colorToMatch;
+                    visited[pixel.X, pixel.Y] == false && pixels[pixel.X, pixel.Y] == colorToMatch;
 
         }
 
