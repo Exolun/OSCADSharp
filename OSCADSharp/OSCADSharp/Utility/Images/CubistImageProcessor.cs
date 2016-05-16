@@ -1,4 +1,5 @@
-﻿using OSCADSharp.Spatial;
+﻿using OSCADSharp.Solids;
+using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

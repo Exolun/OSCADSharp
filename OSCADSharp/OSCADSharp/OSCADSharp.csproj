@@ -48,6 +48,7 @@
     <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
+    <Compile Include="Solids\Imported\ImageImportOptions.cs" />
     <Compile Include="Utility\Images\AdjacentPixelMatrix.cs" />
     <Compile Include="Utility\Images\CubistImageProcessor.cs" />
     <Compile Include="Utility\Images\IImageProcessor.cs" />
