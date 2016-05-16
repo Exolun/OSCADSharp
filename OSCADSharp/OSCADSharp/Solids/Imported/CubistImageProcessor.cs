@@ -35,7 +35,7 @@ namespace OSCADSharp.Solids.Imported
         public OSCADObject ProcessImage()
         {
             this.cubes = this.processImage();
-            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);
+            OSCADObject obj = new OSCADObject.MultiStatementObject("union()", cubes);            
             return obj.Scale(1, -1, 1).Translate(0, ImageBounds.Width, 0);
         }
 
@@ -45,7 +45,7 @@ namespace OSCADSharp.Solids.Imported
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
             this.setPixelArray(img);
             this.setHeightMappings(img);
-            this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));
+            this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));            
 
             List<OSCADObject> cubes = new List<OSCADObject>();
             bool[,] visited = new bool[img.Width, img.Height];
@@ -66,7 +66,7 @@ namespace OSCADSharp.Solids.Imported
                         {
                             cube.Size.Z = heightMappings[color];
                         }
-
+                        
                         string cubeColor = String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255.0, color.G == 0 ? 0 : color.G / 255.0, color.B == 0 ? 0 : color.B / 255.0);
                         cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, 0)
                         .Color(cubeColor, color.A));
@@ -113,11 +113,11 @@ namespace OSCADSharp.Solids.Imported
         private void markVisited(ref bool[,] visited, Cube cube, Point start, Bitmap img)
         {
             var bounds = cube.Bounds();
-            for (int column = start.X; column < start.X + bounds.Width; column++)
+            for (int x = start.X; x < start.X + bounds.Width && x < img.Width; x++)
             {
-                for (int row = start.Y; row < start.Y + bounds.Length; row++)
+                for (int y = start.Y; y < start.Y + bounds.Length && y < img.Height; y++)
                 {
-                    visited[column, row] = true;
+                    visited[x, y] = true;
                 }
             }
         }
@@ -136,15 +136,11 @@ namespace OSCADSharp.Solids.Imported
                    pixelCanBeTraversed(img, ref visited, new Point(start.X, start.Y + 1), color);
             }
 
-
             if (canTraverse)
             {
                 if (cube == null)
                 {
                     cube = new Cube();
-                    cube.Size.X += 1;
-                    cube.Size.Y += 1;
-
                     return traverseNext(img, start, ref visited, color, cube);
                 }
                 else
@@ -172,17 +168,17 @@ namespace OSCADSharp.Solids.Imported
         private void canContinueTraversal(Bitmap img, ref Point start, ref bool[,] visited, Color color, Cube cube, ref bool canTraverse)
         {
             var bounds = cube.Bounds();
-            for (int column = start.X; column < start.X + bounds.Width && canTraverse; column++)
+            for (int x = start.X; x < start.X + bounds.Width+1 && canTraverse; x++)
             {
-                for (int row = start.Y; row < start.Y + bounds.Length && canTraverse; row++)
+                for (int y = start.Y; y < start.Y + bounds.Length+1 && canTraverse; y++)
                 {
-                    if (start.X + column >= img.Width || start.Y + row >= img.Height)
+                    if (x >= img.Width || y >= img.Height)
                     {
                         canTraverse = false;
                     }
                     else
                     {
-                        canTraverse = canTraverse && pixelCanBeTraversed(img, ref visited, new Point(column, row), color);
+                        canTraverse = canTraverse && pixelCanBeTraversed(img, ref visited, new Point(x, y), color);
                     }
                 }
             }
@@ -198,9 +194,9 @@ namespace OSCADSharp.Solids.Imported
         private Point? getNextPoint(Bitmap img, ref bool[,] visited, int width, int height)
         {
             int rowStart = this.scannedRows;
-            for (int row = rowStart; row < height; row++)
+            for (int row = rowStart; row <= height; row++)
             {
-                for (int column = 0; column < width; column++)
+                for (int column = 0; column <= width; column++)
                 {
                     if (visited[column, row] == false)
                     {
@@ -217,3 +213,4 @@ namespace OSCADSharp.Solids.Imported
         #endregion
     }
 }
+
