@@ -21,16 +21,18 @@ namespace OSCADSharp.Utility.Images
         private Dictionary<Color, int> heightMappings;
         List<OSCADObject> cubes = new List<OSCADObject>();
         private Color[,] pixels;
+        private bool useGrayScale;
         #endregion
 
         #region Internal Fields
         public Bounds ImageBounds { get; set; }
         #endregion
 
-        internal CubistImageProcessor(string imagePath, bool includeHeight = true)
+        internal CubistImageProcessor(string imagePath, bool includeHeight = true, bool useGrayScale = false)
         {
             this.includeHeight = includeHeight;
             this.imagePath = imagePath;
+            this.useGrayScale = useGrayScale;
         }
 
         public OSCADObject ProcessImage()
@@ -44,7 +46,7 @@ namespace OSCADSharp.Utility.Images
         private List<OSCADObject> processImage()
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
-            this.setPixelArray(img);
+            this.setColorArray(img);
             this.setHeightMappings(img);
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));            
 
@@ -80,15 +82,29 @@ namespace OSCADSharp.Utility.Images
             return cubes;
         }
 
-        private void setPixelArray(Bitmap img)
+        private void setColorArray(Bitmap img)
         {
             this.pixels = new Color[img.Width, img.Height];
             for (int x = 0; x < img.Width; x++)
             {
                 for (int y = 0; y < img.Height; y++)
                 {
-                    pixels[x, y] = img.GetPixel(x, y);
+                    setPixelColorValue(img, x, y);
                 }
+            }
+        }
+
+        private void setPixelColorValue(Bitmap img, int x, int y)
+        {
+            if(this.useGrayScale)
+            {
+                Color rgbColor = img.GetPixel(x, y);
+                int grayscaleVal =  (rgbColor.R + rgbColor.G + rgbColor.B) / 3;
+                pixels[x, y] = Color.FromArgb(rgbColor.A, grayscaleVal, grayscaleVal, grayscaleVal); 
+            }
+            else
+            {
+                pixels[x, y] = img.GetPixel(x, y);
             }
         }
 

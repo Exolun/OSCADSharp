@@ -15,5 +15,10 @@ namespace OSCADSharp.Solids.Imported
         /// Indicates whether height-mapping should be used
         /// </summary>
         public bool HeightMapping { get; set; } = true;
+
+        /// <summary>
+        /// Converts the colors in the image to black and white
+        /// </summary>
+        public bool UseGrayScale { get; set; } = false;
     }
 }
