@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OSCADSharp.DataBinding;
 
-namespace OSCADSharp.Solids.Imported
+namespace OSCADSharp.Solids.Imported.Images
 {
     
 

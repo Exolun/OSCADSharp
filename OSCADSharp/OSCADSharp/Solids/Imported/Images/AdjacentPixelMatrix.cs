@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Solids.Imported
+namespace OSCADSharp.Solids.Imported.Images
 {
     /// <summary>
     /// A matrix for finding neighbors in regions of pixels

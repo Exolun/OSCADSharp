@@ -57,7 +57,7 @@ namespace OSCADSharp.ConsoleTests
 
         static void Main(string[] args)
         {
-            var img = ImportedImage.FromFile("sample.png", ImageImportMode.Polygonal).Scale(1, 1, Inches.Quarter + Inches.Eigth);
+            var img = ImportedImage.FromFile("sample.png").Scale(1, 1, Inches.Quarter + Inches.Eigth);
             var imgPos = img.Position();
             var _base = new Cylinder(img.Bounds().Width + Inches.Quarter, Inches.Quarter) { Resolution = 100 };
 

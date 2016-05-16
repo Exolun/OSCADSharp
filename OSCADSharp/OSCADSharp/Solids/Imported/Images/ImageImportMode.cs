@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Solids.Imported
+namespace OSCADSharp.Solids.Imported.Images
 {
     /// <summary>
     /// Ways to process imported images into 3D models
