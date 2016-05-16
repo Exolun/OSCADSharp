@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Solids.Imported.Images
+namespace OSCADSharp.Utility.Images
 {
     /// <summary>
     /// Helper class to reuse code in image processing for finding adjacent pixels

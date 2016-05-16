@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OSCADSharp.Solids.Imported.Images
+namespace OSCADSharp.Utility.Images
 {
     /// <summary>
     /// Processes a bitmap image by treating contiguous same-color regions as cubes

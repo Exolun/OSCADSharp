@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OSCADSharp.DataBinding;
 using OSCADSharp.Spatial;
 using System.Drawing;
-using OSCADSharp.Solids.Imported.Images;
+using OSCADSharp.Utility.Images;
 
 namespace OSCADSharp.Solids.Imported
 {
