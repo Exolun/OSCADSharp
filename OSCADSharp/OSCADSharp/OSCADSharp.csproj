@@ -55,6 +55,7 @@
     <Compile Include="Utility\Images\ImageImportMode.cs" />
     <Compile Include="Solids\Imported\ImportedImage.cs" />
     <Compile Include="Solids\Imported\ImportedModel.cs" />
+    <Compile Include="Utility\Images\ImageSimplifier.cs" />
     <Compile Include="Utility\Images\NeighboringPointFinder.cs" />
     <Compile Include="Utility\Images\PolygonalImageProcessor.cs" />
     <Compile Include="Utility\Dependencies.cs" />
