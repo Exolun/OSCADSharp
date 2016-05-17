@@ -87,9 +87,8 @@ namespace OSCADSharp.Utility.Images
 
         private void simplifyColors(Bitmap img)
         {
-
             var simplifier = new ImageSimplifier(img.Width, img.Height, pixels);
-            simplifier.GlobalReduction(this.simplificationAmount);            
+            simplifier.BasicResample(this.simplificationAmount);            
         }        
 
         private void setColorArray(Bitmap img)
