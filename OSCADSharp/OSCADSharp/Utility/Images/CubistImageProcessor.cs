@@ -22,17 +22,19 @@ namespace OSCADSharp.Utility.Images
         List<OSCADObject> cubes = new List<OSCADObject>();
         private Color[,] pixels;
         private bool useGrayScale;
+        private byte simplificationAmount;
         #endregion
 
         #region Internal Fields
         public Bounds ImageBounds { get; set; }
         #endregion
 
-        internal CubistImageProcessor(string imagePath, bool includeHeight = true, bool useGrayScale = false)
+        internal CubistImageProcessor(string imagePath, bool includeHeight = true, bool useGrayScale = false, byte simplificationAmount = 0)
         {
             this.includeHeight = includeHeight;
             this.imagePath = imagePath;
             this.useGrayScale = useGrayScale;
+            this.simplificationAmount = simplificationAmount;
         }
 
         public OSCADObject ProcessImage()
@@ -47,6 +49,7 @@ namespace OSCADSharp.Utility.Images
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
             this.setColorArray(img);
+            this.simlifyColors(img);
             this.setHeightMappings(img);
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));            
 
@@ -80,6 +83,56 @@ namespace OSCADSharp.Utility.Images
             } while (start != null);
 
             return cubes;
+        }
+
+        private void simlifyColors(Bitmap img)
+        {
+            if (this.simplificationAmount == 0)
+            {
+                return;
+            }
+
+            // These calls color values from their originals to new ones based upon the color's proximity to the simpification  amount
+            // the channelSelector and colorFactory functions allow us to use the same function for each.
+            // TODO:  Refactor into a class             
+            mapColors(img, (c) => { return c.R; }, (orig, retained) => { return Color.FromArgb(orig.A, retained.R, orig.G, orig.B); });
+            mapColors(img, (c) => { return c.G; }, (orig, retained) => { return Color.FromArgb(orig.A, orig.R, retained.G, orig.B); });
+            mapColors(img, (c) => { return c.B; }, (orig, retained) => { return Color.FromArgb(orig.A, orig.R, orig.G, retained.B); });
+        }
+
+        private void mapColors(Bitmap img, Func<Color, byte> channelSelector, Func<Color, Color, Color> colorFactory)
+        {
+            Dictionary<byte, Color> colorsRetained = new Dictionary<byte, Color>();
+
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    Color curColor;
+                    bool colorMatched = false;
+                    curColor = this.pixels[x, y];                    
+                    for (int simVal = 0; simVal < this.simplificationAmount; simVal++)
+                    {
+                        int upperLimit = channelSelector(curColor) + simVal;
+                        int lowerLimit = channelSelector(curColor) - simVal;
+                        if (upperLimit <= 255 && colorsRetained.ContainsKey((byte)upperLimit))
+                        {
+                            this.pixels[x, y] = colorFactory(curColor, colorsRetained[(byte)upperLimit]);
+                            colorMatched = true;
+                        }
+                        else if (lowerLimit >= 0 && colorsRetained.ContainsKey((byte)lowerLimit))
+                        {
+                            this.pixels[x, y] = colorFactory(curColor, colorsRetained[(byte)lowerLimit]);
+                            colorMatched = true;
+                        }
+                    }
+
+                    if (!colorMatched)
+                    {
+                        colorsRetained[channelSelector(curColor)] = curColor;
+                    }
+                }
+            }
         }
 
         private void setColorArray(Bitmap img)

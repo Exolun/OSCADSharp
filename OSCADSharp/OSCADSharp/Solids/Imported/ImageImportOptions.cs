@@ -20,5 +20,10 @@ namespace OSCADSharp.Solids.Imported
         /// Converts the colors in the image to black and white
         /// </summary>
         public bool UseGrayScale { get; set; } = false;
+
+        /// <summary>
+        /// Reduces the total number of colors in the image by merging similar colors together.        
+        /// </summary>
+        public byte SimplificationAmount { get; set; } = 0;
     }
 }
