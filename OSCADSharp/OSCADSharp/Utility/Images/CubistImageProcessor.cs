@@ -17,7 +17,7 @@ namespace OSCADSharp.Utility.Images
         #region Private Fields
         private int scannedRows = 0;
         private string imagePath;
-        private bool includeHeight;
+        private string heightMode;
         private Dictionary<Color, int> heightMappings;
         List<OSCADObject> cubes = new List<OSCADObject>();
         private Color[,] pixels;
@@ -29,9 +29,9 @@ namespace OSCADSharp.Utility.Images
         public Bounds ImageBounds { get; set; }
         #endregion
 
-        internal CubistImageProcessor(string imagePath, bool includeHeight = true, bool useGrayScale = false, byte simplificationAmount = 0)
+        internal CubistImageProcessor(string imagePath, string heightMode = "None", bool useGrayScale = false, byte simplificationAmount = 0)
         {
-            this.includeHeight = includeHeight;
+            this.heightMode = heightMode;
             this.imagePath = imagePath;
             this.useGrayScale = useGrayScale;
             this.simplificationAmount = simplificationAmount;
@@ -68,13 +68,13 @@ namespace OSCADSharp.Utility.Images
                     if (color.A != 0)
                     {
 
-                        if (this.includeHeight)
+                        if (this.heightMode != "None")
                         {
                             cube.Size.Z = heightMappings[color];
                         }
                         
                         string cubeColor = String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255.0, color.G == 0 ? 0 : color.G / 255.0, color.B == 0 ? 0 : color.B / 255.0);
-                        cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, 0)
+                        cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, this.getZTranslationForHeightMode(cube.Size.Z))
                         .Color(cubeColor, color.A));
                     }
                 }
@@ -83,6 +83,18 @@ namespace OSCADSharp.Utility.Images
             } while (start != null);
 
             return cubes;
+        }
+
+        private double getZTranslationForHeightMode(double cubeHeight)
+        {
+            if(this.heightMode != "Bidirectional")
+            {
+                return 0;
+            }
+            else
+            {
+                return -cubeHeight / 2;
+            }
         }
 
         private void simplifyColors(Bitmap img)
@@ -119,7 +131,7 @@ namespace OSCADSharp.Utility.Images
 
         private void setHeightMappings(Bitmap img)
         {
-            if (this.includeHeight)
+            if (this.heightMode != "None")
             {
                 this.heightMappings = new Dictionary<Color, int>();
                 double max = 4 * 256;

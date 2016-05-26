@@ -35,7 +35,11 @@ namespace OSCADSharp.Solids.Imported
                 options = new ImageImportOptions();
             }
 
-            processor = new CubistImageProcessor(imagePath, options.HeightMapping, options.UseGrayScale, options.SimplificationAmount);
+            processor = new CubistImageProcessor(imagePath, 
+                Enum.GetName(typeof(ImageImportOptions.HeightMappingMode), options.HeightMapping), 
+                options.UseGrayScale, 
+                options.SimplificationAmount);
+
             var obj = processor.ProcessImage();
 
             var img = new ImportedImage()

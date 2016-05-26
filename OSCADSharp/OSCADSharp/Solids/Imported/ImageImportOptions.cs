@@ -6,15 +6,35 @@ using System.Threading.Tasks;
 
 namespace OSCADSharp.Solids.Imported
 {
+    
     /// <summary>
     /// Configuration options for processing imported images
     /// </summary>
     public class ImageImportOptions
     {
         /// <summary>
+        /// Determines how height should be applied to imported images
+        /// </summary>
+        public enum HeightMappingMode
+        {
+            /// <summary>
+            /// No height mapping at all
+            /// </summary>
+            None,
+            /// <summary>
+            /// Extends texture upward with a flat base
+            /// </summary>
+            Vertical,
+            /// <summary>
+            /// Height is applied so both sides of the image are textured
+            /// </summary>
+            Bidirectional
+        }
+
+        /// <summary>
         /// Indicates whether height-mapping should be used
         /// </summary>
-        public bool HeightMapping { get; set; } = true;
+        public HeightMappingMode HeightMapping { get; set; } = HeightMappingMode.Vertical;
 
         /// <summary>
         /// Converts the colors in the image to black and white
