@@ -14,6 +14,14 @@ namespace OSCADSharp.Utility.Images
     /// </summary>
     internal class CubistImageProcessor : IImageProcessor
     {
+        private enum TraversalDirection
+        {
+            None,
+            Bidirectional,
+            X_Only,
+            Y_Only
+        }
+
         #region Private Fields
         private int scannedRows = 0;
         private string imagePath;
@@ -60,7 +68,6 @@ namespace OSCADSharp.Utility.Images
             do
             {
                 System.Drawing.Color color = pixels[((Point)start).X, ((Point)start).Y];
-
                 var cube = this.traverseNext(img, (Point)start, ref visited, color);
                 if (cube != null)
                 {
@@ -151,9 +158,9 @@ namespace OSCADSharp.Utility.Images
         private void markVisited(ref bool[,] visited, Cube cube, Point start, Bitmap img)
         {
             var bounds = cube.Bounds();
-            for (int x = start.X; x < start.X + bounds.Width && x < img.Width; x++)
+            for (int x = start.X; x < start.X + bounds.Length && x < img.Width; x++)
             {
-                for (int y = start.Y; y < start.Y + bounds.Length && y < img.Height; y++)
+                for (int y = start.Y; y < start.Y + bounds.Width && y < img.Height; y++)
                 {
                     visited[x, y] = true;
                 }
@@ -162,19 +169,13 @@ namespace OSCADSharp.Utility.Images
 
         private Cube traverseNext(Bitmap img, Point start, ref bool[,] visited, System.Drawing.Color color, Cube cube = null)
         {
-            bool canTraverse = true;
+            TraversalDirection direction = TraversalDirection.None;
             if (cube != null)
             {
-                canContinueTraversal(img, ref start, ref visited, color, cube, ref canTraverse);
-            }
-            else
-            {
-                canTraverse = pixelCanBeTraversed(img, ref visited, new Point(start.X + 1, start.Y + 1), color) &&
-                   pixelCanBeTraversed(img, ref visited, new Point(start.X + 1, start.Y), color) &&
-                   pixelCanBeTraversed(img, ref visited, new Point(start.X, start.Y + 1), color);
+                direction = canContinueTraversal(img, ref start, visited, color, cube);
             }
 
-            if (canTraverse)
+            if (direction != TraversalDirection.None || cube == null)
             {
                 if (cube == null)
                 {
@@ -183,9 +184,22 @@ namespace OSCADSharp.Utility.Images
                 }
                 else
                 {
-                    cube.Size.X += 1;
-                    cube.Size.Y += 1;
-                    return traverseNext(img, start, ref visited, color, cube);
+                    if (direction == TraversalDirection.X_Only)
+                    {
+                        cube.Size.X += 1;
+                        return traverseNext(img, start, ref visited, color, cube);
+                    }
+                    else if (direction == TraversalDirection.Y_Only)
+                    {
+                        cube.Size.Y += 1;
+                        return traverseNext(img, start, ref visited, color, cube);
+                    }
+                    else
+                    {
+                        cube.Size.X += 1;
+                        cube.Size.Y += 1;
+                        return traverseNext(img, start, ref visited, color, cube);
+                    }
                 }
             }
             else
@@ -200,26 +214,78 @@ namespace OSCADSharp.Utility.Images
                     return cube;
                 }
             }
-
         }
 
-        private void canContinueTraversal(Bitmap img, ref Point start, ref bool[,] visited, Color color, Cube cube, ref bool canTraverse)
+        private TraversalDirection canContinueTraversal(Bitmap img, ref Point start, bool[,] visited, Color color, Cube cube)
         {
+            var direction = TraversalDirection.Bidirectional;
             var bounds = cube.Bounds();
-            for (int x = start.X; x < start.X + bounds.Width+1 && canTraverse; x++)
+            //Bidirectional
+            for (int x = start.X; x < start.X + bounds.Length+1 && direction != TraversalDirection.None; x++)
             {
-                for (int y = start.Y; y < start.Y + bounds.Length+1 && canTraverse; y++)
+                for (int y = start.Y; y < start.Y + bounds.Width+1 && direction != TraversalDirection.None; y++)
                 {
                     if (x >= img.Width || y >= img.Height)
                     {
-                        canTraverse = false;
+                        direction = TraversalDirection.None;
                     }
                     else
                     {
-                        canTraverse = canTraverse && pixelCanBeTraversed(img, ref visited, new Point(x, y), color);
+                        if(!pixelCanBeTraversed(img, ref visited, new Point(x, y), color))
+                        {
+                            direction = TraversalDirection.None;                  
+                        }
                     }
                 }
             }
+
+
+            if (direction != TraversalDirection.None)
+                return direction;
+            //X-axis
+            direction = TraversalDirection.X_Only;
+            for (int x = start.X; x < start.X + bounds.Length + 1 && direction != TraversalDirection.None; x++)
+            {
+                for (int y = start.Y; y < start.Y + bounds.Width && direction != TraversalDirection.None; y++)
+                {
+                    if (x >= img.Width || y >= img.Height)
+                    {
+                        direction = TraversalDirection.None;
+                    }
+                    else
+                    {
+                        if (!pixelCanBeTraversed(img, ref visited, new Point(x, y), color))
+                        {
+                            direction = TraversalDirection.None;
+                        }
+                    }
+                }
+            }
+
+            if (direction != TraversalDirection.None)
+                return direction;
+
+            //Y-Axis
+            direction = TraversalDirection.Y_Only;
+            for (int x = start.X; x < start.X + bounds.Length && direction != TraversalDirection.None; x++)
+            {
+                for (int y = start.Y; y < start.Y + bounds.Width + 1 && direction != TraversalDirection.None; y++)
+                {
+                    if (x >= img.Width || y >= img.Height)
+                    {
+                        direction = TraversalDirection.None;
+                    }
+                    else
+                    {
+                        if (!pixelCanBeTraversed(img, ref visited, new Point(x, y), color))
+                        {
+                            direction = TraversalDirection.None;
+                        }
+                    }
+                }
+            }
+
+            return direction;
         }
 
         private bool pixelCanBeTraversed(Bitmap img, ref bool[,] visited, Point pixel, Color colorToMatch)
