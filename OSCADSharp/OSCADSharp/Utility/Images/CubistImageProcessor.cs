@@ -25,12 +25,12 @@ namespace OSCADSharp.Utility.Images
         #region Private Fields
         private int scannedRows = 0;
         private string imagePath;
-        private string heightMode;
-        private Dictionary<Color, int> heightMappings;
+        private string heightMode;        
         List<OSCADObject> cubes = new List<OSCADObject>();
         private Color[,] pixels;
         private bool useGrayScale;
         private byte simplificationAmount;
+        private HeightMapper htMapper;
         #endregion
 
         #region Internal Fields
@@ -58,9 +58,11 @@ namespace OSCADSharp.Utility.Images
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
             this.setColorArray(img);
             this.simplifyColors(img);
-            this.setHeightMappings(img);
+            this.htMapper = new HeightMapper(img.Width, img.Height, pixels, this.heightMode);
+            this.htMapper.SetHeightMappings();
+            
             this.ImageBounds = new Bounds(new Vector3(), new Vector3(img.Width, img.Height, 1));            
-
+            
             List<OSCADObject> cubes = new List<OSCADObject>();
             bool[,] visited = new bool[img.Width, img.Height];
 
@@ -74,14 +76,9 @@ namespace OSCADSharp.Utility.Images
                     this.markVisited(ref visited, cube, (Point)start, img);
                     if (color.A != 0)
                     {
-
-                        if (this.heightMode != "None")
-                        {
-                            cube.Size.Z = heightMappings[color];
-                        }
-                        
+                        this.htMapper.SetHeight(color, cube);
                         string cubeColor = String.Format("[{0}, {1}, {2}]", color.R == 0 ? 0 : color.R / 255.0, color.G == 0 ? 0 : color.G / 255.0, color.B == 0 ? 0 : color.B / 255.0);
-                        cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, this.getZTranslationForHeightMode(cube.Size.Z))
+                        cubes.Add(cube.Translate(((Point)start).X, ((Point)start).Y, this.htMapper.GetZTranslation(cube.Size.Z))
                         .Color(cubeColor, color.A));
                     }
                 }
@@ -90,18 +87,6 @@ namespace OSCADSharp.Utility.Images
             } while (start != null);
 
             return cubes;
-        }
-
-        private double getZTranslationForHeightMode(double cubeHeight)
-        {
-            if(this.heightMode != "Bidirectional")
-            {
-                return 0;
-            }
-            else
-            {
-                return -cubeHeight / 2;
-            }
         }
 
         private void simplifyColors(Bitmap img)
@@ -133,25 +118,6 @@ namespace OSCADSharp.Utility.Images
             else
             {
                 pixels[x, y] = img.GetPixel(x, y);
-            }
-        }
-
-        private void setHeightMappings(Bitmap img)
-        {
-            if (this.heightMode != "None")
-            {
-                this.heightMappings = new Dictionary<Color, int>();
-                double max = 4 * 256;
-
-                for (int x = 0; x < img.Width; x++)
-                {
-                    for (int y = 0; y < img.Height; y++)
-                    {
-                        var color = pixels[x, y];
-                        double csum = (double)(color.R + color.G + color.B + color.A);
-                        heightMappings[color] = Convert.ToInt32(csum != 0 ? (csum / max)  * 10: .25);
-                    }
-                }
             }
         }
 

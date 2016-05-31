@@ -51,6 +51,7 @@
     <Compile Include="Solids\Imported\ImageImportOptions.cs" />
     <Compile Include="Utility\Images\AdjacentPixelMatrix.cs" />
     <Compile Include="Utility\Images\CubistImageProcessor.cs" />
+    <Compile Include="Utility\Images\HeightMapper.cs" />
     <Compile Include="Utility\Images\IImageProcessor.cs" />
     <Compile Include="Utility\Images\ImageImportMode.cs" />
     <Compile Include="Solids\Imported\ImportedImage.cs" />
