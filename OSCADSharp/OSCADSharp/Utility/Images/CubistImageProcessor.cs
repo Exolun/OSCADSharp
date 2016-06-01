@@ -57,7 +57,10 @@ namespace OSCADSharp.Utility.Images
         {
             Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
             this.setColorArray(img);
-            this.simplifyColors(img);
+
+            var simplifier = new ImageSimplifier(img.Width, img.Height, pixels);
+            simplifier.BasicResample(this.simplificationAmount);
+
             this.htMapper = new HeightMapper(img.Width, img.Height, pixels, this.heightMode);
             this.htMapper.SetHeightMappings();
             
@@ -87,13 +90,7 @@ namespace OSCADSharp.Utility.Images
             } while (start != null);
 
             return cubes;
-        }
-
-        private void simplifyColors(Bitmap img)
-        {
-            var simplifier = new ImageSimplifier(img.Width, img.Height, pixels);
-            simplifier.BasicResample(this.simplificationAmount);            
-        }        
+        }     
 
         private void setColorArray(Bitmap img)
         {
