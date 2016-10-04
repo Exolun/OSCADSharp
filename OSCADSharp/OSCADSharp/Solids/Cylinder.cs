@@ -274,6 +274,7 @@ namespace OSCADSharp.Solids
             {"minimumangle", "$fa" },
             {"minimumcircumferentiallength", "$fs" }
         });
+
         /// <summary>
         /// Binds a a variable to a property on this object
         /// </summary>
