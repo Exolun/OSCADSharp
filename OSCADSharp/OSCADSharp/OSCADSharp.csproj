@@ -49,6 +49,7 @@
     <Compile Include="OSCADObject.BasicTransforms.cs" />
     <Compile Include="OSCADObject.Booleans.cs" />
     <Compile Include="Solids\Compound\Box.cs" />
+    <Compile Include="Solids\Compound\Tube.cs" />
     <Compile Include="Solids\Imported\ImageImportOptions.cs" />
     <Compile Include="Utility\Images\CubistImageProcessor.cs" />
     <Compile Include="Utility\Images\HeightMapper.cs" />
