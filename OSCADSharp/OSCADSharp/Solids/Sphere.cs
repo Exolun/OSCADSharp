@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Reflection;
 using OSCADSharp.Spatial;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Utility;
 
 namespace OSCADSharp.Solids
@@ -65,22 +64,7 @@ namespace OSCADSharp.Solids
         public Sphere(double diameter)
         {
             this.Diameter = diameter;
-        }
-
-        /// <summary>
-        /// Creates a sphere with one more more pre-bound properties
-        /// </summary>
-        /// <param name="diameter"></param>
-        /// <param name="resolution"></param>
-        /// <param name="minimumAngle"></param>
-        /// <param name="minimumFragmentSize"></param>
-        public Sphere(Variable diameter = null, Variable resolution = null, Variable minimumAngle = null, Variable minimumFragmentSize = null)
-        {
-            this.BindIfVariableNotNull("diameter", diameter);
-            this.BindIfVariableNotNull("resolution", resolution);
-            this.BindIfVariableNotNull("minimumangle", minimumAngle);
-            this.BindIfVariableNotNull("minimumfragmentsize", minimumFragmentSize);
-        }
+        }        
         #endregion
 
         #region Overrides
@@ -90,18 +74,9 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder(this.bindings);
+            StatementBuilder sb = new StatementBuilder();
             sb.Append("sphere(");
-
-            if (this.bindings.Contains("d"))
-            {
-                sb.AppendValuePairIfExists("d", this.Diameter);
-            }
-            else
-            {
-                sb.AppendValuePairIfExists("r", this.Radius);
-            }
-
+            sb.AppendValuePairIfExists("r", this.Radius);
             sb.AppendValuePairIfExists("$fn", this.Resolution, true);
             sb.AppendValuePairIfExists("$fa", this.MinimumAngle, true);
             sb.AppendValuePairIfExists("$fs", this.MinimumFragmentSize, true);
@@ -123,8 +98,7 @@ namespace OSCADSharp.Solids
                 Resolution = this.Resolution,
                 MinimumAngle = this.MinimumAngle,
                 MinimumFragmentSize = this.MinimumFragmentSize,
-                Radius = this.Radius,
-                bindings = this.bindings.Clone()
+                Radius = this.Radius
             };
         }
 
@@ -146,26 +120,6 @@ namespace OSCADSharp.Solids
         {
             return new Bounds(new Vector3(-this.Radius, -this.Radius, -this.Radius),
                               new Vector3(this.Radius, this.Radius, this.Radius));
-        }
-
-        private Bindings bindings = new Bindings(new Dictionary<string, string>()
-        {
-            { "radius", "r" },
-            { "minimumangle", "$fa" },
-            { "minimumfragmentsize", "$fs" },
-            { "resolution", "$fn" },
-            { "diameter", "d" }
-        });
-
-        /// <summary>
-        /// Binds a a variable to a property on this object
-        /// </summary>
-        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
-        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
-        /// literal value of the property</param>
-        public override void Bind(string property, Variable variable)
-        {
-            this.bindings.Add<Sphere>(this, property, variable);
         }
         #endregion
     }

@@ -1,5 +1,4 @@
-﻿using OSCADSharp.DataBinding;
-using OSCADSharp.Spatial;
+﻿using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;
@@ -69,26 +68,6 @@ namespace OSCADSharp.Solids
             this.Text = text;
             this.Size = size;
         }
-
-        /// <summary>
-        /// Creates a 3d text object with pre-bound variables
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="size"></param>
-        /// <param name="font"></param>
-        /// <param name="spacing"></param>
-        /// <param name="language"></param>
-        /// <param name="textdirection"></param>
-        public Text3D(Variable text = null, Variable size = null, Variable font = null, 
-            Variable spacing = null, Variable language = null, Variable textdirection = null)
-        {
-            this.BindIfVariableNotNull("text", text);
-            this.BindIfVariableNotNull("size", size);
-            this.BindIfVariableNotNull("font", font);
-            this.BindIfVariableNotNull("spacing", spacing);
-            this.BindIfVariableNotNull("language", language);
-            this.BindIfVariableNotNull("textdirection", textdirection);
-        }
         #endregion
 
         #region Overrides
@@ -106,8 +85,7 @@ namespace OSCADSharp.Solids
                 Font = this.Font,
                 Spacing = this.Spacing,
                 TextDirection = this.TextDirection,
-                Language = this.Language,
-                bindings = this.bindings.Clone()            
+                Language = this.Language
             };
         }        
         
@@ -117,18 +95,10 @@ namespace OSCADSharp.Solids
         /// <returns>Script for this object</returns>
         public override string ToString()
         {
-            StatementBuilder sb = new StatementBuilder(this.bindings);
+            StatementBuilder sb = new StatementBuilder();
             sb.Append("text(");
             sb.Append("\"");
-            if (this.bindings.Contains("text"))
-            {
-                sb.Append(this.bindings.Get("text").BoundVariable.Text);
-            }
-            else
-            { 
-                sb.Append(this.Text);
-            }
-
+            sb.Append(this.Text);
             sb.Append("\"");
 
             sb.AppendValuePairIfExists("size", this.Size?.ToString(), true);
@@ -168,28 +138,7 @@ namespace OSCADSharp.Solids
         public override Bounds Bounds()
         {
             throw new NotSupportedException("Bounds are not supported for objects using Text3D");
-        }
-
-        private Bindings bindings = new Bindings(new Dictionary<string, string>()
-        {
-            { "text", "text" },
-            { "size", "size" },
-            { "font", "font" },
-            { "spacing", "spacing" },
-            { "textdirection", "direction" },
-            { "language", "language" }
-        });
-
-        /// <summary>
-        /// Binds a a variable to a property on this object
-        /// </summary>
-        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
-        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
-        /// literal value of the property</param>
-        public override void Bind(string property, Variable variable)
-        {
-            this.bindings.Add<Text3D>(this, property, variable);
-        }
+        }        
         #endregion
     }
 }

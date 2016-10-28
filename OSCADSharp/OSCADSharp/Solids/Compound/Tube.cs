@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Spatial;
 
 namespace OSCADSharp.Solids.Compound
@@ -150,16 +149,6 @@ namespace OSCADSharp.Solids.Compound
             } - inner;
 
             return cyl.ToString();
-        }
-        /// <summary>
-        /// Binds a a variable to a property on this object
-        /// </summary>
-        /// <param name="property">A string specifying the property such as "Diameter" or "Radius"</param>
-        /// <param name="variable">The variable to bind the to.  This variable will appear in script output in lieu of the 
-        /// literal value of the property</param>
-        public override void Bind(string property, Variable variable)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

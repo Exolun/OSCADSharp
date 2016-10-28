@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Utility;
 using OSCADSharp.Spatial;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Solids;
 
 namespace OSCADSharp.UnitTests
@@ -117,90 +116,6 @@ namespace OSCADSharp.UnitTests
             Assert.IsTrue(script.Contains("$fn"));
             Assert.IsTrue(script.Contains("$fa"));
             Assert.IsTrue(script.Contains("$fs"));
-        }
-
-        [TestMethod]
-        public void Sphere_RadiusVariableBoundAppearsInOutput()
-        {
-            string variableName = "mySphereRadius";
-            double radius = 15;
-
-            Variables.Global.Add(variableName, radius);
-
-            var sphere = new Sphere();
-            sphere.Bind("Radius", Variables.Global["mySphereRadius"]);
-            Assert.IsTrue(sphere.Radius == radius);
-
-            string script = sphere.ToString();
-            Assert.IsTrue(script.Contains("r = mySphereRadius"));
-        }
-
-        [TestMethod]
-        public void Sphere_BindingDiameterSetsDiameterInOutput()
-        {
-            string variableName = "diam";
-            double diam = 20;
-
-            Variables.Global.Add(variableName, diam);
-
-            var sphere = new Sphere();
-            sphere.Bind("Diameter", Variables.Global["diam"]);
-            Assert.IsTrue(sphere.Diameter == diam);
-
-            string script = sphere.ToString();
-            Assert.IsTrue(script.Contains("d = diam"));
-        }
-
-        [TestMethod]
-        public void Sphere_ResolutionAngleAndFragmentSizeTest()
-        {
-            var resolution = new Variable("resolution", 30);
-            var angle = new Variable("angle", 5);
-            var fragSize = new Variable("fragSize", 10);
-
-            var sphere = new Sphere();
-            sphere.Bind("Resolution", resolution);
-            sphere.Bind("MinimumAngle", angle);
-            sphere.Bind("MinimumFragmentSize", fragSize);
-
-            string script = sphere.ToString();
-            Assert.IsTrue(script.Contains("$fn = resolution"));
-            Assert.IsTrue(script.Contains("$fa = angle"));
-            Assert.IsTrue(script.Contains("$fs = fragSize"));
-        }
-
-        [TestMethod]
-        public void Sphere_CanCreateSphereWithBindingsFromConstructor()
-        {
-            var diam = new Variable("width", Inches.One);
-            var resolution = new Variable("rez", 100);
-
-            var sphere = new Sphere(diam, resolution);
-
-            Assert.AreEqual(diam.Value, sphere.Diameter);
-            Assert.AreEqual(resolution.Value, sphere.Resolution);
-
-            string script = sphere.ToString();
-
-            Assert.IsTrue(script.Contains("d = width"));
-            Assert.IsTrue(script.Contains("$fn = rez"));
-        }
-
-        [TestMethod]
-        public void Sphere_BindingsAreClonedWithObject()
-        {
-            var diam = new Variable("width", Inches.One);
-            var resolution = new Variable("rez", 100);
-            var scale = new Variable("theScale", new Vector3(1, 2, 3));
-
-            var sphere = new Sphere(diam, resolution).Scale(scale);
-            var clone = sphere.Clone();
-
-            string script = clone.ToString();
-
-            Assert.IsTrue(script.Contains("d = width"));
-            Assert.IsTrue(script.Contains("$fn = rez"));
-            Assert.IsTrue(script.Contains("scale(v = theScale)"));
-        }
+        }        
     }
 }

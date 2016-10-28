@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Spatial;
 using System.Drawing;
 using OSCADSharp.Utility.Images;
@@ -54,16 +53,6 @@ namespace OSCADSharp.Solids.Imported
         #endregion
 
         #region OSCADObject Overrides
-        /// <summary>
-        /// Imported images have no bindable properties
-        /// </summary>
-        /// <param name="property"></param>
-        /// <param name="variable"></param>
-        public override void Bind(string property, Variable variable)
-        {
-            throw new NotSupportedException("Imported images have no bindable properties");
-        }
-
         /// <summary>
         /// Returns the approximate boundaries of this OpenSCAD object
         /// </summary>

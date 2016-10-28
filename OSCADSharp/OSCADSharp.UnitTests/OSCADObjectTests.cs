@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OSCADSharp.DataBinding;
 using OSCADSharp.IO;
 using OSCADSharp.Solids;
 using OSCADSharp.Utility;
@@ -155,23 +154,6 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(OutputSettings.OSCADSharpHeader, output[0]);
        }
-
-        [TestMethod]
-        public void OSCADObject_ToFileIncludesGlobalVariablesDefinedInSettings()
-        {
-            var cube = new Cube();
-            string[] output = null;
-            Variables.Global.Add("$fn", 100);
-
-            var mock = new Mock<IFileWriter>();
-            mock.Setup(_wrtr => _wrtr.WriteAllLines(It.IsAny<string>(), It.IsAny<string[]>()))
-                .Callback<string, string[]>((path, contents) => { output = contents; });
-            Dependencies.SetFileWriter(mock.Object);
-
-            cube.ToFile("myFile");
-
-            Assert.AreEqual("$fn = 100;\r\n", output[1]);
-        }
     }
 }
 

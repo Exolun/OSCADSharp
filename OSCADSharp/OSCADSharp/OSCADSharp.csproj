@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBinding\BindableBoolean.cs" />
     <Compile Include="OSCADObject.AbstractTransforms.cs" />
     <Compile Include="OSCADObject.BaseTransform.cs" />
     <Compile Include="OSCADObject.BasicTransforms.cs" />
@@ -64,14 +63,9 @@
     <Compile Include="IO\IFileInvoker.cs" />
     <Compile Include="IO\IFileWriter.cs" />
     <Compile Include="Utility\Ids.cs" />
-    <Compile Include="DataBinding\Binding.cs" />
-    <Compile Include="DataBinding\Bindings.cs" />
-    <Compile Include="DataBinding\IBindable.cs" />
     <Compile Include="Utility\StatementBuilder.cs" />
-    <Compile Include="DataBinding\Variable.cs" />
     <Compile Include="IO\OutputSettings.cs" />
     <Compile Include="Utility\Inches.cs" />
-    <Compile Include="DataBinding\BindableVector.cs" />
     <Compile Include="Spatial\Bounds.cs" />
     <Compile Include="Spatial\Matrix.cs" />
     <Compile Include="Utility\SingleBlockFormatter.cs" />
@@ -82,7 +76,6 @@
     <Compile Include="Solids\Sphere.cs" />
     <Compile Include="Solids\Text3D.cs" />
     <Compile Include="Spatial\Vector3.cs" />
-    <Compile Include="DataBinding\Variables.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

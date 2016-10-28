@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Solids;
 
 namespace OSCADSharp.UnitTests
@@ -53,15 +52,6 @@ namespace OSCADSharp.UnitTests
             var childrenThatAreDiffs = obj.Children().Where(child => child.GetType() == diff.GetType()).Count();
 
             Assert.AreEqual(0, childrenThatAreDiffs);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
-        public void Difference_NoBindableProperties()
-        {
-            var diff = new Cube() - new Sphere();
-
-            diff.Bind("SomeProperty", new Variable("test", 5));
         }
     }
 }

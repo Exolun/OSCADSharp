@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSCADSharp.Utility;
 using OSCADSharp.Spatial;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Solids;
 
 namespace OSCADSharp.UnitTests
@@ -105,94 +104,6 @@ namespace OSCADSharp.UnitTests
 
             Assert.AreEqual(new Vector3(2.5, 2.5, 10), obj.Bounds().TopRight);
             Assert.AreEqual(new Vector3(-2.5, -2.5, -10), obj.Bounds().BottomLeft);
-        }
-
-        [TestMethod]
-        public void Cube_Size_XYZBindingsAppearInOutput()
-        {
-            Variable xValue = new Variable("xVal", 10.125);
-            Variable yValue = new Variable("yVal", 15.5);
-            Variable zValue = new Variable("zVal", 25);
-
-            var obj = new Cube();
-            obj.Bind("Size.X", xValue);
-            obj.Bind("Size.Y", yValue);
-            obj.Bind("Size.Z", zValue);
-
-            string script = obj.ToString();
-
-            Assert.AreEqual(Convert.ToDouble(xValue.Value), obj.Size.X);
-            Assert.AreEqual(Convert.ToDouble(yValue.Value), obj.Size.Y);
-            Assert.AreEqual(Convert.ToDouble(zValue.Value), obj.Size.Z);
-            Assert.IsTrue(script.Contains("size = [xVal, yVal, zVal]"));
-        }
-
-        [TestMethod]
-        public void Cube_Size_LengthWidthHeightindingsAppearInOutput()
-        {
-            Variable xValue = new Variable("xVal", 10.125);
-            Variable yValue = new Variable("yVal", 15.5);
-            Variable zValue = new Variable("zVal", 25);
-
-            var obj = new Cube();
-            obj.Bind("Length", xValue);
-            obj.Bind("Width", yValue);
-            obj.Bind("Height", zValue);
-
-            string script = obj.ToString();
-
-            Assert.AreEqual(Convert.ToDouble(xValue.Value), obj.Size.X);
-            Assert.AreEqual(Convert.ToDouble(yValue.Value), obj.Size.Y);
-            Assert.AreEqual(Convert.ToDouble(zValue.Value), obj.Size.Z);
-            Assert.IsTrue(script.Contains("size = [xVal, yVal, zVal]"));
-        }
-
-        [TestMethod]
-        public void Cube_CenterBindingAppearsInOutput()
-        {
-            Variable centerVal = new Variable("isCentered", true);
-
-            var obj = new Cube();
-            obj.Bind("Center", centerVal);
-
-            string script = obj.ToString();
-
-            Assert.AreEqual(centerVal.Value, obj.Center);
-            Assert.IsTrue(script.Contains("center = isCentered"));
-        }
-
-        [TestMethod]
-        public void Cube_ConstructorBindingsAppearInOutput()
-        {
-            var length = new Variable("deckBoxLength", Inches.Sixteenth * 32);
-            var width = new Variable("deckBoxWidth", Inches.Sixteenth * 32);
-            var height = new Variable("deckboxHeight", Inches.ToMillimeters(2.5));
-            var centered = new Variable("isCentered", true);
-
-            var cube = new Cube(length, width, height, centered);
-
-            string script = cube.ToString();
-
-            Assert.IsTrue(script.Contains("size = [deckBoxLength, deckBoxWidth, deckboxHeight]"));
-            Assert.IsTrue(script.Contains("center = isCentered"));
-        }
-
-        [TestMethod]
-        public void Cube_CloneHasSameBindings()
-        {
-            var cubeHeight = new Variable("myHeight", 35);
-            var cubeXTranslation = new Variable("xOffset", 50);
-
-            OSCADObject cube = new Cube(15, 5, 15);
-            cube.Bind("Height", cubeHeight);
-            cube = cube.Translate(cubeXTranslation, 0, 0);
-
-            var clone = cube.Clone();
-
-            string script = clone.ToString();
-
-            Assert.IsTrue(script.Contains("translate(v = [xOffset"));
-            Assert.IsTrue(script.Contains("size = [15, 5, myHeight]"));
         }
 
         [TestMethod]

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSCADSharp.DataBinding;
 using OSCADSharp.Solids;
 using OSCADSharp.Spatial;
 using System;
@@ -35,31 +34,6 @@ namespace OSCADSharp.UnitTests.Transforms
             Assert.AreEqual(bounds.XMin, 0);
             Assert.AreEqual(bounds.YMin, 0);
             Assert.AreEqual(bounds.ZMin, 0);
-        }
-
-        [TestMethod]
-        public void Scale_CanBindScaleValue()
-        {
-            var cube = new Cube().Scale(2, 2, 2);
-            var scaleVar = new Variable("scaleVar", new Vector3(5, 1, 2));
-
-            cube.Bind("scale", scaleVar);
-
-            string script = cube.ToString();
-            Assert.IsTrue(script.Contains("v = scaleVar"));
-        }
-
-        [TestMethod]
-        public void Scale_CanBindParameterizedScaleValue()
-        {
-            var x = new Variable("xS", 3);
-            var y = new Variable("yS", 4);
-            var z = new Variable("zS", 3);
-
-            var cube = new Cube().Scale(x, y, z);
-
-            string script = cube.ToString();
-            Assert.IsTrue(script.Contains("v = [xS, yS, zS]"));
         }
     }
 }

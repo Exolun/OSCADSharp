@@ -1,5 +1,4 @@
-﻿using OSCADSharp.DataBinding;
-using OSCADSharp.Spatial;
+﻿using OSCADSharp.Spatial;
 using OSCADSharp.Utility;
 using System;
 using System.Collections.Generic;
@@ -98,12 +97,7 @@ namespace OSCADSharp
                 }
 
                 return new Bounds(newBottomLeft, newTopRight);
-            }
-
-            public override void Bind(string property, Variable variable)
-            {
-                throw new NotSupportedException("This object has no bindable properties.");
-            }
+            }            
         }
         #endregion
 
