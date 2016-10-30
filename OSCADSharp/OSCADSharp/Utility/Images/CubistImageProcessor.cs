@@ -73,7 +73,7 @@ namespace OSCADSharp.Utility.Images
             do
             {
                 System.Drawing.Color color = pixels[((Point)start).X, ((Point)start).Y];
-                var cube = this.traverseNext(img, (Point)start, ref visited, color);
+                var cube = this.traverseIterative(img, (Point)start, ref visited, color);
                 if (cube != null)
                 {
                     this.markVisited(ref visited, cube, (Point)start, img);
@@ -91,7 +91,6 @@ namespace OSCADSharp.Utility.Images
 
             return cubes;
         }     
-
         private void setColorArray(Bitmap img)
         {
             this.pixels = new Color[img.Width, img.Height];
@@ -130,53 +129,33 @@ namespace OSCADSharp.Utility.Images
             }
         }
 
-        private Cube traverseNext(Bitmap img, Point start, ref bool[,] visited, System.Drawing.Color color, Cube cube = null)
+        private Cube traverseIterative(Bitmap img, Point start, ref bool[,] visited, System.Drawing.Color color, Cube cube = null)
         {
             TraversalDirection direction = TraversalDirection.None;
-            if (cube != null)
-            {
-                direction = canContinueTraversal(img, ref start, visited, color, cube);
-            }
+            Cube current = cube ?? new Cube();
+            direction = canContinueTraversal(img, ref start, visited, color, current);
 
-            if (direction != TraversalDirection.None || cube == null)
+            while (direction != TraversalDirection.None)
             {
-                if (cube == null)
+
+                if (direction == TraversalDirection.X_Only)
                 {
-                    cube = new Cube();
-                    return traverseNext(img, start, ref visited, color, cube);
+                    current.Size.X += 1;
+                }
+                else if (direction == TraversalDirection.Y_Only)
+                {
+                    current.Size.Y += 1;
                 }
                 else
                 {
-                    if (direction == TraversalDirection.X_Only)
-                    {
-                        cube.Size.X += 1;
-                        return traverseNext(img, start, ref visited, color, cube);
-                    }
-                    else if (direction == TraversalDirection.Y_Only)
-                    {
-                        cube.Size.Y += 1;
-                        return traverseNext(img, start, ref visited, color, cube);
-                    }
-                    else
-                    {
-                        cube.Size.X += 1;
-                        cube.Size.Y += 1;
-                        return traverseNext(img, start, ref visited, color, cube);
-                    }
+                    current.Size.X += 1;
+                    current.Size.Y += 1;
                 }
-            }
-            else
-            {
 
-                if (cube == null)
-                {
-                    return new Cube();
-                }
-                else
-                {
-                    return cube;
-                }
+                direction = canContinueTraversal(img, ref start, visited, color, current);
             }
+            
+            return current;
         }
 
         private TraversalDirection canContinueTraversal(Bitmap img, ref Point start, bool[,] visited, Color color, Cube cube)
