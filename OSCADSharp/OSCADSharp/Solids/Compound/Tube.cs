@@ -8,7 +8,7 @@ using OSCADSharp.Spatial;
 namespace OSCADSharp.Solids.Compound
 {
     /// <summary>
-    /// Represents a cylindrical container, by default it has a solid bottom and an open top.
+    /// A cylindrical container, by default it has a solid bottom and an open top.
     /// </summary>
     public class Tube : OSCADObject
     {
@@ -25,12 +25,12 @@ namespace OSCADSharp.Solids.Compound
         public double WallThickness { get; set; } = .1;
 
         /// <summary>
-        /// Height of the cylinder or cone
+        /// Height of the tube
         /// </summary>
         public double Height { get; set; } = 1;
 
         /// <summary>
-        /// Radius of cylinder. r1 = r2 = r.
+        /// Radius of tube. r1 = r2 = r.
         /// </summary>
         public double Radius
         {
@@ -56,7 +56,7 @@ namespace OSCADSharp.Solids.Compound
         public double Radius2 { get; set; } = 1;
 
         /// <summary>
-        /// Diameter of cylinder. r1 = r2 = d /2.
+        /// Diameter of tube. r1 = r2 = d /2.
         /// </summary>
         public double Diameter
         {
@@ -101,6 +101,25 @@ namespace OSCADSharp.Solids.Compound
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Creates a tube with the specified dimensions / configuration
+        /// </summary>
+        /// <param name="diameter"></param>
+        /// <param name="height"></param>
+        /// <param name="wallThickness"></param>
+        /// <param name="bottom"></param>
+        /// <param name="top"></param>
+        /// <param name="center"></param>
+        public Tube(double diameter, double height, double wallThickness = .1, bool bottom = false, bool top = false, bool center = false)
+        {
+            this.Diameter = diameter;
+            this.Height = height;
+            this.WallThickness = wallThickness;
+            this.Bottom = bottom;
+            this.Top = top;
+            this.Center = center;
+        }
+
         /// <summary>
         /// Creates a tube with the default initialization values
         /// </summary>

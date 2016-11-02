@@ -8,7 +8,7 @@ using OSCADSharp.Spatial;
 namespace OSCADSharp.Solids.Compound
 {
     /// <summary>
-    /// Represents a four-sided container, by default it has a solid bottom and an open top.
+    /// A four-sided container, by default it has a solid bottom and an open top.
     /// </summary>
     public class Box : OSCADObject
     {
@@ -42,6 +42,23 @@ namespace OSCADSharp.Solids.Compound
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// A new Box object with custom configuration specified
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="wallThickness"></param>
+        /// <param name="center">Indicates whether the cube should be centered on the origin</param>
+        public Box(double length = 1, double width = 1, double height = 1, double wallThickness = .1, bool center = false)
+        {
+            this.Size.X = length;
+            this.Size.Y = width;
+            this.Size.Z = height;
+            this.WallThickness = wallThickness;
+            this.Center = center;
+        }
+
         /// <summary>
         /// Creates a box with the default initialization values
         /// </summary>
