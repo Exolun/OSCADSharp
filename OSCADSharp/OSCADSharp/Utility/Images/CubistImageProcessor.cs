@@ -3,6 +3,8 @@ using OSCADSharp.Spatial;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,9 +57,25 @@ namespace OSCADSharp.Utility.Images
         }
 
         #region Private Methods
+        
+
         private List<OSCADObject> processImage()
         {
-            Bitmap img = new Bitmap(Image.FromFile(this.imagePath));
+            var rawImg = Image.FromFile(this.imagePath);
+            Bitmap img;
+
+            if(rawImg.Width > 150 || rawImg.Height > 150)
+            {
+                var wdthRatio = (double)rawImg.Width / (double)rawImg.Height;
+                var htRatio = (double)rawImg.Height / (double)rawImg.Width;
+
+                img = resizeImage(rawImg, (int)(150*wdthRatio), (int)(150*htRatio));
+            }
+            else
+            {
+                img = new Bitmap(rawImg);
+            }
+
             this.setColorArray(img);
 
             var simplifier = new ImageSimplifier(img.Width, img.Height, pixels);
@@ -247,6 +265,40 @@ namespace OSCADSharp.Utility.Images
             }
 
             return null;
+        }
+
+        // Image resize method, found on this SO thread
+        //http://stackoverflow.com/questions/1922040/resize-an-image-c-sharp
+        /// <summary>
+        /// Resize the image to the specified width and height.
+        /// </summary>
+        /// <param name="image">The image to resize.</param>
+        /// <param name="width">The width to resize to.</param>
+        /// <param name="height">The height to resize to.</param>
+        /// <returns>The resized image.</returns>
+        private static Bitmap resizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
         #endregion
     }
