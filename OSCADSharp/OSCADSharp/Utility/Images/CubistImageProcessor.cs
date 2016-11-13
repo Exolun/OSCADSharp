@@ -28,6 +28,8 @@ namespace OSCADSharp.Utility.Images
         private int scannedRows = 0;
         private int height = 0;
         private int width = 0;
+        private int? resizeHeight;
+        private int? resizeWidth;
         private string imagePath;
         private string heightMode;        
         List<OSCADObject> cubes = new List<OSCADObject>();
@@ -41,12 +43,16 @@ namespace OSCADSharp.Utility.Images
         public Bounds ImageBounds { get; set; }
         #endregion
 
-        internal CubistImageProcessor(string imagePath, string heightMode = "None", bool useGrayScale = false, byte simplificationAmount = 0)
+        //TODO: Reduce the number of parameters here
+        internal CubistImageProcessor(string imagePath, string heightMode = "None", 
+            bool useGrayScale = false, byte simplificationAmount = 0, int? resizeHeight = null, int? resizeWidth = null)
         {
             this.heightMode = heightMode;
             this.imagePath = imagePath;
             this.useGrayScale = useGrayScale;
             this.simplificationAmount = simplificationAmount;
+            this.resizeHeight = resizeHeight;
+            this.resizeWidth = resizeWidth;
         }
 
         public OSCADObject ProcessImage()
@@ -57,19 +63,14 @@ namespace OSCADSharp.Utility.Images
         }
 
         #region Private Methods
-        
-
         private List<OSCADObject> processImage()
         {
             var rawImg = Image.FromFile(this.imagePath);
             Bitmap img;
 
-            if(rawImg.Width > 150 || rawImg.Height > 150)
+            if(this.resizeWidth != null || this.resizeHeight != null)
             {
-                var wdthRatio = (double)rawImg.Width / (double)rawImg.Height;
-                var htRatio = (double)rawImg.Height / (double)rawImg.Width;
-
-                img = resizeImage(rawImg, (int)(150*wdthRatio), (int)(150*htRatio));
+                img = resizeWithAspectRatio(rawImg);
             }
             else
             {
@@ -112,7 +113,30 @@ namespace OSCADSharp.Utility.Images
             } while (start != null);
 
             return cubes;
-        }     
+        }
+
+        private Bitmap resizeWithAspectRatio(Image rawImg)
+        {
+            Bitmap img;
+            var wdthRatio = (double)rawImg.Width / (double)rawImg.Height;
+            var htRatio = (double)rawImg.Height / (double)rawImg.Width;
+
+            int height = Convert.ToInt32(this.resizeHeight);
+            int width = Convert.ToInt32(this.resizeWidth);
+
+            if(this.resizeWidth != null && this.resizeHeight == null)
+            {
+                height = (int)(width * htRatio);
+            }
+            else if(this.resizeHeight != null && this.resizeWidth == null)
+            {
+                width = (int)(height * wdthRatio);
+            }
+
+            img = resizeImage(rawImg, width, height);
+            return img;
+        }
+
         private void setColorArray(Bitmap img)
         {
             this.pixels = new Color[img.Width, img.Height];

@@ -45,5 +45,15 @@ namespace OSCADSharp.Solids.Imported
         /// Reduces the total number of colors in the image by merging similar colors together.        
         /// </summary>
         public byte SimplificationAmount { get; set; } = 0;
+
+        /// <summary>
+        /// Height to resize the image to
+        /// </summary>
+        public int? Height { get; set; }
+
+        /// <summary>
+        /// Width to resize the image to
+        /// </summary>
+        public int? Width { get; set; }
     }
 }
